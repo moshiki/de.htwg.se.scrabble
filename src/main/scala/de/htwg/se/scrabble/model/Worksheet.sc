@@ -11,7 +11,6 @@ cell1.isSet
 
 val cell2 = cell1.copy(null)
 
-cell1.letter
 cell2
 cell2.letter
 cell2.isSet
