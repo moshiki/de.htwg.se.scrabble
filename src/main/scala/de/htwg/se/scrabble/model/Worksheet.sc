@@ -2,7 +2,7 @@ case class Cell(letter: String){
   def isSet: Boolean = letter != null
 }
 
-val cell1 = Cell("M");
+val cell1 = Cell("M")
 
 cell1
 cell1.letter
