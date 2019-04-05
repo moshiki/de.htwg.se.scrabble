@@ -6,7 +6,7 @@ object Start {
     println("Scrabble " + student.name)
   }
 }
-
+// Blaaa
 case class Student(name: String) {
   def f(x: Int) : Int = x + 1
 }
