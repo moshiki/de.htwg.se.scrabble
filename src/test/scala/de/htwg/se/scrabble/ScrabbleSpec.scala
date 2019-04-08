@@ -1,5 +1,5 @@
 package de.htwg.se.scrabble
 
-class Scrabble {
+class ScrabbleSpec {
 
 }
