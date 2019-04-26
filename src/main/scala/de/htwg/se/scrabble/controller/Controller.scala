@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.controller
 
 //import java.io.FileNotFoundException
 
-import de.htwg.se.scrabble.model.Dictionary
+import de.htwg.se.scrabble.model.{Dictionary, Player}
 import de.htwg.se.scrabble.util.Observable
 
 class Controller extends Observable {
@@ -21,4 +21,6 @@ class Controller extends Observable {
     dict = new Dictionary
     notifyObservers
   }
+
+  def newPlayer(pos:String, name:String): Player = Player(pos, name)
 }

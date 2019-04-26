@@ -1,6 +1,7 @@
 package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.controller.Controller
+import de.htwg.se.scrabble.model.Player
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: Controller) extends Observer {
@@ -46,7 +47,7 @@ class TUI(controller: Controller) extends Observer {
     |                        |                                                                               |
     |  pv                    |   print vector - prints the alphabet vector to console                        |
     |                        |                                                                               |
-    |  player [a|b] [name]   |   adds a new player with specified role (a or b) and name                     |
+    |  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                     |
     |                        |                                                                               |
     |  help                  |   displays the command list                                                   |
     |                        |                                                                               |
@@ -82,7 +83,18 @@ class TUI(controller: Controller) extends Observer {
   def printVector(): Unit = controller.printVector()
 
   def player(parameters:Array[String]): Unit = {
-    println("ToDo: Player")
+    if (parameters.length == 3) {
+      var player: Player = null
+      parameters(1) match {
+        case "A" | "a" => player = controller.newPlayer("A", parameters(2))
+        case "B" | "b" => player = controller.newPlayer("B", parameters(2))
+        case unknown => println("parameter \'" + unknown + "\' does not exist. Use 'A' or 'B'")
+                        return
+      }
+    println("new player created: " + player)
+    } else {
+      System.err.println("wrong number of arguments! use command: player [a|b] <name>")
+    }
   }
 
 

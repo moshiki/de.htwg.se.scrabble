@@ -1,5 +1,6 @@
 package de.htwg.se.scrabble.model
 
-case class Player(name: String) {
-  override def toString:String = name
+case class Player(pos: String, name: String) {
+
+  override def toString:String = "Player "+pos+": "+name
 }
