@@ -64,6 +64,7 @@ class TUI(controller: Controller) extends Observer {
         case "pd" => printDict()
         case "pv" => printVector()
         case "player" => player(command)
+        case "" =>
         case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
   }
