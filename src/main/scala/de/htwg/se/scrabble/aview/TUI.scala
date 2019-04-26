@@ -4,7 +4,7 @@ import de.htwg.se.scrabble.controller.Controller
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: Controller) extends Observer {
-  //controller.add(this)
+  controller.add(this)
   init()
 
   def init(): Unit = {
@@ -87,13 +87,7 @@ class TUI(controller: Controller) extends Observer {
 
 
   @Override
-  def update(): Unit = {
-    /* TODO: implement method
-logger.info(NEWLINE + controller.getGridString());
- logger.info(NEWLINE + controller.getStatus());
- logger.info(NEWLINE
-   + "Possible commands: q-quit, n-new, s-solve, r-reset, z-undo, y-redo, c-copy, p-paste, -,+,*-size, x-highlight, xy-show (x,y), xyz-set (x,y) to z");
-
-*/
+  def update() :Unit = {
+    //ToDO: implement method
   }
 }
