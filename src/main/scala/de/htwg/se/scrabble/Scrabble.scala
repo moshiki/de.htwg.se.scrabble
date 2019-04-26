@@ -11,8 +11,6 @@ object Scrabble {
   def main(args: Array[String]): Unit= {
     try {
       TUI.init()
-
-
     } catch {
       case fnf: FileNotFoundException => println(fnf.getMessage)
     }

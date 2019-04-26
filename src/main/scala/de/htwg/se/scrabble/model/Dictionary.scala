@@ -37,7 +37,4 @@ class Dictionary {
       dictSet
     } else { throw new FileNotFoundException("alphabet source file in \'"+ dictionaryPath+"\' not found!\")")}
   }
-
-
-
 }
