@@ -16,5 +16,4 @@ object Scrabble {
       case fnf: FileNotFoundException => println(fnf.getMessage)
     }
   }
-
 }
