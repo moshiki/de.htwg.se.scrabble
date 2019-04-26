@@ -7,24 +7,45 @@ import org.scalatest.PrivateMethodTester._
 import scala.collection.mutable
 
 class DictionarySpec extends WordSpec with Matchers {
-  "A Dictionary" when { "is generated" should {
-    val dictionary = new Dictionary()
-    "initialize an alphabet map and a word list" in {
-      dictionary.alphabet should contain key "A"
-      dictionary.alphabet should contain key "Z"
-      //dictionary.alphabet should contain value "1"
-      dictionary.dict should not be empty }
-  }
-    "throw FileNotFoundException when input files not found" in {
+  "A Dictionary is a tailor-made datatype that contains a set of words and a map with a value" +
+    "for each letter of the alphabet. A Dictionary" when {
+    "is created" should {
       val dictionary = new Dictionary()
-      val loadAlphabet = PrivateMethod[mutable.HashMap[String, Integer]]('loadAlphabet)
-      val loadDictionary = PrivateMethod[mutable.HashSet[String]]('loadDictionary)
-      intercept[FileNotFoundException] {
-        dictionary invokePrivate loadAlphabet("falseFile.txt")
-      }
-      intercept[FileNotFoundException] {
-        dictionary invokePrivate loadDictionary("falseFile.txt")
-      }
+        "initialize the alphabet map with an external text file, that for each letter" +
+        "contains one line with letter and value separated by a blank." +
+        "And initialize a word set with an external text file that contains one word per line." in {
+          dictionary.alphabet should contain key "A"
+          dictionary.alphabet should contain key "Z"
+          dictionary.dict should not be empty }
     }
+      "throw FileNotFoundException when input files not found" in {
+        val dictionary = new Dictionary()
+        val loadAlphabet = PrivateMethod[mutable.HashMap[String, Integer]]('loadAlphabet)
+        val loadDictionary = PrivateMethod[mutable.HashSet[String]]('loadDictionary)
+        intercept[FileNotFoundException] {
+          dictionary invokePrivate loadAlphabet("falseFile.txt")
+        }
+        intercept[FileNotFoundException] {
+          dictionary invokePrivate loadDictionary("falseFile.txt")
+        }
+      }
   }
+    "exists" should {
+      val dictionary = new Dictionary {
+        override val dict:mutable.HashSet[String] = mutable.HashSet("d","b","a","c")
+        override val alphabet:mutable.TreeMap[String, Integer] = mutable.TreeMap(("C",1),("A",2),("D",3),("B",4))
+
+      "print out the dictionary in sorted order" in {
+        val stream = new java.io.ByteArrayOutputStream()
+        Console.withOut(stream) {printDict()}
+        stream.toString should be("Word list:\r\na\r\nb\r\nc\r\nd\r\n")
+      }
+      "print out the alphabet map in sorted order" in {
+        val stream = new java.io.ByteArrayOutputStream()
+        Console.withOut(stream) {
+          printVector()
+        }
+        stream.toString should be("Alphabet vector:\r\n(A,2)\r\n(B,4)\r\n(C,1)\r\n(D,3)\r\n")
+      }
+  }}
 }

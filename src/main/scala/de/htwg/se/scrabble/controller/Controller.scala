@@ -22,5 +22,5 @@ class Controller extends Observable {
     notifyObservers
   }
 
-  def newPlayer(pos:String, name:String): Player = Player(pos, name)
+  def newPlayer(role:String, name:String): Player = Player(role, name)
 }
