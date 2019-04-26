@@ -6,7 +6,7 @@ import de.htwg.se.scrabble.util.Observer
 
 import scala.io.StdIn
 
-object TUI extends Observer{
+class TUI extends Observer {
   def init(): Unit = {
     print(artScrabble())
     print(head())
