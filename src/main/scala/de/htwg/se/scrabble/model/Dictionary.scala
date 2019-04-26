@@ -8,11 +8,11 @@ class Dictionary {
   private val directory = System.getProperty("user.dir")
   private val alphaPath = directory + "\\src\\resources\\alphabet.txt"
   private val dictionaryPath = directory + "\\src\\resources\\deutsch2000.txt"
-  val alphabet: mutable.HashMap[String, Integer] = loadAlphabet(alphaPath)
+  val alphabet: mutable.TreeMap[String, Integer] = loadAlphabet(alphaPath)
   val dict: mutable.HashSet[String] = loadDictionary(dictionaryPath)
 
-  private def loadAlphabet(filePath: String): mutable.HashMap[String, Integer] = {
-    val alphaMap: mutable.HashMap[String, Integer] = new mutable.HashMap
+  private def loadAlphabet(filePath: String): mutable.TreeMap[String, Integer] = {
+    val alphaMap: mutable.TreeMap[String, Integer] = new mutable.TreeMap
     val file = new File(filePath)
     if (file.exists() && !file.isDirectory) {
       val br = Source.fromFile(file)
@@ -35,7 +35,7 @@ class Dictionary {
       }
       br.close()
       dictSet
-    } else { throw new FileNotFoundException("alphabet sourcefile in \'"+ dictionaryPath+"\' not found!\")")}
+    } else { throw new FileNotFoundException("alphabet source file in \'"+ dictionaryPath+"\' not found!\")")}
   }
 
 
