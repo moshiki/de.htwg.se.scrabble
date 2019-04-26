@@ -4,8 +4,6 @@ import de.htwg.se.scrabble.Scrabble
 import de.htwg.se.scrabble.model.Dictionary
 import de.htwg.se.scrabble.util.Observer
 
-import scala.io.StdIn
-
 class TUI extends Observer {
   init()
 
