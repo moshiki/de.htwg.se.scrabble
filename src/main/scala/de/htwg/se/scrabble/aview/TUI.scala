@@ -7,11 +7,12 @@ import de.htwg.se.scrabble.util.Observer
 import scala.io.StdIn
 
 class TUI extends Observer {
+  init()
+
   def init(): Unit = {
     print(artScrabble())
     print(head())
     println(help())
-    println(awaitingCommand())
   }
 
   def artScrabble(): String =
@@ -55,9 +56,8 @@ class TUI extends Observer {
     |--------------------------------------------------------------------------------------------------------|"""
 
 
-  def awaitingCommand(): Unit = {
-    while (true) {
-      val command = StdIn.readLine(">> ").split(" ")
+  def processCommand(com:String): Unit = {
+      val command = com.split(" ")
       command(0) match {
         case "exit" => System.err.println("Bye!")
                        System.exit(0)
@@ -70,6 +70,5 @@ class TUI extends Observer {
         case "player" => println("ToDo: Player")
         case unknown => System.err.println("Command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
-    }
   }
 }
