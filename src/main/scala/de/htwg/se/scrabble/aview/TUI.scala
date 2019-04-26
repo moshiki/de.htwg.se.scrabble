@@ -2,10 +2,11 @@ package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.Scrabble
 import de.htwg.se.scrabble.model.Dictionary
+import de.htwg.se.scrabble.util.Observer
 
 import scala.io.StdIn
 
-object TUI {
+class TUI extends Observer {
   def init(): Unit = {
     print(artScrabble())
     print(head())

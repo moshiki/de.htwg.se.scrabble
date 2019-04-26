@@ -8,10 +8,11 @@ import de.htwg.se.scrabble.model._
 
 object Scrabble {
   var dict = new Dictionary
+  val tui = new TUI
 
   def main(args: Array[String]): Unit= {
     try {
-      TUI.init()
+      tui.init()
     } catch {
       case fnf: FileNotFoundException => println(fnf.getMessage)
     }
