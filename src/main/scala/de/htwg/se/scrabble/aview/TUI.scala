@@ -71,4 +71,14 @@ class TUI extends Observer {
         case unknown => System.err.println("Command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
   }
+
+  override def update(): Unit = {
+    /* TODO:
+logger.info(NEWLINE + controller.getGridString());
+ logger.info(NEWLINE + controller.getStatus());
+ logger.info(NEWLINE
+   + "Possible commands: q-quit, n-new, s-solve, r-reset, z-undo, y-redo, c-copy, p-paste, -,+,*-size, x-highlight, xy-show (x,y), xyz-set (x,y) to z");
+
+*/
+  }
 }
