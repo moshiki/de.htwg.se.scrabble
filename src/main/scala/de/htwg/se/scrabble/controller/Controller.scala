@@ -17,5 +17,8 @@ class Controller extends Observable {
 
   def printVector(): Unit = dict.printVector()
 
-  def reloadDict(): Unit = dict = new Dictionary
+  def reloadDict(): Unit = {
+    dict = new Dictionary
+    notifyObservers
+  }
 }
