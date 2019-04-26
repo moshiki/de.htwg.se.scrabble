@@ -37,4 +37,14 @@ class Dictionary {
       dictSet
     } else { throw new FileNotFoundException("alphabet source file in \'"+ dictionaryPath+"\' not found!\")")}
   }
+
+  def printDict(): Unit = {
+    println("Word list:")
+    this.dict.toStream.sorted.foreach(println)
+  }
+
+  def printVector(): Unit = {
+    println("Alphabet vector:")
+    this.alphabet.toSeq.sortBy(_._1).foreach(println)
+  }
 }

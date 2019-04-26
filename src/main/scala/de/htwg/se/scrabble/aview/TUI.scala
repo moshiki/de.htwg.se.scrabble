@@ -57,18 +57,38 @@ class TUI extends Observer {
   def processCommand(com:String): Unit = {
       val command = com.split(" ")
       command(0) match {
-        case "exit" => System.err.println("Bye!")
-                       System.exit(0)
+        case "exit" => exit()
         case "help" => println(help())
-        case "rl" => Scrabble.dict = new Dictionary
-        case "pd" => println("Word list:")
-                     Scrabble.dict.dict.toStream.sorted.foreach(println)
-        case "pv" => println("Alphabet vector:")
-                     Scrabble.dict.alphabet.toSeq.sortBy(_._1).foreach(println)
-        case "player" => println("ToDo: Player")
+        case "rl" => reloadDict()
+        case "pd" => printDict()
+        case "pv" => printVector()
+        case "player" => player(command)
         case unknown => System.err.println("Command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
   }
+
+  def exit(): Unit = {
+    System.err.println("Bye!")
+    System.exit(0)
+  }
+
+  def reloadDict(): Unit = {
+    Scrabble.dict = new Dictionary
+  }
+
+  def printDict(): Unit = {
+    Scrabble.dict.printDict()
+  }
+
+  def printVector(): Unit = {
+    Scrabble.dict.printVector()
+  }
+
+  def player(parameters:Array[String]): Unit = {
+    println("ToDo: Player")
+  }
+
+
 
   override def update(): Unit = {
     /* TODO: implement method
