@@ -13,9 +13,8 @@ object Scrabble {
 
   def main(args: Array[String]): Unit= {
     try {
-      tui.init()
       do {
-        var input:String = readLine(">> ")
+        tui.processCommand(readLine(">> "))
       } while (true)
     } catch {
       case fnf: FileNotFoundException => println(fnf.getMessage)

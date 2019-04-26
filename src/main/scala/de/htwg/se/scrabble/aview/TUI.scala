@@ -71,7 +71,7 @@ class TUI extends Observer {
   }
 
   override def update(): Unit = {
-    /* TODO:
+    /* TODO: implement method
 logger.info(NEWLINE + controller.getGridString());
  logger.info(NEWLINE + controller.getStatus());
  logger.info(NEWLINE
