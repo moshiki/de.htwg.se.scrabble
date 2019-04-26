@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.UI
+package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.Scrabble
 import de.htwg.se.scrabble.model.Dictionary

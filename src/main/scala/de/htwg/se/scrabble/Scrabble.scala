@@ -2,7 +2,7 @@ package de.htwg.se.scrabble
 
 import java.io.FileNotFoundException
 
-import de.htwg.se.scrabble.UI.TUI
+import de.htwg.se.scrabble.aview.TUI
 import de.htwg.se.scrabble.model._
 
 

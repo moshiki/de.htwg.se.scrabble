@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.UI
+package de.htwg.se.scrabble.aview
 
 import org.scalatest._
 
