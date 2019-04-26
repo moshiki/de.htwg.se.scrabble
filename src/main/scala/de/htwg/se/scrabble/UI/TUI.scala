@@ -1,6 +1,7 @@
-package de.htwg.se.scrabble.model
+package de.htwg.se.scrabble.UI
 
 import de.htwg.se.scrabble.Scrabble
+import de.htwg.se.scrabble.model.Dictionary
 
 import scala.io.StdIn
 
