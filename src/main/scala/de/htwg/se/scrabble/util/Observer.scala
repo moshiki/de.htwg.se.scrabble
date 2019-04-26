@@ -1,5 +1,5 @@
 package de.htwg.se.scrabble.util
 
-class Observer {
-
+trait Observer {
+  def update()
 }
