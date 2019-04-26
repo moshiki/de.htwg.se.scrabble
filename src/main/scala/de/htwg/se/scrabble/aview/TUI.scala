@@ -1,10 +1,9 @@
 package de.htwg.se.scrabble.aview
 
-import de.htwg.se.scrabble.Scrabble
-import de.htwg.se.scrabble.model.Dictionary
+import de.htwg.se.scrabble.controller.Controller
 import de.htwg.se.scrabble.util.Observer
 
-class TUI extends Observer {
+class TUI(controller: Controller) extends Observer {
   init()
 
   def init(): Unit = {
@@ -38,7 +37,7 @@ class TUI extends Observer {
   def help(): String = """
     |--------------------------------------------------------------------------------------------------------|
     |                                                                                                        |
-    | Commands                   Function                                                                    |
+    | commands                   function                                                                    |
     |                        |                                                                               |
     |  rl                    |   reload dictionary - reloads the dictionary from text file                   |
     |                        |                                                                               |
@@ -63,25 +62,26 @@ class TUI extends Observer {
         case "pd" => printDict()
         case "pv" => printVector()
         case "player" => player(command)
-        case unknown => System.err.println("Command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
+        case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
   }
 
   def exit(): Unit = {
-    System.err.println("Bye!")
+    System.err.println("bye!")
     System.exit(0)
   }
 
   def reloadDict(): Unit = {
-    Scrabble.dict = new Dictionary
+    controller.reloadDict()
+    println("dictionary reloaded")
   }
 
   def printDict(): Unit = {
-    Scrabble.dict.printDict()
+    controller.printDict()
   }
 
   def printVector(): Unit = {
-    Scrabble.dict.printVector()
+    controller.printVector()
   }
 
   def player(parameters:Array[String]): Unit = {
@@ -89,8 +89,8 @@ class TUI extends Observer {
   }
 
 
-
-  override def update(): Unit = {
+  @Override
+  def update(): Unit = {
     /* TODO: implement method
 logger.info(NEWLINE + controller.getGridString());
  logger.info(NEWLINE + controller.getStatus());
