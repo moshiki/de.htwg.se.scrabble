@@ -7,12 +7,12 @@ class CellSpec extends WordSpec with Matchers {
     "contain x" in {
     cell.value should be("x")}
   }
-    "is set" should {
-      val cell = new Cell("Acv")
-      "contain only one capital letter or is empty" in {
-        cell.value should fullyMatch regex "[A-Z]||[x]"
+      "is set" should {
+        val cell = new Cell("Acv")
+        "contain only one capital letter or is empty" in {
+          cell.value should fullyMatch regex "[A-Z]||[x]"
+        }
       }
-    }
     }
   "isLetter(str: String)" when { "str is not a capital letter" should {
       val cell = new Cell(letter = "x")

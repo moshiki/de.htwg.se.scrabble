@@ -5,34 +5,38 @@ import de.htwg.se.scrabble.Scrabble
 import scala.io.StdIn
 
 object TUI {
-  def start(): Unit = {
-    println("|########################################################################################################|")
-    println("|########################################################################################################|")
-    println("|                                                                                                        |")
-    println("| SCRABBLE IN SCALA                                                                                      |")
-    println("|                                                                                                        |")
-    help()
-    awaitingCommand()
+  def init(): Unit = {
+    print(start())
+    println(help())
+    println(awaitingCommand())
   }
 
-  def help(): Unit = {
-    println("|--------------------------------------------------------------------------------------------------------|")
-    println("|                                                                                                        |")
-    println("| Commands                                                                                               |")
-    println("|                        |                                                                               |")
-    println("|  rl                    |   reload dictionary - reloads the dictionary from text file                   |")
-    println("|                        |                                                                               |")
-    println("|  pd                    |   print dictionary - prints the dictionary to console                         |")
-    println("|                        |                                                                               |")
-    println("|  pv                    |   print vector - prints the alphabet vector to console                        |")
-    println("|                        |                                                                               |")
-    println("|  player [a|b] [name]   |   adds a new player with specified role (a or b) and name                     |")
-    println("|                        |                                                                               |")
-    println("|  help                  |   displays the command list                                                   |")
-    println("|                        |                                                                               |")
-    println("|  exit                  |   exit scrabble                                                               |")
-    println("|--------------------------------------------------------------------------------------------------------|")
-  }
+
+  def start(): String = """
+    |########################################################################################################|
+    |########################################################################################################|
+    |                                                                                                        |
+    |                                       SCRABBLE IN SCALA                                                |
+    |                                                                                                        |"""
+
+  def help(): String = """
+    |--------------------------------------------------------------------------------------------------------|
+    |                                                                                                        |
+    | Commands                   Function                                                                    |
+    |                        |                                                                               |
+    |  rl                    |   reload dictionary - reloads the dictionary from text file                   |
+    |                        |                                                                               |
+    |  pd                    |   print dictionary - prints the dictionary to console                         |
+    |                        |                                                                               |
+    |  pv                    |   print vector - prints the alphabet vector to console                        |
+    |                        |                                                                               |
+    |  player [a|b] [name]   |   adds a new player with specified role (a or b) and name                     |
+    |                        |                                                                               |
+    |  help                  |   displays the command list                                                   |
+    |                        |                                                                               |
+    |  exit                  |   exit scrabble                                                               |
+    |--------------------------------------------------------------------------------------------------------|"""
+
 
   def awaitingCommand(): Unit = {
     while (true) {

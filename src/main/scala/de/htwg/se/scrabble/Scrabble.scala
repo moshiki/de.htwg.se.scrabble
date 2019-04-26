@@ -10,7 +10,7 @@ object Scrabble {
 
   def main(args: Array[String]): Unit= {
     try {
-      TUI.start()
+      TUI.init()
 
 
     } catch {
