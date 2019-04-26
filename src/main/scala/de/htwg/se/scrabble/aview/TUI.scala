@@ -4,6 +4,7 @@ import de.htwg.se.scrabble.controller.Controller
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: Controller) extends Observer {
+  //controller.add(this)
   init()
 
   def init(): Unit = {

@@ -13,15 +13,9 @@ class Controller extends Observable {
 //    case fnf: FileNotFoundException => println(fnf.getMessage)
 //  }
 
-  def printDict(): Unit = {
-    dict.printDict()
-  }
+  def printDict(): Unit = dict.printDict()
 
-  def printVector(): Unit = {
-    dict.printVector()
-  }
+  def printVector(): Unit = dict.printVector()
 
-  def reloadDict(): Unit = {
-    dict = new Dictionary
-  }
+  def reloadDict(): Unit = dict = new Dictionary
 }
