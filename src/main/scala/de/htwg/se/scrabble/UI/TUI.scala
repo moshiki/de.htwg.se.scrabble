@@ -60,7 +60,7 @@ object TUI {
       command(0) match {
         case "exit" => System.err.println("Bye!")
                        System.exit(0)
-        case "help" => help()
+        case "help" => println(help())
         case "rl" => Scrabble.dict = new Dictionary
         case "pd" => println("Word list:")
                      Scrabble.dict.dict.toStream.sorted.foreach(println)
