@@ -77,13 +77,9 @@ class TUI(controller: Controller) extends Observer {
     println("dictionary reloaded")
   }
 
-  def printDict(): Unit = {
-    controller.printDict()
-  }
+  def printDict(): Unit = controller.printDict()
 
-  def printVector(): Unit = {
-    controller.printVector()
-  }
+  def printVector(): Unit = controller.printVector()
 
   def player(parameters:Array[String]): Unit = {
     println("ToDo: Player")
