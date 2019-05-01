@@ -1,17 +1,14 @@
 package de.htwg.se.scrabble.controller
 
-//import java.io.FileNotFoundException
-
-import de.htwg.se.scrabble.model.{Dictionary, Player}
+import de.htwg.se.scrabble.model.Dictionary
+import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
+
+import scala.io.StdIn.readLine
 
 class Controller extends Observable {
   private var dict = new Dictionary
-//  try {
-//    val dict = new Dictionary
-//  } catch {
-//    case fnf: FileNotFoundException => println(fnf.getMessage)
-//  }
+  val players = new PlayerList
 
   def printDict(): Unit = dict.printDict()
 
@@ -22,5 +19,23 @@ class Controller extends Observable {
     notifyObservers
   }
 
-  def newPlayer(role:String, name:String): Player = Player(role, name)
+  def newPlayer(role:String, name:String): Option[Player] = {
+    val player = Player(role, name)
+    val oldPlayer = players.get(player.role)
+    oldPlayer match {
+      case Some(p) =>
+        println("Overwrite existing player: "+p+"? Y, N")
+        readLine(">> ") match {
+          case "y" | "Y" =>
+            notifyObservers
+            players.put(player)
+            player
+        }
+      case None =>
+        notifyObservers
+        players.put(player)
+        player
+    }
+
+  }
 }

@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.model
+package de.htwg.se.scrabble.model.player
 
 import org.scalatest._
 

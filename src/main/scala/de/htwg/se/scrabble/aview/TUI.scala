@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.model.Player
+import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: Controller) extends Observer {
@@ -49,6 +49,8 @@ class TUI(controller: Controller) extends Observer {
     |                        |                                                                               |
     |  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                     |
     |                        |                                                                               |
+    |  players               |   displays a list of the players                                              |
+    |                        |                                                                               |
     |  help                  |   displays the command list                                                   |
     |                        |                                                                               |
     |  exit                  |   exit scrabble                                                               |
@@ -64,6 +66,7 @@ class TUI(controller: Controller) extends Observer {
         case "pd" => printDict()
         case "pv" => printVector()
         case "player" => player(command)
+        case "players" => players()
         case "" =>
         case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
@@ -85,19 +88,25 @@ class TUI(controller: Controller) extends Observer {
 
   def player(parameters:Array[String]): Unit = {
     if (parameters.length == 3) {
-      var player: Player = null
       parameters(1) match {
-        case "A" | "a" => player = controller.newPlayer("A", parameters(2))
-        case "B" | "b" => player = controller.newPlayer("B", parameters(2))
+        case "A" | "a" =>
+          controller.newPlayer("A", parameters(2)) match {
+            case Some(p) => println("new player created: " + p+"\n")
+          }
+        case "B" | "b" =>
+          controller.newPlayer("B", parameters(2)) match {
+            case Some(p) => println("new player created: " + p+"\n")
+          }
         case unknown => println("parameter \'" + unknown + "\' does not exist. Use 'A' or 'B'")
-                        return
       }
-    println("new player created: " + player)
     } else {
       System.err.println("wrong number of arguments! use command: player [a|b] <name>")
     }
   }
 
+  def players(): Unit = {
+    controller.players.print()
+  }
 
   @Override
   def update() :Unit = {
