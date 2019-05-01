@@ -24,17 +24,18 @@ class Controller extends Observable {
     val oldPlayer = players.get(player.role)
     oldPlayer match {
       case Some(p) =>
-        println("Overwrite existing player: "+p+"? Y, N")
+        println("overwrite existing player: "+p+"? Y, N")
         readLine(">> ") match {
           case "y" | "Y" =>
             notifyObservers
             players.put(player)
-            player
+            Option(player)
+          case other => None
         }
       case None =>
         notifyObservers
         players.put(player)
-        player
+        Option(player)
     }
 
   }
