@@ -24,7 +24,7 @@ class Controller extends Observable {
     val oldPlayer = players.get(player.role)
     oldPlayer match {
       case Some(p) =>
-        println("overwrite existing player: "+p+"? Y, N")
+        println("overwrite existing player: " + p + "? Y, N")
         readLine(">> ") match {
           case "y" | "Y" =>
             notifyObservers
@@ -37,6 +37,12 @@ class Controller extends Observable {
         players.put(player)
         Option(player)
     }
-
   }
+
+  def getCard: String = {
+    val r = util.Random.nextInt(26)
+    val arr = dict.alphabet.toArray
+    arr(r)._1
+  }
+
 }

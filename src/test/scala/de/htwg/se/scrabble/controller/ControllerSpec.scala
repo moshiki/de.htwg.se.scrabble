@@ -1,5 +1,6 @@
 package de.htwg.se.scrabble.controller
 
+import de.htwg.se.scrabble.model.Dictionary
 import de.htwg.se.scrabble.util.Observer
 import org.scalatest._
 
@@ -32,6 +33,10 @@ class ControllerSpec extends WordSpec with Matchers {
       val player = controller.newPlayer("A", "name")
       //player.role should be("A")
       //player.name should be("name")
+    }
+    "return a random card (letter of the alphabet) when getCard() is invoked" in {
+      val dict = new Dictionary
+      dict.alphabet should contain key controller.getCard
     }
   }
 }
