@@ -1,5 +1,8 @@
 package de.htwg.se.scrabble.util
 
+/**
+  * Observable aka. Publisher
+  */
 class Observable {
   var subscribers:Vector[Observer] = Vector()
   def add(s:Observer) = subscribers = subscribers:+s

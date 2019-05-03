@@ -14,8 +14,7 @@ class TUI(controller: Controller) extends Observer {
     println(help())
   }
 
-  def artScrabble(): String =
-    """
+  def artScrabble(): String ="""
       | .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
       || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
       || |    _______   | || |     ______   | || |  _______     | || |      __      | || |   ______     | || |   ______     | || |   _____      | || |  _________   | |
@@ -26,35 +25,33 @@ class TUI(controller: Controller) extends Observer {
       || |  |_______.'  | || |   `._____.'  | || | |____| |___| | || ||____|  |____|| || |  |_______/   | || |  |_______/   | || |  |________|  | || | |_________|  | |
       || |            1 | || |            3 | || |            1 | || |            1 | || |            3 | || |            3 | || |            1 | || |            1 | |
       || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
-      | '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
-    """.stripMargin
+      | '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'""".stripMargin
 
   def head(): String = """
-    |########################################################################################################|
-    |########################################################################################################|
-    |                                                                                                        |
-    |                                       SCRABBLE IN SCALA                                                |
-    |                                                                                                        |"""
+    ||                                                                                                                                                              |
+    ||                                                                                                                                                              |
+    ||                                                                   SCRABBLE IN SCALA                                                                          |
+    ||                                                                                                                                                              |
+    ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin
 
   def help(): String = """
-    |--------------------------------------------------------------------------------------------------------|
-    |                                                                                                        |
-    | commands                   function                                                                    |
-    |                        |                                                                               |
-    |  rl                    |   reload dictionary - reloads the dictionary from text file                   |
-    |                        |                                                                               |
-    |  pd                    |   print dictionary - prints the dictionary to console                         |
-    |                        |                                                                               |
-    |  pv                    |   print vector - prints the alphabet vector to console                        |
-    |                        |                                                                               |
-    |  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                     |
-    |                        |                                                                               |
-    |  players               |   displays a list of the players                                              |
-    |                        |                                                                               |
-    |  help                  |   displays the command list                                                   |
-    |                        |                                                                               |
-    |  exit                  |   exit scrabble                                                               |
-    |--------------------------------------------------------------------------------------------------------|"""
+    ||                                                                                                                                                              |
+    || commands                   function                                                                                                                          |
+    ||                        |                                                                                                                                     |
+    ||  rl                    |   reload dictionary - reloads the dictionary from text file                                                                         |
+    ||                        |                                                                                                                                     |
+    ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
+    ||                        |                                                                                                                                     |
+    ||  pv                    |   print vector - prints the alphabet vector to console                                                                              |
+    ||                        |                                                                                                                                     |
+    ||  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                                                                           |
+    ||                        |                                                                                                                                     |
+    ||  players               |   displays a list of the players                                                                                                    |
+    ||                        |                                                                                                                                     |
+    ||  help                  |   displays the command list                                                                                                         |
+    ||                        |                                                                                                                                     |
+    ||  exit                  |   exit scrabble                                                                                                                     |
+    ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin
 
 
   def processCommand(com:String): Unit = {
@@ -106,6 +103,8 @@ class TUI(controller: Controller) extends Observer {
     }
   }
 
+
+
   def players(): Unit = {
     controller.players.print()
   }
@@ -114,5 +113,6 @@ class TUI(controller: Controller) extends Observer {
   def update() :Unit = {
     //ToDO: implement method
     System.err.println("TUI was notified")
+
   }
 }
