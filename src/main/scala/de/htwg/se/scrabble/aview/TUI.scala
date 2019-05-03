@@ -38,6 +38,8 @@ class TUI(controller: Controller) extends Observer {
     ||                                                                                                                                                              |
     || commands                   function                                                                                                                          |
     ||                        |                                                                                                                                     |
+    ||  start                 |   Play Scrabble                                                                                                                     |
+    ||                        |                                                                                                                                     |
     ||  rl                    |   reload dictionary - reloads the dictionary from text file                                                                         |
     ||                        |                                                                                                                                     |
     ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
@@ -60,6 +62,7 @@ class TUI(controller: Controller) extends Observer {
         case "exit" => exit()
         case "help" => println(help())
         case "rl" => reloadDict()
+        case "start" => startGame()
         case "pd" => printDict()
         case "pv" => printVector()
         case "player" => player(command)
@@ -103,7 +106,9 @@ class TUI(controller: Controller) extends Observer {
     }
   }
 
-
+  def startGame() : Unit = {
+  //  TODO:
+  }
 
   def players(): Unit = {
     controller.players.print()
