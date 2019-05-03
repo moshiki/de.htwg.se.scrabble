@@ -3,14 +3,14 @@ import org.scalatest._
 
 class CellSpec extends WordSpec with Matchers {
   "A cell" when { "is empty" should {
-    val cell = new Cell("x")
-    "contain x" in {
-    cell.value should be("x")}
+    val cell = new Cell("")
+    "contain nothing" in {
+    cell.value should be("")}
   }
       "is set" should {
         val cell = new Cell("Acv")
         "contain only one capital letter or is empty" in {
-          cell.value should fullyMatch regex "[A-Z]||[x]"
+          cell.value should fullyMatch regex "[A-Z]||[^$]"
         }
       }
     }
