@@ -1,4 +1,5 @@
 package de.htwg.se.scrabble.model
+
 import java.io.FileNotFoundException
 
 import org.scalatest._
@@ -11,12 +12,12 @@ class DictionarySpec extends WordSpec with Matchers {
     "for each letter of the alphabet. A Dictionary" when {
     "is created" should {
       val dictionary = new Dictionary()
-        "initialize the alphabet map with an external text file, that for each letter" +
+      "initialize the alphabet map with an external text file, that for each letter" +
         "contains one line with letter and value separated by a blank." +
         "And initialize a word set with an external text file that contains one word per line." in {
-          dictionary.alphabet should contain key "A"
-          dictionary.alphabet should contain key "Z"
-          dictionary.dict should not be empty }
+        dictionary.alphabet should contain key "A"
+        dictionary.alphabet should contain key "Z"
+        dictionary.dict should not be empty }
     }
       "throw FileNotFoundException when input files not found" in {
         val dictionary = new Dictionary()
