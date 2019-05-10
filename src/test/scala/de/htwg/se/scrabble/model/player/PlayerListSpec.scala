@@ -21,10 +21,12 @@ class PlayerListSpec extends WordSpec with Matchers{
      // listP.print() should be("MASSD")
     }
 
- //   "Assert False!" in {
+    "Assert False!" in {
+    // assert(p1 == listP.remove(p1))
      // listP.remove(p1)
-     // listP.contains(p1) should be("Player not Found!")
-   // }
+      //listP.contains(p1) should be("Player not Found!")
+        //fail()
+       }
 
 
   }
