@@ -35,8 +35,10 @@ class ControllerSpec extends WordSpec with Matchers {
       //player.name should be("name")
     }
     "overwrite an existing player or do nothing when newPlayer(role, name) is invoked and a player already exists" in {
-     // val player = controller.newPlayer(val oldPlayer = )
+      val player1 = controller.newPlayer("A", "name")
+      val player2 = controller.newPlayer("A", "newname")
     }
+
     "return a random card (letter of the alphabet) when getCard() is invoked" in {
       val dict = new Dictionary
       dict.alphabet should contain key controller.getCard
