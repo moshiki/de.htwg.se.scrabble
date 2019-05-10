@@ -12,6 +12,7 @@ class PlayerList {
   def remove(player:Player): Option[Player] = playerMap.remove(getByPlayer(player))
 
   def get(role:String): Option[Player] = {
+
     role match {
       case "a" | "A" => playerMap.get("A")
       case "b" | "B" => playerMap.get("B")
@@ -23,10 +24,11 @@ class PlayerList {
   def print(): Unit = getList.foreach(println)
 
   private def getByPlayer(player:Player): String = {
-    val revMap = playerMap map {_.swap}
-    revMap.get(player) match {
-      case None => ""
-    }
+
+      val revMap = playerMap map {_.swap}
+      revMap.get(player) match {
+        case None => ""
+      }
   }
 
   private def revMap(): mutable.Map[Player, String] = {
