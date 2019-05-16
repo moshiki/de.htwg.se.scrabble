@@ -29,11 +29,16 @@ class ControllerSpec extends WordSpec with Matchers {
     "print the alphabet vector of the dictionary when printVector() is invoked" in {
       controller.printVector()
     }
-    "create a new player with role and name when newPlayer(role, name) is invoked" in {
+    "create a new player with role and name when newPlayer(role, name) is invoked and no player exists" in {
       val player = controller.newPlayer("A", "name")
       //player.role should be("A")
       //player.name should be("name")
     }
+    "overwrite an existing player or do nothing when newPlayer(role, name) is invoked and a player already exists" in {
+      val player1 = controller.newPlayer("A", "name")
+      val player2 = controller.newPlayer("A", "newname")
+    }
+
     "return a random card (letter of the alphabet) when getCard() is invoked" in {
       val dict = new Dictionary
       dict.alphabet should contain key controller.getCard
