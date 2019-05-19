@@ -118,6 +118,5 @@ class TUI(controller: Controller) extends Observer {
   def update() :Unit = {
     //ToDO: implement method
     System.err.println("TUI was notified")
-
   }
 }

@@ -6,4 +6,5 @@ class Cell(letter: String) {
     else ""
 
   def isLetter(str: String): Boolean = str.matches("[A-Z]")
+
 }
