@@ -5,7 +5,7 @@ class CellSpec extends WordSpec with Matchers {
   "A cell" when {
     "is empty" should {
       val cell = new Cell("")
-      "contain nothing" in {cell.value should be("")}
+      "contain nothing" in {cell.value should be("_")}
     }
     "is set" should {
       val cell = new Cell("Acv")
