@@ -1,0 +1,14 @@
+Scrum (Canban Style):
+https://trello.com/b/awVzWHXe/scrabble
+
+Scrabble Information's:
+https://de.wikipedia.org/wiki/Scrabble
+https://gist.github.com/p3t0r/618308
+
+Used:
+https://travis-ci.org/account/repositories
+https://docs.coveralls.io/
+
+Git:
+https://github.com/moshiki/de.htwg.se.scrabble
+https://github.com/markoboger

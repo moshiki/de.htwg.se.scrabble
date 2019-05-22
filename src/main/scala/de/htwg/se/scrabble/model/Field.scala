@@ -23,6 +23,18 @@ class Field(size: Integer) {
     println("""‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾""")
  }
 
+  override def toString: String = {
+    """| A|B|C|D|E|F|G|H|I|J|K|L|M|N|O
+       |_______________________________""".stripMargin
+    for ( i <- 0 until size){
+      for ( j <- 0 until size){
+        "|" + matrix(i)(j).toString
+      }
+      "|\n"
+    }
+    """|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾""".stripMargin
+  }
+
   def printHor(): Unit = {
     for { i <- 0 until size
           j <- 0 until size
