@@ -11,7 +11,7 @@ class Controller extends Observable {
   var players = new PlayerList
   var field = new Field(15)
 
-  //var gameStatus: GameStatus = IDLE
+  var gameStatus: GameStatus = IDLE
 
   def printDict(): Unit = dict.printDict()
 
