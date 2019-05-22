@@ -10,6 +10,8 @@ class Controller extends Observable {
   private var dict = new Dictionary
   val players = new PlayerList
 
+  var gameStatus: GameStatus = IDLE
+
   def printDict(): Unit = dict.printDict()
 
   def printVector(): Unit = dict.printVector()
@@ -19,24 +21,9 @@ class Controller extends Observable {
     notifyObservers
   }
 
-  def newPlayer(role:String, name:String): Option[Player] = {
-    val player = Player(role, name)
-    val oldPlayer = players.get(player.role)
-    oldPlayer match {
-      case Some(p) =>
-        println("overwrite existing player: " + p + "? Y, N")
-        readLine(">> ") match {
-          case "y" | "Y" =>
-            notifyObservers
-            players.put(player)
-            Option(player)
-          case other => None
-        }
-      case None =>
-        notifyObservers
-        players.put(player)
-        Option(player)
-    }
+  def newPlayer(role:String, name:String): Unit = {
+    players.put(Player(role, name))
+    notifyObservers
   }
 
   def getCard: String = {

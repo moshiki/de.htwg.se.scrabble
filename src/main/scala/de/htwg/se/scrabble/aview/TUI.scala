@@ -90,15 +90,11 @@ class TUI(controller: Controller) extends Observer {
     if (parameters.length == 3) {
       parameters(1) match {
         case "A" | "a" =>
-          controller.newPlayer("A", parameters(2)) match {
-            case Some(p) => println("new player created: " + p+"\n")
-            case None => println("nothing changed")
-          }
+          controller.newPlayer("A", parameters(2))
+          println("new player A created\n")
         case "B" | "b" =>
-          controller.newPlayer("B", parameters(2)) match {
-            case Some(p) => println("new player created: " + p+"\n")
-            case None => println("nothing changed")
-          }
+          controller.newPlayer("B", parameters(2))
+          println("new player B created\n")
         case unknown => println("parameter \'" + unknown + "\' does not exist. Use 'A' or 'B'")
       }
     } else {
