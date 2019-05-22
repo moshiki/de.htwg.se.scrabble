@@ -8,9 +8,10 @@ import scala.io.StdIn.readLine
 
 class Controller extends Observable {
   private var dict = new Dictionary
-  val players = new PlayerList
+  var players = new PlayerList
+  var field = new Field(15)
 
-  var gameStatus: GameStatus = IDLE
+  //var gameStatus: GameStatus = IDLE
 
   def printDict(): Unit = dict.printDict()
 
@@ -19,6 +20,10 @@ class Controller extends Observable {
   def reloadDict(): Unit = {
     dict = new Dictionary
     notifyObservers
+  }
+
+  def newGame(): Unit = {
+    field = new Field(15)
   }
 
   def newPlayer(role:String, name:String): Unit = {

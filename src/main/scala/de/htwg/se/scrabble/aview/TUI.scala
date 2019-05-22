@@ -62,7 +62,7 @@ class TUI(controller: Controller) extends Observer {
         case "exit" => exit()
         case "help" => println(help())
         case "rl" => reloadDict()
-        case "start" => startGame()
+        case "new" => newGame()
         case "pd" => printDict()
         case "pv" => printVector()
         case "player" => player(command)
@@ -102,8 +102,8 @@ class TUI(controller: Controller) extends Observer {
     }
   }
 
-  def startGame() : Unit = {
-  //  TODO:
+  def newGame() : Unit = {
+    controller.newGame()
   }
 
   def players(): Unit = {
