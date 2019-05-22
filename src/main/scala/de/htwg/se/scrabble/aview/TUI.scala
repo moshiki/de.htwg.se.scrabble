@@ -7,15 +7,12 @@ import scala.collection.immutable.Nil
 
 class TUI(controller: Controller) extends Observer {
   controller.add(this)
-  init()
 
-  def init(): Unit = {
-    print(artScrabble())
-    print(head())
-    println(help())
-  }
+  println(init)
 
-  def artScrabble(): String ="""
+  def init: String = artScrabble + head + help
+
+  def artScrabble: String = """
       | .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
       || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
       || |    _______   | || |     ______   | || |  _______     | || |      __      | || |   ______     | || |   ______     | || |   _____      | || |  _________   | |
@@ -28,18 +25,18 @@ class TUI(controller: Controller) extends Observer {
       || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
       | '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'""".stripMargin
 
-  def head(): String = """
+  def head: String = """
     ||                                                                                                                                                              |
     ||                                                                                                                                                              |
     ||                                                                   SCRABBLE IN SCALA                                                                          |
     ||                                                                                                                                                              |
     ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin
 
-  def help(): String = """
+  def help: String = """
     ||                                                                                                                                                              |
     || commands                   function                                                                                                                          |
     ||                        |                                                                                                                                     |
-    ||  start                 |   Play Scrabble                                                                                                                     |
+    ||  new                   |   Play Scrabble                                                                                                                     |
     ||                        |                                                                                                                                     |
     ||  rl                    |   reload dictionary - reloads the dictionary from text file                                                                         |
     ||                        |                                                                                                                                     |
@@ -61,7 +58,7 @@ class TUI(controller: Controller) extends Observer {
       val command = com.split(" ")
       command(0) match {
         case "exit" => exit()
-        case "help" => println(help())
+        case "help" => println(help)
         case "rl" => reloadDict()
         case "new" => newGame()
         case "pd" => printDict()
@@ -113,8 +110,8 @@ class TUI(controller: Controller) extends Observer {
 
   @Override
   def update: Boolean = {
-    // TODO: Spieler ausgeben (Highlight activ player)
-    // TODO: Spielaufbau hier
+    controller.players.print() // TODO: Spieler ausgabe (Highlight activ player)
+    print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
     true

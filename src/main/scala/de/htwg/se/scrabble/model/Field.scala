@@ -10,29 +10,20 @@ class Field(size: Integer) {
     }
   }
 
-  def printField(): Unit = {
-
-  println("A B C D E F G H I J K L M O")
-  println("_______________________________")
-    for ( i <- 0 until size){
-      for ( j <- 0 until size){
-        print("|" + matrix(i)(j).toString)
-      }
-      print("|\n")
-    }
-    println("""‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾""")
- }
+  matrix(size/2)(size/2) = new Cell("X")
 
   override def toString: String = {
-    """| A|B|C|D|E|F|G|H|I|J|K|L|M|N|O
-       |_______________________________""".stripMargin
+    var board: String = "|"
+    for (a<- 65 until (65+ size)) board = board + a.toChar + "|"
+    board = board + "\n_______________________________\n"
     for ( i <- 0 until size){
       for ( j <- 0 until size){
-        "|" + matrix(i)(j).toString
+        board = board + "|" + matrix(i)(j).value
       }
-      "|\n"
+      board = board + "| " + i + "\n"
     }
-    """|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾""".stripMargin
+    board = board + "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
+    board
   }
 
   def printHor(): Unit = {
