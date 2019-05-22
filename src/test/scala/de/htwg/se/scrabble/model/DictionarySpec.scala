@@ -50,5 +50,5 @@ class DictionarySpec extends WordSpec with Matchers {
         // windows: stream.toString should be("Alphabet vector:\r\n(A,2)\r\n(B,4)\r\n(C,1)\r\n(D,3)\r\n")
         stream.toString should be("Alphabet vector:\n(A,2)\n(B,4)\n(C,1)\n(D,3)\n")
       }
-  }}
+    }}
 }

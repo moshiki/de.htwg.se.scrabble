@@ -1,92 +1,42 @@
 package de.htwg.se.scrabble.controller
 
+import de.htwg.se.scrabble.controller.GameStatus._
+import de.htwg.se.scrabble.model.Field
 import de.htwg.se.scrabble.model.Dictionary
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
-
-import scala.io.StdIn.readLine
+import de.htwg.se.scrabble.model.Field
 
 class Controller extends Observable {
   private var dict = new Dictionary
-  val players = new PlayerList
+  var players = new PlayerList
+  var field = new Field(15)
 
-  var state: ControllerState = initState(this)
+  var gameStatus: GameStatus = IDLE
 
-  def getCurrentStateAsString(): String = state.getCurrentStateAsString()
+  def printDict(): Unit = dict.printDict()
 
-  def nextState(): Unit = state = state.nextState()
+  def printVector(): Unit = dict.printVector()
 
-  def switchNextState():Unit = nextState()
-
-  def handle(input: String): Unit = {
-    state.eval(input)
+  def reloadDict(): Unit = {
+    dict = new Dictionary
+    notifyObservers
   }
 
-
-  abstract class ControllerState {
-
-    def printDict(): Unit = dict.printDict()
-
-    def printVector(): Unit = dict.printVector()
-
-    def eval(input: String)
-
-    def nextState(): ControllerState
-
-    def getCurrentStateAsString(): String
+  def newGame(): Unit = {
+    field = new Field(15)
 
   }
 
-  case class initState(controller:Controller) extends ControllerState {
-    override def eval(input: String) = {
-
-    }
-
-    override def nextState(): ControllerState = setupState(controller)
-
-    def reloadDict(): Unit = {
-      dict = new Dictionary
-      notifyObservers
-    }
-
-    override def getCurrentStateAsString(): String = {
-      "state"
-    }
-
-    def newPlayer(role: String, name: String): Option[Player] = {
-      val player = Player(role, name)
-      val oldPlayer = players.get(player.role)
-      oldPlayer match {
-        case Some(p) =>
-          println("overwrite existing player: " + p + "? Y, N")
-          readLine(">> ") match {
-            case "y" | "Y" =>
-              notifyObservers
-              players.put(player)
-              Option(player)
-            case other => None
-          }
-        case None =>
-          notifyObservers
-          players.put(player)
-          Option(player)
-      }
-    }
-
-    def getCard: String = {
-      val r = util.Random.nextInt(26)
-      val arr = dict.alphabet.toArray
-      arr(r)._1
-    }
+  def newPlayer(role:String, name:String): Unit = {
+    players.put(Player(role, name))
+    notifyObservers
   }
 
-  case class setupState(controller:Controller) extends ControllerState {
-    override def eval(input: String) = {
-
-    }
-
-    override def getCurrentStateAsString(): String = {
-
-    }
+  def getCard: String = {
+    val r = util.Random.nextInt(26)
+    val arr = dict.alphabet.toArray
+    arr(r)._1
   }
+
 }

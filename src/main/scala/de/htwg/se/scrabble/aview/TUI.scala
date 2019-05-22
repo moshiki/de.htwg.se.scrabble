@@ -1,20 +1,18 @@
 package de.htwg.se.scrabble.aview
 
-import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.model.player.Player
+import de.htwg.se.scrabble.controller.{Controller, GameStatus}
 import de.htwg.se.scrabble.util.Observer
+
+import scala.collection.immutable.Nil
 
 class TUI(controller: Controller) extends Observer {
   controller.add(this)
-  init()
 
-  def init(): Unit = {
-    print(artScrabble())
-    print(head())
-    println(help())
-  }
+  println(init)
 
-  def artScrabble(): String ="""
+  def init: String = artScrabble + head + help
+
+  def artScrabble: String = """
       | .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
       || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
       || |    _______   | || |     ______   | || |  _______     | || |      __      | || |   ______     | || |   ______     | || |   _____      | || |  _________   | |
@@ -27,18 +25,18 @@ class TUI(controller: Controller) extends Observer {
       || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
       | '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'""".stripMargin
 
-  def head(): String = """
+  def head: String = """
     ||                                                                                                                                                              |
     ||                                                                                                                                                              |
     ||                                                                   SCRABBLE IN SCALA                                                                          |
     ||                                                                                                                                                              |
     ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin
 
-  def help(): String = """
+  def help: String = """
     ||                                                                                                                                                              |
     || commands                   function                                                                                                                          |
     ||                        |                                                                                                                                     |
-    ||  start                 |   Play Scrabble                                                                                                                     |
+    ||  new                   |   Play Scrabble                                                                                                                     |
     ||                        |                                                                                                                                     |
     ||  rl                    |   reload dictionary - reloads the dictionary from text file                                                                         |
     ||                        |                                                                                                                                     |
@@ -60,9 +58,9 @@ class TUI(controller: Controller) extends Observer {
       val command = com.split(" ")
       command(0) match {
         case "exit" => exit()
-        case "help" => println(help())
+        case "help" => println(help)
         case "rl" => reloadDict()
-        case "start" => startGame()
+        case "new" => newGame()
         case "pd" => printDict()
         case "pv" => printVector()
         case "player" => player(command)
@@ -90,15 +88,11 @@ class TUI(controller: Controller) extends Observer {
     if (parameters.length == 3) {
       parameters(1) match {
         case "A" | "a" =>
-          controller.newPlayer("A", parameters(2)) match {
-            case Some(p) => println("new player created: " + p+"\n")
-            case None => println("nothing changed")
-          }
+          controller.newPlayer("A", parameters(2))
+          println("new player A created\n")
         case "B" | "b" =>
-          controller.newPlayer("B", parameters(2)) match {
-            case Some(p) => println("new player created: " + p+"\n")
-            case None => println("nothing changed")
-          }
+          controller.newPlayer("B", parameters(2))
+          println("new player B created\n")
         case unknown => println("parameter \'" + unknown + "\' does not exist. Use 'A' or 'B'")
       }
     } else {
@@ -106,8 +100,8 @@ class TUI(controller: Controller) extends Observer {
     }
   }
 
-  def startGame() : Unit = {
-  //  TODO:
+  def newGame() : Unit = {
+    controller.newGame()
   }
 
   def players(): Unit = {
@@ -115,9 +109,12 @@ class TUI(controller: Controller) extends Observer {
   }
 
   @Override
-  def update() :Unit = {
-    //ToDO: implement method
-    System.err.println("TUI was notified")
+  def update: Boolean = {
+    controller.players.print() // TODO: Spieler ausgabe (Highlight activ player)
+    print(controller.field.toString)
+    println(GameStatus.message(controller.gameStatus))
+    controller.gameStatus = GameStatus.IDLE
+    true
 
   }
 }
