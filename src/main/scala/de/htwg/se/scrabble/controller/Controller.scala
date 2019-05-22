@@ -5,6 +5,7 @@ import de.htwg.se.scrabble.model.Field
 import de.htwg.se.scrabble.model.Dictionary
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
+import de.htwg.se.scrabble.model.Field
 
 class Controller extends Observable {
   private var dict = new Dictionary
@@ -24,6 +25,7 @@ class Controller extends Observable {
 
   def newGame(): Unit = {
     field = new Field(15)
+
   }
 
   def newPlayer(role:String, name:String): Unit = {
