@@ -1,11 +1,10 @@
 package de.htwg.se.scrabble.controller
 
 import de.htwg.se.scrabble.controller.GameStatus._
+import de.htwg.se.scrabble.model.Field
 import de.htwg.se.scrabble.model.Dictionary
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
-
-import scala.io.StdIn.readLine
 
 class Controller extends Observable {
   private var dict = new Dictionary

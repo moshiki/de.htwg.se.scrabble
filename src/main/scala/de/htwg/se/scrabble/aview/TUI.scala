@@ -1,7 +1,6 @@
 package de.htwg.se.scrabble.aview
 
-import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.model.player.Player
+import de.htwg.se.scrabble.controller.{Controller, GameStatus}
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: Controller) extends Observer {
@@ -112,7 +111,6 @@ class TUI(controller: Controller) extends Observer {
 
   @Override
   def update() :Unit = {
-    //ToDO: implement method
-    System.err.println("TUI was notified")
+    println(GameStatus.message(controller.gameStatus))
   }
 }
