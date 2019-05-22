@@ -110,7 +110,9 @@ class TUI(controller: Controller) extends Observer {
   }
 
   @Override
-  def update() :Unit = {
+  def update: Boolean = {
     println(GameStatus.message(controller.gameStatus))
+    controller.gameStatus = GameStatus.IDLE
+    true
   }
 }
