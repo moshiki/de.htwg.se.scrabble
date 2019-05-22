@@ -1,5 +1,6 @@
 package de.htwg.se.scrabble.controller
 
+import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.model.Dictionary
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
