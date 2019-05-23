@@ -18,6 +18,7 @@ object PlayerList {
     role match {
       case "a" | "A" => playerMap.get("A")
       case "b" | "B" => playerMap.get("B")
+      case _ => None
     }
   }
 
