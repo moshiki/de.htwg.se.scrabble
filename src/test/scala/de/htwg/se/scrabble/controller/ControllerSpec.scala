@@ -39,9 +39,9 @@ class ControllerSpec extends WordSpec with Matchers {
       val player2 = controller.newPlayer("A", "newname")
     }
 
-    "return a random card (letter of the alphabet) when getCard() is invoked" in {
-      val dict = new Dictionary
-      dict.alphabet should contain key controller.getCard
+    "return a random card (letter of the alphabet) when getCard is invoked" in {
+      controller.getCard should fullyMatch regex "[a-z]"
     }
+
   }
 }

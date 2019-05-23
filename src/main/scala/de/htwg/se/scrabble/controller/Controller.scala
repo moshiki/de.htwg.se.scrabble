@@ -3,13 +3,15 @@ package de.htwg.se.scrabble.controller
 import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.model.Field
 import de.htwg.se.scrabble.model.Dictionary
+import de.htwg.se.scrabble.model.cards.CardStack
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
 
 class Controller extends Observable {
   private var dict = new Dictionary
-  var players = new PlayerList
+  var players = PlayerList
   var field = new Field(15)
+  val cStack = CardStack
 
   var gameStatus: GameStatus = IDLE
 
@@ -33,9 +35,7 @@ class Controller extends Observable {
   }
 
   def getCard: String = {
-    val r = util.Random.nextInt(26)
-    val arr = dict.alphabet.toArray
-    arr(r)._1
+    cStack.getCard
   }
 
 }

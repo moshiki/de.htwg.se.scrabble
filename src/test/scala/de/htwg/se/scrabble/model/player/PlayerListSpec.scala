@@ -4,7 +4,7 @@ import org.scalatest._
 
 class PlayerListSpec extends WordSpec with Matchers{
   "A Playerlist" when { "new" should {
-    val listP = new PlayerList
+    val listP = PlayerList
     val p1 = Player("A", "Mampfred")
     val p2 = Player("B", "Lukas")
 

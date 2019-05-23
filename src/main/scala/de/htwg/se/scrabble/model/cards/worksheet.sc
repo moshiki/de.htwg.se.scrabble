@@ -1,5 +1,3 @@
-package de.htwg.se.scrabble.model.cards
-
 import scala.collection.mutable.ListBuffer
 
 object CardStack {
@@ -11,6 +9,7 @@ object CardStack {
 
   def getCard: String = {
     val r = util.Random.nextInt(cardCount.size)
-    cardList.remove(r)
+    val c = cardList.remove(r)
+    c
   }
 }
