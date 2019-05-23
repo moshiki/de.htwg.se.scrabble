@@ -16,19 +16,9 @@ class PlayerListSpec extends WordSpec with Matchers{
       assert(listP.contains(p2))
     }
 
-    "have a Liste of the two Player" in {
+    "have a list of the two Players" in {
       listP.getList should be(List(p1,p2))
-     // listP.print() should be("MASSD")
     }
-
-    "Assert False!" in {
-    // assert(p1 == listP.remove(p1))
-     // listP.remove(p1)
-      //listP.contains(p1) should be("Player not Found!")
-        //fail()
-       }
-
-
   }
   }
 }
