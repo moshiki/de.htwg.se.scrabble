@@ -19,6 +19,10 @@ class PlayerListSpec extends WordSpec with Matchers{
     "have a list of the two Players" in {
       listP.getList should be(List(p1,p2))
     }
+
+    "return players as string when toString is called" in {
+      listP.toString should (include (p1.toString) and include (p2.toString))
+    }
   }
   }
 }
