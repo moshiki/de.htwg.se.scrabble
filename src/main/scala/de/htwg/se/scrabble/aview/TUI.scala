@@ -105,12 +105,12 @@ class TUI(controller: Controller) extends Observer {
   }
 
   def players(): Unit = {
-    controller.players.print()
+    //println(controller.players.toString)
   }
 
   @Override
   def update: Boolean = {
-    controller.players.print() // TODO: Spieler ausgabe (Highlight activ player)
+    //println(controller.players.toString) // TODO: Spieler ausgabe (Highlight activ player)
     print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
