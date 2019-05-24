@@ -23,11 +23,11 @@ class ControllerSpec extends WordSpec with Matchers {
   }
   "A controller" should {
     val controller = new Controller()
-    "print the word list of the dictionary when printDict() is invoked" in {
-      controller.printDict()
+    "return the word list of the dictionary as string with dictToString" in {
+      controller.dictToString
     }
     "print the alphabet vector of the dictionary when printVector() is invoked" in {
-      controller.printVector()
+      controller.vectorToString
     }
     "create a new player with role and name when newPlayer(role, name) is invoked and no player exists" in {
       val player = controller.newPlayer("A", "name")

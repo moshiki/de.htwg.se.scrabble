@@ -80,9 +80,9 @@ class TUI(controller: Controller) extends Observer {
     println("dictionary reloaded")
   }
 
-  def printDict(): Unit = controller.printDict()
+  def printDict(): Unit = print(controller.dictToString)
 
-  def printVector(): Unit = controller.printVector()
+  def printVector(): Unit = print(controller.vectorToString)
 
   def player(parameters:Array[String]): Unit = {
     if (parameters.length == 3) {

@@ -15,9 +15,9 @@ class Controller extends Observable {
 
   var gameStatus: GameStatus = IDLE
 
-  def printDict(): Unit = dict.printDict()
+  def dictToString: String = dict.dictToString
 
-  def printVector(): Unit = dict.printVector()
+  def vectorToString: String = dict.vectorToString
 
   def reloadDict(): Unit = {
     dict = new Dictionary

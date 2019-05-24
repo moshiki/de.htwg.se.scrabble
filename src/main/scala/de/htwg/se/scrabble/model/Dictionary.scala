@@ -38,13 +38,17 @@ class Dictionary {
     } else { throw new FileNotFoundException("alphabet source file in \'"+ dictionaryPath+"\' not found!\")")}
   }
 
-  def printDict(): Unit = {
-    println("Word list:")
-    this.dict.toStream.sorted.foreach(println)
+  def dictToString: String = {
+    val str = new mutable.StringBuilder()
+    str.append("Word list:")
+    this.dict.toStream.sorted.foreach(x=>str.append("\n"+x))
+    str.toString()
   }
 
-  def printVector(): Unit = {
-    println("Alphabet vector:")
-    this.alphabet.toSeq.sortBy(_._1).foreach(println)
+  def vectorToString: String = {
+    val str = new mutable.StringBuilder()
+    str.append("Alphabet vector:")
+    this.alphabet.toSeq.sortBy(_._1).foreach(x=>str.append("\n"+x))
+    str.toString()
   }
 }
