@@ -1,6 +1,8 @@
 package de.htwg.se.scrabble.model.gameManager
 
-trait GameManager {
+import de.htwg.se.scrabble.util.Observable
+
+trait GameManager extends Observable {
   var status: String
   def getStatus: Boolean
   def statusToString: String

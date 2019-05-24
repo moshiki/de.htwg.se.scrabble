@@ -5,7 +5,7 @@ import de.htwg.se.scrabble.model.{Dictionary, FieldTemplate, RegularField}
 import de.htwg.se.scrabble.model.cards.{Card, CardStackTemplate, RegularCardStack}
 import de.htwg.se.scrabble.model.gameManager._
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
-import de.htwg.se.scrabble.util.Observable
+import de.htwg.se.scrabble.util.{Observable, Observer}
 
 class Controller extends Observable {
   private val dict = Dictionary
@@ -32,5 +32,4 @@ class Controller extends Observable {
   def getCard: Option[Card] = {
     stack.getCard
   }
-
 }
