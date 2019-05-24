@@ -11,7 +11,7 @@ class ControllerSpec extends WordSpec with Matchers {
       val observer = new Observer {
         var updated: Boolean = false
         def isUpdated: Boolean = updated
-        override def update = {updated = true; updated}
+        override def update: Boolean = {updated = true; updated}
       }
       controller.add(observer)
       "notify its Observer after reload the dictionary" in {

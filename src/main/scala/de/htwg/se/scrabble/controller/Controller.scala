@@ -7,7 +7,7 @@ import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
 
 class Controller extends Observable {
-  private var dict = Dictionary
+  private val dict = Dictionary
   var players = PlayerList
   var field: FieldTemplate = RegularField(15)
   val stack: CardStackTemplate = RegularCardStack
@@ -17,11 +17,6 @@ class Controller extends Observable {
   def dictToString: String = dict.dictToString
 
   def vectorToString: String = dict.vectorToString
-
-/*  def reloadDict(): Unit = {
-    dict = new Dictionary
-    notifyObservers
-  }*/
 
   def newGame(): Unit = {
     field = RegularField(15)

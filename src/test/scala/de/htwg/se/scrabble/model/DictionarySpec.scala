@@ -34,9 +34,6 @@ class DictionarySpec extends WordSpec with Matchers {
       }
     }
     "exists" should {
-      //val dictionary = Dictionary
-      /*override val dict: immutable.HashSet[String] = immutable.HashSet("d", "b", "a", "c")
-        val alphabet: immutable.TreeMap[String, Integer] = immutable.TreeMap(("C", 1), ("A", 2), ("D", 3), ("B", 4))*/
 
       "print out the dictionary in sorted order" in {
         val str1 = new mutable.StringBuilder()

@@ -73,11 +73,6 @@ class TUI(controller: Controller) extends Observer {
     System.exit(0)
   }
 
-/*  def reloadDict(): Unit = {
-    controller.reloadDict()
-    println("dictionary reloaded")
-  }*/
-
   def printDict(): Unit = print(controller.dictToString)
 
   def printVector(): Unit = print(controller.vectorToString)
