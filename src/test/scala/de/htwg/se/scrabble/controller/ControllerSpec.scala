@@ -41,7 +41,11 @@ class ControllerSpec extends WordSpec with Matchers {
     }
 
     "return a random card (letter of the alphabet) when getCard is called an stack is not empty" in {
-      controller.getCard.get should fullyMatch regex "[a-z#]"
+      val card = controller.getCard
+      if (card.isDefined)
+        card.get should fullyMatch regex "[a-z#]"
+      else
+        card should be(None)
     }
 
     "return a None when getCard is invoked and stack is empty" in {
