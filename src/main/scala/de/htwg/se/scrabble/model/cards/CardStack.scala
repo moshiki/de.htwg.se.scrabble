@@ -9,8 +9,12 @@ object CardStack {
 
   cardCount.foreach( x => for (i <- 1 to x._2) { cardList+=x._1})
 
-  def getCard: String = {
-    val r = util.Random.nextInt(cardCount.size)
-    cardList.remove(r)
+  def getCard: Option[String] = {
+    if (cardList.nonEmpty) {
+      Some(cardList.remove(util.Random.nextInt(cardList.size)))
+    } else
+      None
   }
+
+  def getSize: Integer = {cardList.size}
 }

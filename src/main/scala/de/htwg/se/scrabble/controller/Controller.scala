@@ -34,7 +34,7 @@ class Controller extends Observable {
     notifyObservers
   }
 
-  def getCard: String = {
+  def getCard: Option[String] = {
     cStack.getCard
   }
 

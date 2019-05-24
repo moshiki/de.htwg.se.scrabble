@@ -1,6 +1,7 @@
 package de.htwg.se.scrabble.controller
 
 import de.htwg.se.scrabble.model.Dictionary
+import de.htwg.se.scrabble.model.cards.CardStack
 import de.htwg.se.scrabble.util.Observer
 import org.scalatest._
 
@@ -39,8 +40,14 @@ class ControllerSpec extends WordSpec with Matchers {
       val player2 = controller.newPlayer("A", "newname")
     }
 
-    "return a random card (letter of the alphabet) when getCard is invoked" in {
-      controller.getCard should fullyMatch regex "[a-z]"
+    "return a random card (letter of the alphabet) when getCard is called an stack is not empty" in {
+      controller.getCard.get should fullyMatch regex "[a-z#]"
+    }
+
+    "return a None when getCard is invoked and stack is empty" in {
+      while (controller.cStack.getSize > 0)
+        controller.cStack.getCard
+      controller.getCard should be(None)
     }
 
   }
