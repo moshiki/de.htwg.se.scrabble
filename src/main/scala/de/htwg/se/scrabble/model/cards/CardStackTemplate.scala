@@ -1,6 +1,6 @@
 package de.htwg.se.scrabble.model.cards
 
-abstract class CardStackTemplate {
+trait CardStackTemplate {
 
   def getCard: Option[Card]
 
