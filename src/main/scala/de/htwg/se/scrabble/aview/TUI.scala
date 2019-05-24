@@ -107,7 +107,7 @@ class TUI(controller: Controller) extends Observer {
   def players(): Unit = {
     println(controller.players.toString)
   }
-
+  //A5-Wurst
   @Override
   def update: Boolean = {
     println()
