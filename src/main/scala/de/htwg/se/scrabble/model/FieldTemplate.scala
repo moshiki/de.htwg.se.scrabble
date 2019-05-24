@@ -1,6 +1,6 @@
 package de.htwg.se.scrabble.model
 
-trait FieldTemplate {
+abstract class FieldTemplate {
 
   def getCell(x:String, y: Integer): Cell //return cell for the coordinates
 

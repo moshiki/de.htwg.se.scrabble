@@ -1,6 +1,6 @@
 package de.htwg.se.scrabble.model.gameManager
 
-abstract case class GameManager() {
+trait GameManager {
   var status: String
   def getStatus: Boolean
   def statusToString: String
