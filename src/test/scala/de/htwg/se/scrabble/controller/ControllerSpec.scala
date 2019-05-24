@@ -1,7 +1,6 @@
 package de.htwg.se.scrabble.controller
 
-import de.htwg.se.scrabble.model.Dictionary
-import de.htwg.se.scrabble.model.cards.CardStack
+
 import de.htwg.se.scrabble.util.Observer
 import org.scalatest._
 
