@@ -14,7 +14,11 @@ case class RegularField(size: Integer) extends FieldTemplate {
   matrix(size/2)(size/2) = new Cell("X")
 
   def getCell(x:String, y:Integer): Cell = {
-      matrix(x.charAt(0)-65)(y)
+    matrix(x.charAt(0)-65)(y)
+  }
+
+  def setCell(x:String, y:Integer, value: String): Boolean = {
+    getCell(x,y).setValue(value)
   }
 
   override def toString: String = {
@@ -23,7 +27,7 @@ case class RegularField(size: Integer) extends FieldTemplate {
     board = board + "\n_______________________________\n"
     for ( i <- 0 until size){
       for ( j <- 0 until size){
-        board = board + "|" + matrix(i)(j).value
+        board = board + "|" + matrix(i)(j).getValue
       }
       board = board + "| " + i + "\n"
     }
@@ -35,7 +39,7 @@ case class RegularField(size: Integer) extends FieldTemplate {
     val str = new StringBuilder
     for { i <- 0 until size
           j <- 0 until size
-    } str.append(s"${matrix(i)(j).value}")
+    } str.append(s"${matrix(i)(j).getValue}")
     str.toString()
   }
 
@@ -43,7 +47,7 @@ case class RegularField(size: Integer) extends FieldTemplate {
     val str = new StringBuilder
     for { i <- 0 until size
           j <- 0 until size
-    } str.append(s"${matrix(j)(i).value}")
+    } str.append(s"${matrix(j)(i).getValue}")
     str.toString()
   }
 

@@ -39,7 +39,7 @@ class PlayerListSpec extends WordSpec with Matchers{
       listP.contains(Player("C", "Peter")) should be(false)
     }
 
-    "when exists is calles return true if player(role) exists, otherwise false" in {
+    "when exists is called return true if player(role) exists, otherwise false" in {
       listP.exists("a") should be(true)
       listP.exists("c") should be(false)
     }
