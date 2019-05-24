@@ -1,17 +1,16 @@
 package de.htwg.se.scrabble.controller
 
 import de.htwg.se.scrabble.controller.GameStatus._
-import de.htwg.se.scrabble.model.RegularField
-import de.htwg.se.scrabble.model.Dictionary
-import de.htwg.se.scrabble.model.cards.CardStack
+import de.htwg.se.scrabble.model.{Dictionary, FieldTemplate, RegularField}
+import de.htwg.se.scrabble.model.cards.{Card, CardStackTemplate, RegularCardStack}
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
 
 class Controller extends Observable {
   private var dict = new Dictionary
   var players = PlayerList
-  var field = RegularField(15)
-  val stack = CardStack
+  var field: FieldTemplate = RegularField(15)
+  val stack: CardStackTemplate = RegularCardStack
 
   var gameStatus: GameStatus = IDLE
 
@@ -26,7 +25,6 @@ class Controller extends Observable {
 
   def newGame(): Unit = {
     field = RegularField(15)
-
   }
 
   def newPlayer(role:String, name:String): Unit = {
@@ -34,7 +32,7 @@ class Controller extends Observable {
     notifyObservers
   }
 
-  def getCard: Option[String] = {
+  def getCard: Option[Card] = {
     stack.getCard
   }
 

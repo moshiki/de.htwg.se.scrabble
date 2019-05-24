@@ -51,7 +51,5 @@ case class RegularField(size: Integer) extends FieldTemplate {
     str.toString()
   }
 
-  // vor einfügen prüfen ob und wo das wort eingebaut werden kann. Anschließende auswahl über nummern mit Punktevergabe. Bei einziger legemöglichkeit direkte auswahl
-  // Savegame je runde: spieler und deren Punktestand. Zustand des Feldes. Karten der Hand.
-  // Eigabemöglichkeit: Kleinbustaben = Hand; Großbustaben = Feld; Programm sucht wo es gebildet werden kann und gibt vorschläge für wahl?
+  // undo je runde: spieler und deren Punktestand. Zustand des Feldes. Karten der Hand.
 }
