@@ -1,6 +1,6 @@
 package de.htwg.se.scrabble.model
 
-class Field(size: Integer) {
+case class RegularField(size: Integer) extends FieldTemplate {
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 
@@ -26,16 +26,20 @@ class Field(size: Integer) {
     board
   }
 
-  def printHor(): Unit = {
+  def getRows: String = {
+    val str = new StringBuilder
     for { i <- 0 until size
           j <- 0 until size
-    } print(s"${matrix(i)(j).value}")
+    } str.append(s"${matrix(i)(j).value}")
+    str.toString()
   }
 
-  def printVer(): Unit = {
+  def getCols: String = {
+    val str = new StringBuilder
     for { i <- 0 until size
           j <- 0 until size
-    } print(s"${matrix(j)(i).value}")
+    } str.append(s"${matrix(j)(i).value}")
+    str.toString()
   }
 
   // vor einfügen prüfen ob und wo das wort eingebaut werden kann. Anschließende auswahl über nummern mit Punktevergabe. Bei einziger legemöglichkeit direkte auswahl

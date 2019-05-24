@@ -30,6 +30,12 @@ object PlayerList {
     str.toString()
   }
 
+  /*def toStringH: String = {
+    val str = new mutable.StringBuilder()
+    playerMap.foreach(x => str.append(x._2.toString + "\n"))
+    str.toString()
+  }*/
+
   /*private def getByPlayer(player:Player): String = {
 
       val revMap = playerMap map {_.swap}

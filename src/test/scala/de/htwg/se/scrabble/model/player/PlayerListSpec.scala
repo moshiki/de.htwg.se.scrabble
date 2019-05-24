@@ -24,6 +24,10 @@ class PlayerListSpec extends WordSpec with Matchers{
       listP.toString should (include (p1.toString) and include (p2.toString))
     }
 
+    "return players as string with current player highlighted when toStringH is calles" in {
+      //listP.toStringH should (include (p1.toString.toUpperCase) and include (p2.toString))
+    }
+
     "return the player when get(player) is called or None when player not exists" in {
       listP.get(p1.role) should be(Some(p1))
       listP.get(p2.role) should be(Some(p2))
