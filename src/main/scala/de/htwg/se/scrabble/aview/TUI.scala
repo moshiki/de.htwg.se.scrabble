@@ -38,8 +38,6 @@ class TUI(controller: Controller) extends Observer {
     ||                        |                                                                                                                                     |
     ||  new                   |   Play Scrabble                                                                                                                     |
     ||                        |                                                                                                                                     |
-    ||  rl                    |   reload dictionary - reloads the dictionary from text file                                                                         |
-    ||                        |                                                                                                                                     |
     ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
     ||                        |                                                                                                                                     |
     ||  pv                    |   print vector - prints the alphabet vector to console                                                                              |
@@ -59,7 +57,7 @@ class TUI(controller: Controller) extends Observer {
       command(0) match {
         case "exit" => exit()
         case "help" => println(help)
-        case "rl" => reloadDict()
+        //case "rl" => reloadDict()
         case "new" => newGame()
         case "pd" => printDict()
         case "pv" => printVector()
@@ -75,10 +73,10 @@ class TUI(controller: Controller) extends Observer {
     System.exit(0)
   }
 
-  def reloadDict(): Unit = {
+/*  def reloadDict(): Unit = {
     controller.reloadDict()
     println("dictionary reloaded")
-  }
+  }*/
 
   def printDict(): Unit = print(controller.dictToString)
 

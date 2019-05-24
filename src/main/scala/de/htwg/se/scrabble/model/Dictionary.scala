@@ -6,7 +6,7 @@ import java.io.{File, FileNotFoundException}
 
 import scala.collection.immutable
 
-class Dictionary {
+object Dictionary {
   private val directory = System.getProperty("user.dir")
   private val alphaPath = directory + "/src/main/resources/alphabet.txt"
   private val dictionaryPath = directory + "/src/main/resources/deutsch2000.txt"
