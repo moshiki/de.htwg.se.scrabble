@@ -4,7 +4,7 @@ import de.htwg.se.scrabble.model.cards.Card
 
 case class Player(role: String, name: String) {
   private var hand: List[Card] = Nil
-  private var handSize = 7
+  private val handSize = 7
 
   def getHand: List[Card] = hand
 
