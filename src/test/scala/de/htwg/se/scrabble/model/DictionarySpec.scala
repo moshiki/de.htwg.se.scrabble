@@ -37,18 +37,10 @@ class DictionarySpec extends WordSpec with Matchers {
         override val alphabet:mutable.TreeMap[String, Integer] = mutable.TreeMap(("C",1),("A",2),("D",3),("B",4))
 
       "print out the dictionary in sorted order" in {
-        /*val stream = new java.io.ByteArrayOutputStream()
-        Console.withOut(stream) {dictToString()}
-        // windows: stream.toString should be("Word list:\r\na\r\nb\r\nc\r\nd\r\n")
-        stream.toString*/ dictToString should be("Word list:\na\nb\nc\nd")
+        dictToString should be("Word list:\na\nb\nc\nd")
       }
       "print out the alphabet map in sorted order" in {
-        /*val stream = new java.io.ByteArrayOutputStream()
-        Console.withOut(stream) {
-          printVector()
-        }
-        // windows: stream.toString should be("Alphabet vector:\r\n(A,2)\r\n(B,4)\r\n(C,1)\r\n(D,3)\r\n")
-        stream.toString*/ vectorToString should be("Alphabet vector:\n(A,2)\n(B,4)\n(C,1)\n(D,3)")
+        vectorToString should be("Alphabet vector:\n(A,2)\n(B,4)\n(C,1)\n(D,3)")
       }
     }}
 }
