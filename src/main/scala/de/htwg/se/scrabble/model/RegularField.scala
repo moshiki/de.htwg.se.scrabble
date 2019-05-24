@@ -1,6 +1,7 @@
 package de.htwg.se.scrabble.model
 
 case class RegularField(size: Integer) extends FieldTemplate {
+
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 
@@ -12,9 +13,13 @@ case class RegularField(size: Integer) extends FieldTemplate {
 
   matrix(size/2)(size/2) = new Cell("X")
 
+  def getCell(x:String, y:Integer): Cell = {
+      matrix(x.charAt(0)-65)(y)
+  }
+
   override def toString: String = {
     var board: String = "|"
-    for (a<- 65 until (65+ size)) board = board + a.toChar + "|"
+    for (a <- 65 until (65+ size)) board = board + a.toChar + "|"
     board = board + "\n_______________________________\n"
     for ( i <- 0 until size){
       for ( j <- 0 until size){
