@@ -57,7 +57,6 @@ class TUI(controller: Controller) extends Observer {
       command(0) match {
         case "exit" => exit()
         case "help" => println(help)
-        //case "rl" => reloadDict()
         case "new" => newGame()
         case "pd" => printDict()
         case "pv" => printVector()
