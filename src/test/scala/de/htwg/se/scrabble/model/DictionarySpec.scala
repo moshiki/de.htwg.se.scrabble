@@ -4,8 +4,8 @@ import java.io.FileNotFoundException
 
 import org.scalatest._
 import org.scalatest.PrivateMethodTester._
+import scala.collection.immutable
 
-import scala.collection.mutable
 
 class DictionarySpec extends WordSpec with Matchers {
   "A Dictionary is a tailor-made datatype that contains a set of words and a map with a value" +
@@ -21,8 +21,8 @@ class DictionarySpec extends WordSpec with Matchers {
     }
       "throw FileNotFoundException when input files not found" in {
         val dictionary = new Dictionary()
-        val loadAlphabet = PrivateMethod[mutable.HashMap[String, Integer]]('loadAlphabet)
-        val loadDictionary = PrivateMethod[mutable.HashSet[String]]('loadDictionary)
+        val loadAlphabet = PrivateMethod[immutable.HashMap[String, Integer]]('loadAlphabet)
+        val loadDictionary = PrivateMethod[immutable.HashSet[String]]('loadDictionary)
         intercept[FileNotFoundException] {
           dictionary invokePrivate loadAlphabet("falseFile.txt")
         }
@@ -33,8 +33,8 @@ class DictionarySpec extends WordSpec with Matchers {
   }
     "exists" should {
       val dictionary = new Dictionary {
-        override val dict:mutable.HashSet[String] = mutable.HashSet("d","b","a","c")
-        override val alphabet:mutable.TreeMap[String, Integer] = mutable.TreeMap(("C",1),("A",2),("D",3),("B",4))
+        override val dict:immutable.HashSet[String] = immutable.HashSet("d","b","a","c")
+        override val alphabet:immutable.TreeMap[String, Integer] = immutable.TreeMap(("C",1),("A",2),("D",3),("B",4))
 
       "print out the dictionary in sorted order" in {
         dictToString should be("Word list:\na\nb\nc\nd")
