@@ -3,13 +3,13 @@ package de.htwg.se.scrabble.model.cards
 import scala.collection.mutable.ListBuffer
 
 object RegularCardStack extends CardStackTemplate {
-  private val cardCount: Map[String, Integer] = Map("a"->6, "b"->2, "c"->4,"d"->6,"e"->16,"f"->3,"g"->3,"h"->5,"i"->9,"j"->1,
-    "k"->2,"l"->4,"m"->4,"n"->10,"o"->4,"p"->1,"q"->1,"r"->7,"s"->8,"t"->5,"u"->6,"v"->1,"w"->2,"x"->1,"y"->1,"z"->2,"#"->2)
-  private var cardList: ListBuffer[String] = ListBuffer()
+  private val cardCount: Map[String, Integer] = Map("A"->6, "B"->2, "C"->4,"D"->6,"E"->16,"F"->3,"G"->3,"H"->5,"I"->9,"J"->1,
+    "K"->2,"L"->4,"M"->4,"N"->10,"O"->4,"P"->1,"Q"->1,"R"->7,"S"->8,"T"->5,"U"->6,"V"->1,"W"->2,"X"->1,"Y"->1,"Z"->2,"#"->2)
+  private var cardList: ListBuffer[Card] = ListBuffer()
 
-  cardCount.foreach( x => for (i <- 1 to x._2) { cardList+=x._1})
+  cardCount.foreach( x => for (i <- 1 to x._2) { cardList+=Card(x._1)})
 
-  override def getCard: Option[String] = {
+  override def getCard: Option[Card] = {
     if (cardList.nonEmpty) {
       Some(cardList.remove(util.Random.nextInt(cardList.size)))
     } else

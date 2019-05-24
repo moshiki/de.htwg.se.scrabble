@@ -9,7 +9,7 @@ class RegularCardStackSpec extends WordSpec with Matchers {
         val card = stack.getCard
         if (card.isDefined) {
           stack.getSize should not be 0
-          card.get should fullyMatch regex "[a-z#]"
+          card.get.value should fullyMatch regex "[A-Z*#]"
         } else
           stack.getSize should be(0)
       }

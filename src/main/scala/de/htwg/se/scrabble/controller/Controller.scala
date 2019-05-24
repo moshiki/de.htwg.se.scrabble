@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.controller
 
 import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.model.{Dictionary, FieldTemplate, RegularField}
-import de.htwg.se.scrabble.model.cards.{CardStackTemplate, RegularCardStack}
+import de.htwg.se.scrabble.model.cards.{Card, CardStackTemplate, RegularCardStack}
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.Observable
 
@@ -32,7 +32,7 @@ class Controller extends Observable {
     notifyObservers
   }
 
-  def getCard: Option[String] = {
+  def getCard: Option[Card] = {
     stack.getCard
   }
 
