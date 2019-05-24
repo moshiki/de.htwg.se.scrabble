@@ -45,8 +45,8 @@ class ControllerSpec extends WordSpec with Matchers {
     }
 
     "return a None when getCard is invoked and stack is empty" in {
-      while (controller.cStack.getSize > 0)
-        controller.cStack.getCard
+      while (controller.stack.getSize > 0)
+        controller.stack.getCard
       controller.getCard should be(None)
     }
 

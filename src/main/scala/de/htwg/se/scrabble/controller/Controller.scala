@@ -11,7 +11,7 @@ class Controller extends Observable {
   private var dict = new Dictionary
   var players = PlayerList
   var field = new RegularField(15)
-  val cStack = CardStack
+  val stack = CardStack
 
   var gameStatus: GameStatus = IDLE
 
@@ -25,7 +25,7 @@ class Controller extends Observable {
   }
 
   def newGame(): Unit = {
-    field = new RegularField(15)
+    field = RegularField(15)
 
   }
 
@@ -35,7 +35,7 @@ class Controller extends Observable {
   }
 
   def getCard: Option[String] = {
-    cStack.getCard
+    stack.getCard
   }
 
 }
