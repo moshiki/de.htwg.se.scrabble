@@ -10,7 +10,7 @@ import de.htwg.se.scrabble.util.Observable
 class Controller extends Observable {
   private val dict = Dictionary
   var players = PlayerList
-  var field = RegularField(15)
+  var field: FieldTemplate = RegularField(15)
   val stack: CardStackTemplate = RegularCardStack
 
   var roundManager: GameManager = SetupManager()
