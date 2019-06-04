@@ -13,6 +13,7 @@ class RegularFieldSpec extends FlatSpec with Matchers{
     rf.setCell("A", 1, "V") should be(true)
     rf.setCell("B", 2, "Z") should be(true)
     rf.setCell("C", 3, "Y") should be(true)
+    rf.setCell("C", 3, "y") should be(false)
   }
 
   "A Printed Field" should "contain the H from the Test Before" in {
@@ -24,4 +25,6 @@ class RegularFieldSpec extends FlatSpec with Matchers{
   "The Printed Col" should "contain the H from the Test Before" in {
     rf.getCols should contain('Y')
   }
+
+
 }
