@@ -1,7 +1,6 @@
 package de.htwg.se.scrabble.model
 
 case class RegularField(size: Integer) extends FieldTemplate {
-
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 
