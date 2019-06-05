@@ -26,8 +26,8 @@ class CellSpec extends WordSpec with Matchers {
       "return false" in {
         false === cell.isLetter(cell.getValue)
       }
-  }
-  "str is a capital letter" should {
+    }
+    "str is a capital letter" should {
       val cell = new Cell(letter = "A")
       "return true" in {
         true === cell.isLetter(cell.getValue)

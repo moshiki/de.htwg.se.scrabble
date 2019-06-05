@@ -3,23 +3,45 @@ package de.htwg.se.scrabble.aview
 import de.htwg.se.scrabble.controller.Controller
 import org.scalatest._
 
-class TUISpec extends WordSpec with Matchers {
-  "The TUI is unspected" when { "new" should {
-  //  val ct = new Controller
-  //  val tui = new TUI(ct)
+class TUISpec extends FlatSpec with Matchers {
+  val ct = new Controller
+  val tui = new TUI(ct)
 
-  //  "Gives Strings Back" in {
-  //    tui.artScrabble() should include("--------------")
-  //  }
-
-  //  "Gives Strings Back" in {
-  //     tui.head() should include("SCRABBLE")
-  //  }
-
-  //  "Gives Strings Back" in {
-  //    tui.help() should include("commands")
- //   }
-  }
-  }
-
+    "TUI initialisation" should "build the Main Screen in Text Form" in {
+      tui.init should be(
+        """
+          | .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
+          || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+          || |    _______   | || |     ______   | || |  _______     | || |      __      | || |   ______     | || |   ______     | || |   _____      | || |  _________   | |
+          || |   /  ___  |  | || |   .' ___  |  | || | |_   __ \    | || |     /  \     | || |  |_   _ \    | || |  |_   _ \    | || |  |_   _|     | || | |_   ___  |  | |
+          || |  |  (__ \_|  | || |  / .'   \_|  | || |   | |__) |   | || |    / /\ \    | || |    | |_) |   | || |    | |_) |   | || |    | |       | || |   | |_  \_|  | |
+          || |   '.___`-.   | || |  | |         | || |   |  __ /    | || |   / ____ \   | || |    |  __'.   | || |    |  __'.   | || |    | |   _   | || |   |  _|  _   | |
+          || |  |`\____) |  | || |  \ `.___.'\  | || |  _| |  \ \_  | || | _/ /    \ \_ | || |   _| |__) |  | || |   _| |__) |  | || |   _| |__/ |  | || |  _| |___/ |  | |
+          || |  |_______.'  | || |   `._____.'  | || | |____| |___| | || ||____|  |____|| || |  |_______/   | || |  |_______/   | || |  |________|  | || | |_________|  | |
+          || |            1 | || |            3 | || |            1 | || |            1 | || |            3 | || |            3 | || |            1 | || |            1 | |
+          || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+          | '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
+          ||                                                                                                                                                              |
+          ||                                                                                                                                                              |
+          ||                                                                   SCRABBLE IN SCALA                                                                          |
+          ||                                                                                                                                                              |
+          ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+          ||                                                                                                                                                              |
+          || commands                   function                                                                                                                          |
+          ||                        |                                                                                                                                     |
+          ||  new                   |   Play Scrabble                                                                                                                     |
+          ||                        |                                                                                                                                     |
+          ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
+          ||                        |                                                                                                                                     |
+          ||  pv                    |   print vector - prints the alphabet vector to console                                                                              |
+          ||                        |                                                                                                                                     |
+          ||  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                                                                           |
+          ||                        |                                                                                                                                     |
+          ||  players               |   displays a list of the players                                                                                                    |
+          ||                        |                                                                                                                                     |
+          ||  help                  |   displays the command list                                                                                                         |
+          ||                        |                                                                                                                                     |
+          ||  exit                  |   exit scrabble                                                                                                                     |
+          ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin)
+    }
 }
