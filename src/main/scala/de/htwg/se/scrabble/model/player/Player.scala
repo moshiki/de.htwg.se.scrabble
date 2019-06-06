@@ -18,5 +18,9 @@ case class Player(role: String, name: String) {
     false
   }
 
+  // ToDo: FUnktion zum legen einer Karte implementieren. Muss prüfen, ob Karte auch wirklich in Hand vorhanden ist.
+
+  // ToDO: Punkte im SPieler speichern
+
   override def toString:String = "Player "+role+": "+name
 }
