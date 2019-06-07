@@ -22,7 +22,7 @@ class Controller extends Observable {
 
   def newGame(): Unit = {
     roundManager = SetupManager(this)
-
+    RoundManager(this)
     gameStatus
     notifyObservers
   }

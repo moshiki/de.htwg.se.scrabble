@@ -6,4 +6,6 @@ trait CardStackTemplate {
 
   def getSize: Integer
 
+  def isEmpty: Boolean
+
 }

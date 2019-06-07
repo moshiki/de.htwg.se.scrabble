@@ -2,11 +2,22 @@ package de.htwg.se.scrabble.model.player
 
 import de.htwg.se.scrabble.model.cards.Card
 
+import scala.collection.mutable.ArrayBuffer
+
 case class Player(role: String, name: String) {
   private var hand: List[Card] = Nil
   private val handSize = 7
 
   def getHand: List[Card] = hand
+
+  def putCard(card: Card): Option[Card] = {
+    if (hand.contains(card)) {
+      hand = ((ArrayBuffer() ++ hand) - card).toList
+      card
+    } else {
+      None
+    }
+  }
 
   def getNrCardsInHand: Integer = hand.size
 

@@ -17,4 +17,6 @@ object RegularCardStack extends CardStackTemplate {
   }
 
   override def getSize: Integer = {cardList.size}
+
+  override def isEmpty: Boolean = cardList.isEmpty
 }
