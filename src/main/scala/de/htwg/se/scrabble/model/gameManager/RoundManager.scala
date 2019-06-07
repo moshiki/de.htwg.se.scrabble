@@ -4,8 +4,12 @@ import de.htwg.se.scrabble.controller.Controller
 
 case class RoundManager(controller:Controller) extends GameManager {
   override var status: String = _
+  override var nextState: GameManager = this
+
 
   fillHand
+
+  switchToNextState
 
   override def getStatus: Boolean = ???
   override def statusToString: String = ???
@@ -19,5 +23,7 @@ case class RoundManager(controller:Controller) extends GameManager {
       }
     }
   }
+
+  override def switchToNextState: Unit = controller.roundManager = nextState
 
 }
