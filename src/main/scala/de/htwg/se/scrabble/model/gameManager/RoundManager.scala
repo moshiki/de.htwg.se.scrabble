@@ -5,7 +5,7 @@ import de.htwg.se.scrabble.controller.Controller
 case class RoundManager(controller:Controller) extends GameManager {
   override var status: String = _
 
-
+  fillHand
 
   override def getStatus: Boolean = ???
   override def statusToString: String = ???
