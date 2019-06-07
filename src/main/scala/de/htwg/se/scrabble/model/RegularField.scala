@@ -50,5 +50,9 @@ case class RegularField(size: Integer) extends FieldTemplate {
     str.toString()
   }
 
-  // undo je runde: spieler und deren Punktestand. Zustand des Feldes. Karten der Hand.
+  def set(x:Array[Integer], y:Array[Integer], b:Array[String]): Unit = {
+   // for { z <- 0 until size} matrix(x(y(z))).setValue(b)
+  }
+
+  // undo je runde: Punktestand. Feld vektor. Karten der Hand.
 }

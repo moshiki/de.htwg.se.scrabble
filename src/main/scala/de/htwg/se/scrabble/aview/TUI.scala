@@ -7,7 +7,6 @@ import scala.collection.immutable.Nil
 
 class TUI(controller: Controller) extends Observer {
   controller.add(this)
-
   println(init)
 
   def init: String = artScrabble + head + help
@@ -104,7 +103,7 @@ class TUI(controller: Controller) extends Observer {
   def update: Boolean = {
     println()
     println(controller.players.toString) // TODO: Spieler ausgabe (Highlight activ player)
-    print(controller.field.toString)
+    print(controller.grid.toString)
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
     true

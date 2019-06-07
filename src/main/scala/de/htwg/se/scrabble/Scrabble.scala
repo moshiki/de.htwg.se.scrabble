@@ -1,8 +1,7 @@
 package de.htwg.se.scrabble
 
 import de.htwg.se.scrabble.aview.TUI
-import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.model.gameManager.SetCommand
+import de.htwg.se.scrabble.controller.{Controller, SetCommand}
 
 import scala.io.StdIn.readLine
 

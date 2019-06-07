@@ -10,7 +10,7 @@ import de.htwg.se.scrabble.util.{Observable, Observer}
 class Controller extends Observable {
   private val dict = Dictionary
   var players = PlayerList
-  var field: FieldTemplate = RegularField(15)
+  var grid: FieldTemplate = RegularField(15)
   val stack: CardStackTemplate = RegularCardStack
 
   var roundManager: GameManager = SetupManager()
@@ -21,7 +21,7 @@ class Controller extends Observable {
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
-    field = RegularField(15)
+    grid = RegularField(15)
     players.put(Player("player a", "1"))
     players.put(Player("player b", "2"))
     gameStatus
@@ -36,4 +36,5 @@ class Controller extends Observable {
   def getCard: Option[Card] = {
     stack.getCard
   }
+
 }
