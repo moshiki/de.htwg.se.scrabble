@@ -11,9 +11,9 @@ class Controller extends Observable {
   private val dict = Dictionary
   var players = PlayerList
   var field: FieldTemplate = RegularField(15)
-  val stack: CardStackTemplate = RegularCardStack
+  var stack: CardStackTemplate = RegularCardStack()
 
-  var roundManager: GameManager = SetupManager()
+  var roundManager: GameManager = PreSetupManager(this)
   var gameStatus: GameStatus = IDLE
 
   def dictToString: String = dict.dictToString
@@ -21,7 +21,10 @@ class Controller extends Observable {
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
-    field = RegularField(15)
+    roundManager = SetupManager(this)
+
+    gameStatus
+    notifyObservers
   }
 
   def newPlayer(role:String, name:String): Unit = {
