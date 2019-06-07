@@ -22,6 +22,10 @@ class Controller extends Observable {
 
   def newGame(): Unit = {
     field = RegularField(15)
+    players.put(Player("player a", "1"))
+    players.put(Player("player b", "2"))
+    gameStatus
+    notifyObservers
   }
 
   def newPlayer(role:String, name:String): Unit = {

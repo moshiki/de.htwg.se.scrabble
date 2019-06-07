@@ -9,7 +9,7 @@ object PlayerList {
 
   def contains(player:Player): Boolean = revMap().contains(player)
 
-  def exists(role:String): Boolean = if (get(role).isDefined) true else false
+//  def exists(role:String): Boolean = if (get(role).isDefined) true else false
 
   //def remove(player:Player): Option[Player] = playerMap.remove(getByPlayer(player))
 
