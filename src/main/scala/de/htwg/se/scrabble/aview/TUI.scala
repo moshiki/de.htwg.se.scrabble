@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.aview
 
-import de.htwg.se.scrabble.controller.{Controller, GameStatus}
-import de.htwg.se.scrabble.util.Observer
+import de.htwg.se.scrabble.controller.{Controller, GameStatus, SetCommand}
+import de.htwg.se.scrabble.util.{Observer, ProccessWord}
 
 import scala.collection.immutable.Nil
 
@@ -61,6 +61,9 @@ class TUI(controller: Controller) extends Observer {
         case "pv" => printVector()
         case "player" => player(command)
         case "players" => players()
+        case "set" => ProccessWord.setWord(command, controller)
+        case "undo" => ProccessWord.undo(controller)
+        case "redo" => ProccessWord.redo(controller)
         case "" =>
         case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
@@ -107,6 +110,9 @@ class TUI(controller: Controller) extends Observer {
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
     true
-
   }
+
+
+
+
 }

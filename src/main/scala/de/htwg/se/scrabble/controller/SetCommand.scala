@@ -1,25 +1,13 @@
 package de.htwg.se.scrabble.controller
 
+import de.htwg.se.scrabble.model.FieldTemplate
+import de.htwg.se.scrabble.model.cards.CardStackTemplate
+import de.htwg.se.scrabble.model.player.PlayerList
 import de.htwg.se.scrabble.util.Command
 
-
-
-//TODO: Commands hier einbauen und nur aufrufen lassen von TUI und GUI
-class SetCommand(controller: Controller) extends Command {
-
-  def execute(com:String) : Unit {
-
-  }
-
-    override def doStep:   Unit = controller.grid = controller.grid.set(row, col, value)
-
-    override def undoStep: Unit = controller.grid = controller.grid.set(row, col, 0)
-
-    override def redoStep: Unit = controller.grid = controller.grid.set(row, col, value)
-
-
-  override def doStep:   Unit = controller.grid = controller.grid.set(row, col, value)
-  override def undoStep: Unit = controller.grid = controller.grid.set(row, col, 0)
-  override def redoStep: Unit = controller.grid = controller.grid.set(row, col, value)
+class SetCommand(grid:FieldTemplate, players: PlayerList, stack: CardStackTemplate, controller: Controller) extends Command {
+  override def doStep:   Unit = controller.set(grid, players, stack)
+  override def undoStep: Unit = controller.set(grid, players, stack)
+  override def redoStep: Unit = controller.set(grid, players, stack)
 }
 

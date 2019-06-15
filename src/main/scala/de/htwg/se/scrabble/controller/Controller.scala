@@ -5,13 +5,16 @@ import de.htwg.se.scrabble.model.{Dictionary, FieldTemplate, RegularField}
 import de.htwg.se.scrabble.model.cards.{Card, CardStackTemplate, RegularCardStack}
 import de.htwg.se.scrabble.model.gameManager._
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
-import de.htwg.se.scrabble.util.{Observable, Observer}
+import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
+
 
 class Controller extends Observable {
   private val dict = Dictionary
-  var players = PlayerList
-  var grid: FieldTemplate = RegularField(15)
-  val stack: CardStackTemplate = RegularCardStack
+  var players =  new PlayerList
+  var grid: FieldTemplate = new RegularField(15)
+  var stack: CardStackTemplate = new RegularCardStack
+
+  var undoManager: UndoManager = new UndoManager
 
   var roundManager: GameManager = SetupManager()
   var gameStatus: GameStatus = IDLE
@@ -24,8 +27,12 @@ class Controller extends Observable {
     grid = RegularField(15)
     players.put(Player("player a", "1"))
     players.put(Player("player b", "2"))
-    gameStatus
+//    gameStatus
     notifyObservers
+  }
+
+  def newGrid(): Unit = {
+
   }
 
   def newPlayer(role:String, name:String): Unit = {
@@ -37,4 +44,9 @@ class Controller extends Observable {
     stack.getCard
   }
 
+  def set(newGrid:FieldTemplate, newPlayers: PlayerList, newCards: CardStackTemplate): Unit = {
+    this.players = newPlayers
+    this.grid = newGrid
+    this.stack = newCards
+  }
 }

@@ -50,7 +50,7 @@ case class RegularField(size: Integer) extends FieldTemplate {
     str.toString()
   }
 
-  def set(x:Array[Integer], y:Array[Integer], b:Array[String]): Unit = {
+  def set(): Unit = {
    // for { z <- 0 until size} matrix(x(y(z))).setValue(b)
   }
 

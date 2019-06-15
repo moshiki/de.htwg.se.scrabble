@@ -1,6 +1,7 @@
 package de.htwg.se.scrabble.util
 
-class UndoManager {
+
+class UndoManager { // invoker
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
 

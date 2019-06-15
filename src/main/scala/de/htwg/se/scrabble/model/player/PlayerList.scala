@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.model.player
 
 import scala.collection.mutable
 
-object PlayerList {
+class PlayerList {
   private val playerMap = mutable.TreeMap[String, Player]()
 
   def put(player:Player): Option[Player] = playerMap.put(player.role, player)
@@ -47,6 +47,5 @@ object PlayerList {
   private def revMap(): mutable.Map[Player, String] = {
     mutable.Map[Player, String]() ++= playerMap map {_.swap}
   }
-
 
 }
