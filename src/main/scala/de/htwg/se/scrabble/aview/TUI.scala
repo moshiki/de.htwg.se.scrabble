@@ -60,8 +60,14 @@ class TUI(controller: Controller) extends Observer {
         case "pv" => printVector()
         case "player" => player(command)
         case "players" => players()
-        case "" =>
-        case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
+        case "undo" => controller.undo()
+        case "redo" => controller.redo()
+        //case "set" => controller.set(command[1].toString().charAt(0), command[1].toString().charAt(1), command[2].toString())
+        case _ => com.toList.filter(c => c != ' ').filter(_.isDigit).map(c => c.toString.toInt) match {
+          case row :: col :: value :: Nil => controller.set(row, col, value)
+          case _ =>
+        }
+        //case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
   }
 
