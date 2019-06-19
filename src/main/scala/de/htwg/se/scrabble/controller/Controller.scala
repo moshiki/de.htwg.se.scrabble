@@ -11,7 +11,7 @@ class Controller extends Observable {
   private val dict = Dictionary
   var players = PlayerList
   var field: FieldTemplate = RegularField(15)
-  var stack: CardStackTemplate = RegularCardStack()
+  var stack: CardStackTemplate = RegularCardStack
 
   var roundManager: GameManager = PreSetupManager(this)
   var gameStatus: GameStatus = IDLE

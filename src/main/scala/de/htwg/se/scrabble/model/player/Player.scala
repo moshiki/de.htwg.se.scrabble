@@ -13,7 +13,7 @@ case class Player(role: String, name: String) {
   def putCard(card: Card): Option[Card] = {
     if (hand.contains(card)) {
       hand = ((ArrayBuffer() ++ hand) - card).toList
-      card
+      Some(card)
     } else {
       None
     }

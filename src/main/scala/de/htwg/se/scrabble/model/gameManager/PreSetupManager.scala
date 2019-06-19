@@ -6,7 +6,6 @@ case class PreSetupManager(controller:Controller) extends GameManager {
   override var status: String = _
   override var nextState: GameManager = SetupManager(controller)
 
-  switchToNextState
 
   override def getStatus: Boolean = ???
 

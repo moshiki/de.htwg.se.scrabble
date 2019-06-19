@@ -30,19 +30,6 @@ object PlayerList {
     str.toString()
   }
 
-  /*def toStringH: String = {
-    val str = new mutable.StringBuilder()
-    playerMap.foreach(x => str.append(x._2.toString + "\n"))
-    str.toString()
-  }*/
-
-  /*private def getByPlayer(player:Player): String = {
-
-      val revMap = playerMap map {_.swap}
-      revMap.get(player) match {
-        case None => ""
-      }
-  }*/
 
   private def revMap(): mutable.Map[Player, String] = {
     mutable.Map[Player, String]() ++= playerMap map {_.swap}

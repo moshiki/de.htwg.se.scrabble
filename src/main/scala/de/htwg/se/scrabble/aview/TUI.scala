@@ -104,6 +104,12 @@ class TUI(controller: Controller) extends Observer {
   def update: Boolean = {
     println()
     println(controller.players.toString) // TODO: Spieler ausgabe (Highlight activ player)
+    if (controller.players.exists("A")) {
+      println("Hand player a: " + controller.players.get("A").get.getHand.toString())
+    }
+    if (controller.players.exists("B")) {
+      println("Hand player b: " + controller.players.get("B").get.getHand.toString())
+    }
     print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
