@@ -5,7 +5,8 @@ import de.htwg.se.scrabble.model.player.Player
 
 case class SetupManager(controller:Controller) extends GameManager {
   override var status: String = _
-  override var nextState: GameManager = RoundManager(controller)
+  //override var nextState: GameManager = RoundManager(controller)
+  this.add(controller)
 
   controller.players.put(Player("A", "human being"))
   controller.players.put(Player("B", "human being"))
@@ -17,5 +18,5 @@ case class SetupManager(controller:Controller) extends GameManager {
 
   override def statusToString: String = ???
 
-  override def switchToNextState: Unit = controller.roundManager = nextState
+  override def switchToNextState: Unit = controller.roundManager = RoundManager(this.controller)
 }

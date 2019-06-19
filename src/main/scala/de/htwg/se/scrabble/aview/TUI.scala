@@ -3,11 +3,8 @@ package de.htwg.se.scrabble.aview
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
 import de.htwg.se.scrabble.util.Observer
 
-import scala.collection.immutable.Nil
-
 class TUI(controller: Controller) extends Observer {
   controller.add(this)
-  controller.roundManager.add(this)
 
   println(init)
 

@@ -7,7 +7,7 @@ import de.htwg.se.scrabble.model.gameManager._
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.{Observable, Observer}
 
-class Controller extends Observable {
+class Controller extends Observable with Observer{
   private val dict = Dictionary
   var players = PlayerList
   var field: FieldTemplate = RegularField(15)
@@ -22,9 +22,8 @@ class Controller extends Observable {
 
   def newGame(): Unit = {
     roundManager = SetupManager(this)
-    RoundManager(this)
     gameStatus
-    notifyObservers
+    //notifyObservers
   }
 
   def newPlayer(role:String, name:String): Unit = {
@@ -35,4 +34,6 @@ class Controller extends Observable {
   def getCard: Option[Card] = {
     stack.getCard
   }
+
+  override def update: Boolean = {notifyObservers; true}
 }
