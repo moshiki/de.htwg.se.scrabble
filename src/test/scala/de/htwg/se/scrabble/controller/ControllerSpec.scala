@@ -54,5 +54,12 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.getCard should be(None)
     }
 
+    "start a new game when newGame is invoked" in {
+      val oldfield = controller.field
+      val oldstack = controller.stack
+      controller.newGame()
+      controller.field should not equal oldfield
+      controller.stack should not equal oldstack
+    }
   }
 }
