@@ -2,9 +2,9 @@ package de.htwg.se.scrabble.model
 
 trait FieldTemplate {
 
-  def getCell(row: Integer, col: String): Cell //return cell for the coordinates
+  def getCell(x: String, y: Int): Option[Cell] //return cell for the coordinates
 
-  def setCell(row: Integer, col: String, value: String): Boolean
+  def setCell(x: String, y: Int, value: String): Boolean
 
   def toString: String //return field as grid
 

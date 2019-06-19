@@ -10,7 +10,7 @@ import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 class Controller extends Observable with Observer{
   private val dict = Dictionary
   var players = PlayerList
-  var field: FieldTemplate = RegularField(15)
+  var field: FieldTemplate = RegularField(15, this)
   var stack: CardStackTemplate = RegularCardStack
 
   var roundManager: GameManager = PreSetupManager(this)
@@ -35,8 +35,8 @@ class Controller extends Observable with Observer{
     stack.getCard
   }
 
-  def set(row: Int, col: String, value: String): Unit = {
-    undoManager.doStep(new SetCommand(row, col, value, this))
+  def set(x: String, y: Int, value: String): Unit = {
+    undoManager.doStep(new SetCommand(x, y, value, this))
     notifyObservers
   }
   def undo(): Unit = {

@@ -63,12 +63,16 @@ class TUI(controller: Controller) extends Observer {
         case "undo" => controller.undo()
         case "redo" => controller.redo()
         //case "set" => controller.set(command[1].toString().charAt(0), command[1].toString().charAt(1), command[2].toString())
-        case _ => com.toList.filter(c => c != ' ').filter(_.isDigit).map(c => c.toString.toInt) match {
-          case row :: col :: value :: Nil => controller.set(row, col, value)
+        case _ => com match {
+          case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>
+            controller.set(command(0).charAt(0).toString, command(0).substring(1).toInt, command(1).charAt(0).toString)
           case _ =>
         }
         //case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
+    implicit class Regex(sc: StringContext) {
+      def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
+    }
   }
 
   def exit(): Unit = {
@@ -118,7 +122,6 @@ class TUI(controller: Controller) extends Observer {
     println("Cards in stack: " + controller.stack.getSize)
     println()
     print(controller.field.toString)
-    if(!controller.roundManager.statusToString.equals("")) {println(controller.roundManager.statusToString)}
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
     true

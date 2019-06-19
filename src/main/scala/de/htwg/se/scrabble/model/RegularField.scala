@@ -1,6 +1,8 @@
 package de.htwg.se.scrabble.model
 
-case class RegularField(size: Integer) extends FieldTemplate {
+import de.htwg.se.scrabble.controller.{Controller, GameStatus}
+
+case class RegularField(size: Integer, controller: Controller) extends FieldTemplate {
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 
@@ -12,12 +14,22 @@ case class RegularField(size: Integer) extends FieldTemplate {
 
   matrix(size/2)(size/2) = new Cell("X")
 
-  def getCell(row: Integer, col:String): Cell = {
-    matrix(col.charAt(0)-65)(row)
+  override def getCell(x: String, y: Int): Option[Cell] = {
+    val X = x.toUpperCase().charAt(0)-65
+    if (X < size && y < size) {
+      Some(matrix(y)(X))
+    } else {
+      controller.gameStatus = GameStatus.OOBOUND
+      None
+    }
   }
 
-  def setCell(row: Integer, col: String, value: String): Boolean = {
-    getCell(row,col).setValue(value)
+  override def setCell(x: String, y: Int, value: String): Boolean = {
+    val c = getCell(x.toUpperCase(),y)
+    if (c.isDefined) {
+      c.get.setValue(value.toUpperCase())
+      true
+    } else false
   }
 
   override def toString: String = {
@@ -34,7 +46,7 @@ case class RegularField(size: Integer) extends FieldTemplate {
     board
   }
 
-  def getRows: String = {
+  override def getRows: String = {
     val str = new StringBuilder
     for { i <- 0 until size
           j <- 0 until size
@@ -42,7 +54,7 @@ case class RegularField(size: Integer) extends FieldTemplate {
     str.toString()
   }
 
-  def getCols: String = {
+  override def getCols: String = {
     val str = new StringBuilder
     for { i <- 0 until size
           j <- 0 until size
