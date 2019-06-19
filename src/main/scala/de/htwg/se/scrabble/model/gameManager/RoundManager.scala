@@ -18,7 +18,7 @@ case class RoundManager(controller:Controller) extends GameManager {
 
   def fillHand = {
     for (player <- controller.players.getList) {
-      while (player.getNrCardsInHand < 7 && !controller.stack.isEmpty) {
+      while (!controller.stack.isEmpty && player.getNrCardsInHand < 7) {
         player.addToHand(controller.stack.getCard.get)
       }
     }

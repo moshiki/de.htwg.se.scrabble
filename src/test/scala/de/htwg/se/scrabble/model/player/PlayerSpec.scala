@@ -31,6 +31,12 @@ class PlayerSpec extends WordSpec with Matchers {
           list = Card("A") :: list
         player.getHand should be(list)
       }
+      "check if a specific card is on hand, remove from hand and return it" in {
+        player.getNrCardsInHand should be(7)
+        player.putCard(Card("A")).get should be(Card("A"))
+        player.getNrCardsInHand should be(6)
+        player.putCard(Card("B")) should not be defined
+      }
     }
   }
 }

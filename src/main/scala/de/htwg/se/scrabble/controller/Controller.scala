@@ -9,9 +9,9 @@ import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 
 class Controller extends Observable with Observer{
   private val dict = Dictionary
-  var players = PlayerList
+  var players = new PlayerList
   var field: FieldTemplate = RegularField(15, this)
-  var stack: CardStackTemplate = RegularCardStack
+  var stack: CardStackTemplate = new RegularCardStack
 
   var roundManager: GameManager = PreSetupManager(this)
   var gameStatus: GameStatus = IDLE
@@ -23,7 +23,7 @@ class Controller extends Observable with Observer{
 
   def newGame(): Unit = {
     field = RegularField(15, this)
-    stack = RegularCardStack
+    stack = new RegularCardStack
     roundManager = SetupManager(this)
     //notifyObservers
   }

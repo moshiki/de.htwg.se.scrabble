@@ -3,14 +3,15 @@ package de.htwg.se.scrabble.model.player
 import org.scalatest._
 
 class PlayerListSpec extends WordSpec with Matchers{
-  "A Playerlist" when { "new" should {
-    val listP = PlayerList
-    val p1 = Player("A", "Mampfred")
+  "A Player list" when { "new" should {
+    val listP = new PlayerList
+    val p1 = Player("A", "Hermann")
     val p2 = Player("B", "Lukas")
 
     listP.put(p1)
     listP.put(p2)
 
+    println(listP.toString)
     "there are 2 usable player" in {
       assert(listP.contains(p1))
       assert(listP.contains(p2))

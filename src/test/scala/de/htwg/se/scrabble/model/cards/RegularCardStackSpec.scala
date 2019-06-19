@@ -3,8 +3,8 @@ import org.scalatest._
 
 class RegularCardStackSpec extends WordSpec with Matchers {
   "A CardStack" when {
-    val stack = RegularCardStack
-    val stack2 = RegularCardStack
+    val stack = new RegularCardStack
+    val stack2 = new RegularCardStack
     "getCard is invoked" should {
       "return an Options Some(letter(card)) of the card stack or None if stack is empty" in {
         val card = stack.getCard
@@ -16,7 +16,7 @@ class RegularCardStackSpec extends WordSpec with Matchers {
       }
 
       "remove the handed card from the stack when getCard is called" in {
-        val stack2 = RegularCardStack
+        val stack2 = new RegularCardStack
         val size = stack2.getSize
         stack2.getCard
         if(size > 0) {
