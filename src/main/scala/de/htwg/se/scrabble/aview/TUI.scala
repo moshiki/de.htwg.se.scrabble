@@ -112,7 +112,8 @@ class TUI(controller: Controller) extends Observer {
     println("Cards in stack: " + controller.stack.getSize)
     println()
     print(controller.field.toString)
-    println(GameStatus.message(controller.gameStatus))
+    System.err.println(controller.roundManager.statusToString)
+    System.err.println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
     true
 
