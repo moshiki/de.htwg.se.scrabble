@@ -9,6 +9,6 @@ class Cell(letter: String) {
 
   def setValue(value: String): Boolean = if (isLetter(value)) {this.value = value; true} else false
 
-  def isLetter(str: String): Boolean = str.matches("[A-Z#*]")
+  def isLetter(str: String): Boolean = str.matches("[A-Z#*_]")
 
 }
