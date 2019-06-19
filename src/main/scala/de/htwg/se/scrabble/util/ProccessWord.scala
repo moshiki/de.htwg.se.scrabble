@@ -1,3 +1,4 @@
+/*
 package de.htwg.se.scrabble.util
 
 import de.htwg.se.scrabble.controller.{Controller, SetCommand}
@@ -42,3 +43,4 @@ object ProccessWord {
   }
 
 }
+*/

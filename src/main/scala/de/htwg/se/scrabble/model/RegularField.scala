@@ -12,12 +12,12 @@ case class RegularField(size: Integer) extends FieldTemplate {
 
   matrix(size/2)(size/2) = new Cell("X")
 
-  def getCell(x:String, y:Integer): Cell = {
-    matrix(x.charAt(0)-65)(y)
+  def getCell(row: Integer, col:String): Cell = {
+    matrix(col.charAt(0)-65)(row)
   }
 
-  def setCell(x:String, y:Integer, value: String): Boolean = {
-    getCell(x,y).setValue(value)
+  def setCell(row: Integer, col: String, value: String): Boolean = {
+    getCell(row,col).setValue(value)
   }
 
   override def toString: String = {
