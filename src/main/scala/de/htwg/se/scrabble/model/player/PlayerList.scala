@@ -30,7 +30,6 @@ object PlayerList {
     str.toString()
   }
 
-
   private def revMap(): mutable.Map[Player, String] = {
     mutable.Map[Player, String]() ++= playerMap map {_.swap}
   }

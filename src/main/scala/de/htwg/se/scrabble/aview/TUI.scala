@@ -7,6 +7,7 @@ import scala.collection.immutable.Nil
 
 class TUI(controller: Controller) extends Observer {
   controller.add(this)
+  controller.roundManager.add(this)
 
   println(init)
 
@@ -110,6 +111,9 @@ class TUI(controller: Controller) extends Observer {
     if (controller.players.exists("B")) {
       println("Hand player b: " + controller.players.get("B").get.getHand.toString())
     }
+    println()
+    println("Cards in stack: " + controller.stack.getSize)
+    println()
     print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE

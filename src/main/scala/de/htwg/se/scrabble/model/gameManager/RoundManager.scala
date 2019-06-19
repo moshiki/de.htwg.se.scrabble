@@ -6,9 +6,9 @@ case class RoundManager(controller:Controller) extends GameManager {
   override var status: String = _
   override var nextState: GameManager = this
 
-
   fillHand
 
+  notifyObservers
   switchToNextState
 
   override def getStatus: Boolean = ???
