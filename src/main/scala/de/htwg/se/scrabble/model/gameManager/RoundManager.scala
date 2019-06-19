@@ -14,7 +14,7 @@ case class RoundManager(controller:Controller) extends GameManager {
   //nextState = GameOverManager(this.controller)
   switchToNextState
 
-  controller.roundManager = GameOverManager(this.controller)
+  //controller.roundManager = GameOverManager(this.controller)
 
   def fillHand = {
     for (player <- controller.players.getList) {

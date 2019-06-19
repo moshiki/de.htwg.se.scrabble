@@ -22,6 +22,8 @@ class Controller extends Observable with Observer{
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
+    field = RegularField(15, this)
+    stack = RegularCardStack
     roundManager = SetupManager(this)
     //notifyObservers
   }
