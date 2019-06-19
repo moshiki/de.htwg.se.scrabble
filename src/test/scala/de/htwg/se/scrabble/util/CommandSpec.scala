@@ -2,15 +2,6 @@ package de.htwg.se.scrabble.util
 
 import org.scalatest.{Matchers, WordSpec}
 
-class incrCommand extends Command {
-  var state:Int =0
-  override def doStep: Unit = state+=1
-
-  override def undoStep: Unit = state-=1
-
-  override def redoStep: Unit = state+=1
-}
-
 class CommandSpec extends WordSpec with Matchers {
   "A Command" should {
 
