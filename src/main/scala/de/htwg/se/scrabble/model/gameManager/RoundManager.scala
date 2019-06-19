@@ -14,14 +14,12 @@ case class RoundManager(controller:Controller) extends GameManager {
   //nextState = GameOverManager(this.controller)
   switchToNextState
 
-  //controller.roundManager = GameOverManager(this.controller)
+  controller.roundManager = GameOverManager(this.controller)
 
   def fillHand = {
     for (player <- controller.players.getList) {
-      while (player.getNrCardsInHand < 7) {
-        if (!controller.stack.isEmpty) {
-          player.addToHand(controller.stack.getCard.get)
-        }
+      while (player.getNrCardsInHand < 7 && !controller.stack.isEmpty) {
+        player.addToHand(controller.stack.getCard.get)
       }
     }
   }

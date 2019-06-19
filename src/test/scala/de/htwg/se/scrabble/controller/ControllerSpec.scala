@@ -10,8 +10,12 @@ class ControllerSpec extends WordSpec with Matchers {
       val controller = new Controller()
       val observer = new Observer {
         var updated: Boolean = false
+
         def isUpdated: Boolean = updated
-        override def update: Boolean = {updated = true; updated}
+
+        override def update: Boolean = {
+          updated = true; updated
+        }
       }
       controller.add(observer)
       "notify its Observer after reload the dictionary" in {
@@ -20,6 +24,25 @@ class ControllerSpec extends WordSpec with Matchers {
         observer.updated should be(true)
       }
 
+    }
+    "empty" should {
+      val controller = new Controller
+      "handle undo/redo correctly on an empty undo-stack" in {
+        controller.field.getCell("A", 1).get.getValue should be("_")
+        controller.undo
+        controller.field.getCell("A", 1).get.getValue should be("_")
+        controller.redo
+        controller.field.getCell("A", 1).get.getValue should be("_")
+      }
+      "handle undo/redo of setting a cell correctly" in {
+        controller.field.getCell("A", 1).get.getValue should be("_")
+        controller.set("A", 1, "B")
+        controller.field.getCell("A", 1).get.getValue should be("B")
+        controller.undo
+        controller.field.getCell("A", 1).get.getValue should be("_")
+        controller.redo
+        controller.field.getCell("A", 1).get.getValue should be("B")
+      }
     }
   }
   "A controller" should {
@@ -55,11 +78,11 @@ class ControllerSpec extends WordSpec with Matchers {
     }
 
     "start a new game when newGame is invoked" in {
-      val oldfield = controller.field
-      val oldstack = controller.stack
       controller.newGame()
-      controller.field should not equal oldfield
-      controller.stack should not equal oldstack
+      controller.set("A", 1, "B")
+      controller.field.getCell("A", 1).get.getValue should be("B")
+      controller.newGame()
+      controller.field.getCell("A", 1).get.getValue should be("_")
     }
   }
 }

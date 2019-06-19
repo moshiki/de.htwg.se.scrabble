@@ -9,7 +9,6 @@ case class GameOverManager(controller:Controller) extends GameManager {
 
   controller.gameStatus = GameStatus.GAME_OVER
   notifyObservers
-  switchToNextState
 
   override def switchToNextState: Unit = controller.roundManager = this
 }
