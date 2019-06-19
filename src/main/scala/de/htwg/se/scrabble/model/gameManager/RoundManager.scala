@@ -9,6 +9,8 @@ case class RoundManager(controller:Controller) extends GameManager {
   fillHand
 
   notifyObservers
+
+  nextState = GameOverManager(this.controller)
   switchToNextState
 
   override def getStatus: Boolean = ???

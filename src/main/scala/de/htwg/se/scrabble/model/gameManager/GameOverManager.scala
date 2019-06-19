@@ -4,7 +4,7 @@ import de.htwg.se.scrabble.controller.{Controller, GameStatus}
 
 case class GameOverManager(controller:Controller) extends GameManager {
   override var status: String = _
-  override var nextState: GameManager = PreSetupManager(this.controller)
+  override var nextState: GameManager = this
 
   controller.gameStatus = GameStatus.GAME_OVER
   switchToNextState
