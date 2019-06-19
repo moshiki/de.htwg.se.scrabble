@@ -17,6 +17,7 @@ class CellSpec extends WordSpec with Matchers {
       cell.setValue("F")
       cell.getValue should be("F")
     }
+
     "getValue is called return value" in {
       cell.getValue should be("F")
     }
