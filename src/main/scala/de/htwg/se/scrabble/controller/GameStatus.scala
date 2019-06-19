@@ -6,8 +6,8 @@ object GameStatus extends Enumeration {
 
   val map: Map[GameStatus, String] = Map[GameStatus, String](
     IDLE -> "",
-    ILLEGAL -> "illegal Word",
-    LEGAL -> "legal Word",
+    ILLEGAL -> "illegal word",
+    LEGAL -> "legal word",
     OOBOUND -> "coordinates exceed field size",
     ONEP -> "1 human player created",
     TWOP -> "2 human players created",
