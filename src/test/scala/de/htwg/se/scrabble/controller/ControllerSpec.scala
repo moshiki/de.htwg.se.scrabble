@@ -18,9 +18,9 @@ class ControllerSpec extends WordSpec with Matchers {
         }
       }
       controller.add(observer)
-      "notify its Observer after reload the dictionary" in {
+      "notify its Observer after been notified" in {
         //controller.reloadDict()
-        controller.notifyObservers
+        controller.update
         observer.updated should be(true)
       }
 
