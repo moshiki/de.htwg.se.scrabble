@@ -5,7 +5,7 @@ import de.htwg.se.scrabble.model.{Dictionary, FieldTemplate, RegularField}
 import de.htwg.se.scrabble.model.cards.{Card, CardStackTemplate, RegularCardStack}
 import de.htwg.se.scrabble.model.gameManager._
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
-import de.htwg.se.scrabble.util.{Observable, Observer}
+import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 
 class Controller extends Observable with Observer{
   private val dict = Dictionary
@@ -15,6 +15,7 @@ class Controller extends Observable with Observer{
 
   var roundManager: GameManager = PreSetupManager(this)
   var gameStatus: GameStatus = IDLE
+  private val undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
 
@@ -32,6 +33,19 @@ class Controller extends Observable with Observer{
 
   def getCard: Option[Card] = {
     stack.getCard
+  }
+
+  def set(row: Int, col: String, value: String): Unit = {
+    undoManager.doStep(new SetCommand(row, col, value, this))
+    notifyObservers
+  }
+  def undo(): Unit = {
+    undoManager.undoStep
+    notifyObservers
+  }
+  def redo(): Unit = {
+    undoManager.redoStep
+    notifyObservers
   }
 
   override def update: Boolean = {notifyObservers; true}
