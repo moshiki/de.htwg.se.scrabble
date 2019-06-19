@@ -1,8 +1,8 @@
 package de.htwg.se.scrabble.model.gameManager
 
-import de.htwg.se.scrabble.util.GameManagerStateObserver
+import de.htwg.se.scrabble.util.GameManagerStateObservable
 
-trait GameManager extends GameManagerStateObserver {
+trait GameManager extends GameManagerStateObservable {
   //var nextState: GameManager
   def switchToNextState
 }

@@ -4,7 +4,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class ObservableSpec extends WordSpec with Matchers {
   "An Observable" should {
-    val gmsobservable = new GameManagerStateObserver
+    val gmsobservable = new GameManagerStateObservable
     val observer = new Observer {
       var updated: Boolean = false
       def isUpdated: Boolean = updated
