@@ -11,7 +11,7 @@ case class RoundManager(controller:Controller) extends GameManager {
   controller.gameStatus = GameStatus.FILLHAND
   notifyObservers
 
-  controller.activePlayer = inactivePlayer
+  //controller.activePlayer = inactivePlayer
 
 
   def fillHand(): Unit = {
@@ -19,14 +19,6 @@ case class RoundManager(controller:Controller) extends GameManager {
       while (!controller.stack.isEmpty && player.getNrCardsInHand < 7) {
         player.addToHand(controller.stack.getCard.get)
       }
-    }
-  }
-
-  def inactivePlayer: Player = {
-    if (controller.activePlayer == controller.players.get("A").get) {
-      controller.players.get("B").get
-    } else {
-      controller.players.get("A").get
     }
   }
 

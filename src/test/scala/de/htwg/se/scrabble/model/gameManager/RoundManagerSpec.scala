@@ -16,12 +16,5 @@ class RoundManagerSpec extends WordSpec with Matchers{
         ctl.players.get("A").get.getNrCardsInHand should be(7)
       }
     }
-    "return the currently inactive player when inactivePlayer is invoked" in {
-      ctl.players.put(Player("B", "Karl"))
-      val rm = RoundManager(ctl)
-      ctl.roundManager = rm
-      ctl.activePlayer = ctl.players.get("A").get
-      rm.inactivePlayer should be(ctl.players.get("B").get)
-    }
   }
 }

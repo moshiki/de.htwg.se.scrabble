@@ -34,12 +34,27 @@ class Controller extends Observable with Observer{
     notifyObservers
   }
 
+  def next(): Unit = {
+    if (roundManager.isInstanceOf[RoundManager]) {
+      activePlayer = inactivePlayer
+      roundManager = RoundManager(this)
+    }
+  }
+
+  def inactivePlayer: Player = {
+    if (activePlayer == players.get("A").get) {
+      players.get("B").get
+    } else {
+      players.get("A").get
+    }
+  }
+
   def getCard: Option[Card] = {
     stack.getCard
   }
 
   def set(x: String, y: Int, value: String): Unit = {
-    undoManager.doStep(new SetCommand(x, y, value, this))
+    undoManager.doStep(new SetCommand(x, y, value, this, activePlayer))
     notifyObservers
   }
   def undo(): Unit = {

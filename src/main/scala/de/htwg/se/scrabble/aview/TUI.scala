@@ -61,6 +61,7 @@ class TUI(controller: Controller) extends Observer {
         case "undo" => controller.undo()
         case "redo" => controller.redo()
         //case "set" => controller.set(command[1].toString().charAt(0), command[1].toString().charAt(1), command[2].toString())
+        case "next" => controller.next()
         case _ => com match {
           case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>
             controller.set(command(0).charAt(0).toString, command(0).substring(1).toInt, command(1).charAt(0).toString)
@@ -109,7 +110,8 @@ class TUI(controller: Controller) extends Observer {
   @Override
   def update: Boolean = {
     println()
-    println(controller.players.toString) // TODO: Spieler ausgabe (Highlight activ player)
+    //println(controller.players.toString) // TODO: Spieler ausgabe (Highlight active player)
+    println(controller.activePlayer)
     if (controller.players.exists("A")) {
       println("Hand player a: " + controller.players.get("A").get.getHand.toString())
     }
