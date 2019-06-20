@@ -1,22 +1,32 @@
 package de.htwg.se.scrabble.model.gameManager
 
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
+import de.htwg.se.scrabble.model.player.Player
 
 case class RoundManager(controller:Controller) extends GameManager {
   this.add(controller)
   controller.roundManager = this
 
-  fillHand
+  fillHand()
   controller.gameStatus = GameStatus.FILLHAND
   notifyObservers
 
-  switchToNextState
+  controller.activePlayer = inactivePlayer
 
-  def fillHand = {
+
+  def fillHand(): Unit = {
     for (player <- controller.players.getList) {
       while (!controller.stack.isEmpty && player.getNrCardsInHand < 7) {
         player.addToHand(controller.stack.getCard.get)
       }
+    }
+  }
+
+  def inactivePlayer: Player = {
+    if (controller.activePlayer == controller.players.get("A").get) {
+      controller.players.get("B").get
+    } else {
+      controller.players.get("A").get
     }
   }
 

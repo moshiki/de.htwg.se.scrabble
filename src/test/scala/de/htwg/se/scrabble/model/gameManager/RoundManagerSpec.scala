@@ -1,17 +1,12 @@
 package de.htwg.se.scrabble.model.gameManager
 
 import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.model.RegularField
-import de.htwg.se.scrabble.model.cards.RegularCardStack
-import de.htwg.se.scrabble.model.player.{Player, PlayerList}
+import de.htwg.se.scrabble.model.player.Player
 import org.scalatest._
 
 class RoundManagerSpec extends WordSpec with Matchers{
   "A RoundManager is a GameManager state and responsible for round tasks of the game" when {
     val ctl = new Controller()
-    /*ctl.field = RegularField(15, ctl)
-    ctl.stack = newRegularCardStack
-    ctl.players = new PlayerList*/
     ctl.players.put(Player("A", "Hermann"))
 
     "is initialized" should {
@@ -20,6 +15,13 @@ class RoundManagerSpec extends WordSpec with Matchers{
         ctl.roundManager = RoundManager(ctl)
         ctl.players.get("A").get.getNrCardsInHand should be(7)
       }
+    }
+    "return the currently inactive player when inactivePlayer is invoked" in {
+      ctl.players.put(Player("B", "Karl"))
+      val rm = RoundManager(ctl)
+      ctl.roundManager = rm
+      ctl.activePlayer = ctl.players.get("A").get
+      rm.inactivePlayer should be(ctl.players.get("B").get)
     }
   }
 }
