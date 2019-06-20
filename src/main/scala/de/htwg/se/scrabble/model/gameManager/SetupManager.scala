@@ -8,8 +8,8 @@ case class SetupManager(controller:Controller) extends GameManager {
   this.add(controller)
   controller.roundManager = this
 
-  controller.players.put(Player("A", "human being"))
-  controller.players.put(Player("B", "human being"))
+  controller.players.put(Player("A", "human"))
+  controller.players.put(Player("B", "human"))
   controller.gameStatus = GameStatus.TWOP
 
   notifyObservers
