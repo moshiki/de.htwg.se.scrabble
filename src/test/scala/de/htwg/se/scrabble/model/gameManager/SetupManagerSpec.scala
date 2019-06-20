@@ -5,10 +5,10 @@ import org.scalatest._
 
 class SetupManagerSpec extends WordSpec with Matchers{
   "A SetupManager is a GameManager state and responsible for setup tasks of the game" when {
-    val ctl = new Controller()
+    val ctl = Controller
     "is initialized" should {
       "create two players and update game status" in {
-        val gm: GameManager = SetupManager(ctl)
+        val gm: GameManager = new SetupManager
         ctl.players.getList.size should be(2)
       }
     }

@@ -7,8 +7,8 @@ import scala.io.StdIn.readLine
 
 
 object Scrabble {
-  val controller = new Controller
-  val tui = new TUI(controller)
+  val controller = Controller
+  val tui = new TUI
 
   def main(args: Array[String]): Unit= {
     var input: String = ""

@@ -7,15 +7,15 @@ import de.htwg.se.scrabble.model.gameManager._
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 
-class Controller extends Observable with Observer{
+object Controller extends Observable with Observer{
   private val dict = Dictionary
   var players = new PlayerList
-  var field: FieldTemplate = RegularField(15, this)
+  var field: FieldTemplate = RegularField(15)
   var stack: CardStackTemplate = new RegularCardStack
 
-  var roundManager: GameManager = PreSetupManager(this)
+  var roundManager: GameManager = _
   var gameStatus: GameStatus = IDLE
-  var activePlayer: Player = _
+  var activePlayer: Option[Player] = None
   private val undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
@@ -23,9 +23,9 @@ class Controller extends Observable with Observer{
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
-    field = RegularField(15, this)
+    field = RegularField(15)
     stack = new RegularCardStack
-    roundManager = SetupManager(this)
+    roundManager = new SetupManager
     //notifyObservers
   }
 
@@ -37,15 +37,16 @@ class Controller extends Observable with Observer{
   def next(): Unit = {
     if (roundManager.isInstanceOf[RoundManager]) {
       activePlayer = inactivePlayer
-      roundManager = RoundManager(this)
+      roundManager = new RoundManager
+      notifyObservers
     }
   }
 
-  def inactivePlayer: Player = {
-    if (activePlayer == players.get("A").get) {
-      players.get("B").get
+  def inactivePlayer: Option[Player] = {
+    if (activePlayer.get == players.get("A").get) {
+      players.get("B")
     } else {
-      players.get("A").get
+      players.get("A")
     }
   }
 
@@ -54,7 +55,7 @@ class Controller extends Observable with Observer{
   }
 
   def set(x: String, y: Int, value: String): Unit = {
-    undoManager.doStep(new SetCommand(x, y, value, this, activePlayer))
+    undoManager.doStep(new SetCommand(x, y, value, activePlayer))
     notifyObservers
   }
   def undo(): Unit = {

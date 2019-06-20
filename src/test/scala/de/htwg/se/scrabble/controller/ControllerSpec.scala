@@ -8,7 +8,7 @@ import org.scalatest._
 class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
-      val controller = new Controller()
+      val controller = Controller
       val observer = new Observer {
         var updated: Boolean = false
 
@@ -27,7 +27,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
     }
     "empty" should {
-      val controller = new Controller
+      val controller = Controller
       "handle undo/redo correctly on an empty undo-stack" in {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.undo
@@ -47,7 +47,7 @@ class ControllerSpec extends WordSpec with Matchers {
     }
   }
   "A controller" should {
-    val controller = new Controller()
+    val controller = Controller
     "return the word list of the dictionary as string with dictToString" in {
       controller.dictToString
     }
@@ -88,7 +88,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
     "go on to the next player when RoundManager is active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = RoundManager(controller)
+      controller.roundManager = new RoundManager
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should not be currPlayer
@@ -96,15 +96,15 @@ class ControllerSpec extends WordSpec with Matchers {
     }
     "do nothing when RoundManager is not active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = GameOverManager(controller)
+      controller.roundManager = new GameOverManager
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should be(currPlayer)
     }
     "return the currently inactive player when inactivePlayer is invoked" in {
       controller.newGame()
-      controller.activePlayer = controller.players.get("A").get
-      controller.inactivePlayer should be(controller.players.get("B").get)
+      controller.activePlayer = controller.players.get("A")
+      controller.inactivePlayer.get should be(controller.players.get("B").get)
     }
   }
 }

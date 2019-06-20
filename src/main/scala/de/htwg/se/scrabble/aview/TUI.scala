@@ -3,7 +3,8 @@ package de.htwg.se.scrabble.aview
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
 import de.htwg.se.scrabble.util.{Observer, ProccessWord}
 
-class TUI(controller: Controller) extends Observer {
+class TUI extends Observer {
+  val controller = Controller
   controller.add(this)
 
   println(init)
@@ -113,13 +114,9 @@ class TUI(controller: Controller) extends Observer {
   @Override
   def update: Boolean = {
     println()
-    //println(controller.players.toString) // TODO: Spieler ausgabe (Highlight active player)
-    println(controller.activePlayer)
-    if (controller.players.exists("A")) {
-      println("Hand player a: " + controller.players.get("A").get.getHand.toString())
-    }
-    if (controller.players.exists("B")) {
-      println("Hand player b: " + controller.players.get("B").get.getHand.toString())
+    println(controller.activePlayer.getOrElse(""))
+    if (controller.activePlayer.isDefined) {
+      println("Hand: " + controller.activePlayer.get.getHand.toString())
     }
     println()
     println("Cards in stack: " + controller.stack.getSize)
