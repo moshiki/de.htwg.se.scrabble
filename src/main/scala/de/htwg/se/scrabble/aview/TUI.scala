@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
-import de.htwg.se.scrabble.util.{Observer, ProccessWord}
+import de.htwg.se.scrabble.util.{Observer, ProcessWord}
 
 class TUI extends Observer {
   val controller = Controller
@@ -63,7 +63,7 @@ class TUI extends Observer {
         case "players" => players()
         case "undo" => controller.undo()
         case "redo" => controller.redo()
-        case "set" => ProccessWord setWord command     // Aktuallisierter set Befehl aus se-08-UndoRedo
+        case "set" => ProcessWord setWord command     // Aktuallisierter set Befehl aus se-08-UndoRedo
         case "next" => controller.next()
         case _ => com match {
           case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>

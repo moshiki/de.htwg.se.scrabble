@@ -33,7 +33,7 @@ object Dictionary {
     if (file.exists() && !file.isDirectory) {
       val br = Source.fromFile(file)
       for (line <- br.getLines()) {
-        dictSet += line
+        dictSet += line.toUpperCase()
       }
       br.close()
       dictSet

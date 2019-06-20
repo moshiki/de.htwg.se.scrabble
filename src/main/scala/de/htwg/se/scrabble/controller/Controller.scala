@@ -8,7 +8,7 @@ import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 
 object Controller extends Observable with Observer{
-  private val dict = Dictionary
+  val dict = Dictionary
   var players = new PlayerList
   var field: FieldTemplate = RegularField(15)
   var stack: CardStackTemplate = new RegularCardStack
