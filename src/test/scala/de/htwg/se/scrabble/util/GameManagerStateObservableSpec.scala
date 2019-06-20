@@ -1,12 +1,10 @@
 package de.htwg.se.scrabble.util
 
-package de.htwg.se.scrabble.util
-
 import org.scalatest.{Matchers, WordSpec}
 
 class GameManagerStateObservableSpec extends WordSpec with Matchers {
   "An Observable" should {
-    val observable = new GameManagerStateObservable
+    val gmsobservable = new GameManagerStateObservable
     val observer = new  Observer {
       var updated: Boolean = false
 
@@ -17,17 +15,17 @@ class GameManagerStateObservableSpec extends WordSpec with Matchers {
       }
     }
     "add an Observer" in {
-      observable.add(observer)
-      observable.subscribers should contain(observer)
+      gmsobservable.add(observer)
+      gmsobservable.subscribers should contain(observer)
     }
     "notify an Observer" in {
       observer.isUpdated should be(false)
-      observable.notifyObservers
+      gmsobservable.notifyObservers
       observer.isUpdated should be(true)
     }
     "remove an Observer" in {
-      observable.remove(observer)
-      observable.subscribers should not contain observer
+      gmsobservable.remove(observer)
+      gmsobservable.subscribers should not contain observer
     }
   }
   }
