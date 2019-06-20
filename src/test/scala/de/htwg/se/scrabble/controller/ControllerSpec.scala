@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.controller
 
 
-import de.htwg.se.scrabble.model.gameManager.{GameOverManager, RoundManager}
+import de.htwg.se.scrabble.model.gameManager.{GameOverManagerState, RoundManagerState}
 import de.htwg.se.scrabble.util.Observer
 import org.scalatest._
 
@@ -88,15 +88,15 @@ class ControllerSpec extends WordSpec with Matchers {
 
     "go on to the next player when RoundManager is active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = new RoundManager
+      controller.roundManager = new RoundManagerState
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should not be currPlayer
-      controller.roundManager shouldBe a [RoundManager]
+      controller.roundManager shouldBe a [RoundManagerState]
     }
     "do nothing when RoundManager is not active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = new GameOverManager
+      controller.roundManager = new GameOverManagerState
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should be(currPlayer)

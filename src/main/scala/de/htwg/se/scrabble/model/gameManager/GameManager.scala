@@ -1,11 +1,23 @@
+/*
 package de.htwg.se.scrabble.model.gameManager
 
-import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.util.GameManagerStateObservable
+class GameManager {
+  val initialState: GameManagerState = new PreSetupManagerState
+  val preSetup: GameManagerState = new PreSetupManagerState
+  val setupState: GameManagerState = new SetupManagerState
+  val roundState: GameManagerState = new RoundManagerState
+  val gameOverState: GameManagerState = new GameOverManagerState
 
-trait GameManager extends GameManagerStateObservable {
-  //var nextState: GameManager
-  val controller = Controller
-  def switchToNextState(state: GameManager)
-  def switchToNextState
+  var currState: GameManagerState = new PreSetupManagerState
+  var previousState: GameManagerState = new PreSetupManagerState
+
+  def switchToNextState(): Unit = {
+    currState.switchToNextState()
+  }
+
+  def currentState: GameManagerState = {
+    currState
+  }
+
 }
+*/

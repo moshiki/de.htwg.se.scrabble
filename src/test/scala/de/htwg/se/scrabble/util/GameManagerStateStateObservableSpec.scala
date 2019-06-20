@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.util
 
 import org.scalatest.{Matchers, WordSpec}
 
-class GameManagerStateObservableSpec extends WordSpec with Matchers {
+class GameManagerStateStateObservableSpec extends WordSpec with Matchers {
   "An Observable" should {
     val gmsobservable = new GameManagerStateObservable
     val observer = new  Observer {

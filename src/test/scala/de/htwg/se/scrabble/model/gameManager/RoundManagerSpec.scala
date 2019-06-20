@@ -8,11 +8,12 @@ class RoundManagerSpec extends WordSpec with Matchers{
   "A RoundManager is a GameManager state and responsible for round tasks of the game" when {
     val ct = Controller
 
-    "is initialized" should {
+    "start is invoked" should {
       "fill up hands of players and update game status" in {
         ct.players.put(Player("A", "Hermann"))
         ct.players.get("A").get.getNrCardsInHand should be(0)
-        ct.roundManager = new RoundManager
+        ct.roundManager = new RoundManagerState
+        ct.roundManager.start()
         ct.players.get("A").get.getNrCardsInHand should be(7)
       }
     }

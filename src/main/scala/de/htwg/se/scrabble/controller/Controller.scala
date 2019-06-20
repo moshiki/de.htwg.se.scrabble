@@ -13,7 +13,7 @@ object Controller extends Observable with Observer{
   var field: FieldTemplate = RegularField(15)
   var stack: CardStackTemplate = new RegularCardStack
 
-  var roundManager: GameManager = _
+  var roundManager: GameManagerState = new PreSetupManagerState
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[Player] = None
   private val undoManager = new UndoManager
@@ -25,7 +25,8 @@ object Controller extends Observable with Observer{
   def newGame(): Unit = {
     field = RegularField(15)
     stack = new RegularCardStack
-    roundManager = new SetupManager
+    roundManager = new SetupManagerState
+    roundManager.start()
     //notifyObservers
   }
 
@@ -35,9 +36,10 @@ object Controller extends Observable with Observer{
   }
 
   def next(): Unit = {
-    if (roundManager.isInstanceOf[RoundManager]) {
+    if (roundManager.isInstanceOf[RoundManagerState]) {
       activePlayer = inactivePlayer
-      roundManager = new RoundManager
+      roundManager = new RoundManagerState
+      roundManager.start()
       notifyObservers
     }
   }
