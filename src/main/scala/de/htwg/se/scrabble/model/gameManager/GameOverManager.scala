@@ -1,8 +1,8 @@
 package de.htwg.se.scrabble.model.gameManager
 
-import de.htwg.se.scrabble.controller.{Controller, GameStatus}
+import de.htwg.se.scrabble.controller.GameStatus
 
-case class GameOverManager(controller:Controller) extends GameManager {
+class GameOverManager extends GameManager {
   this.add(controller)
   controller.roundManager = this
 

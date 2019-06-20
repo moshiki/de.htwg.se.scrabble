@@ -1,6 +1,10 @@
 package de.htwg.se.scrabble.model
 
+import de.htwg.se.scrabble.controller.Controller
+
 trait FieldTemplate {
+
+  val controller = Controller
 
   def getCell(x: String, y: Int): Option[Cell] //return cell for the coordinates
 

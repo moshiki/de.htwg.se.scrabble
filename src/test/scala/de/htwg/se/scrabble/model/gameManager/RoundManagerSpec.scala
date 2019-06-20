@@ -6,14 +6,14 @@ import org.scalatest._
 
 class RoundManagerSpec extends WordSpec with Matchers{
   "A RoundManager is a GameManager state and responsible for round tasks of the game" when {
-    val ctl = new Controller()
-    ctl.players.put(Player("A", "Hermann"))
+    val ct = Controller
 
     "is initialized" should {
       "fill up hands of players and update game status" in {
-        ctl.players.get("A").get.getNrCardsInHand should be(0)
-        ctl.roundManager = RoundManager(ctl)
-        ctl.players.get("A").get.getNrCardsInHand should be(7)
+        ct.players.put(Player("A", "Hermann"))
+        ct.players.get("A").get.getNrCardsInHand should be(0)
+        ct.roundManager = new RoundManager
+        ct.players.get("A").get.getNrCardsInHand should be(7)
       }
     }
   }

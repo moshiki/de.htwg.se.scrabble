@@ -1,18 +1,14 @@
 package de.htwg.se.scrabble.model.gameManager
 
-import de.htwg.se.scrabble.controller.{Controller, GameStatus}
-import de.htwg.se.scrabble.model.player.Player
+import de.htwg.se.scrabble.controller.GameStatus
 
-case class RoundManager(controller:Controller) extends GameManager {
+class RoundManager extends GameManager {
   this.add(controller)
   controller.roundManager = this
 
   fillHand()
   controller.gameStatus = GameStatus.FILLHAND
   notifyObservers
-
-  //controller.activePlayer = inactivePlayer
-
 
   def fillHand(): Unit = {
     for (player <- controller.players.getList) {
@@ -23,5 +19,5 @@ case class RoundManager(controller:Controller) extends GameManager {
   }
 
   override def switchToNextState(state: GameManager): Unit = controller.roundManager = state
-  override def switchToNextState: Unit = controller.roundManager = GameOverManager(this.controller)
+  override def switchToNextState: Unit = controller.roundManager = new GameOverManager
 }

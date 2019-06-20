@@ -1,10 +1,9 @@
 package de.htwg.se.scrabble.model
 
 import org.scalatest.{FlatSpec, Matchers}
-import de.htwg.se.scrabble.controller.Controller
 
 class RegularFieldSpec extends FlatSpec with Matchers{
-  val rf = RegularField(15, new Controller)
+  val rf = RegularField(15)
 
   "Regular Field" should "give back an 'X'" in {
     rf.getCell("H", 7).get.getValue should be("X")
