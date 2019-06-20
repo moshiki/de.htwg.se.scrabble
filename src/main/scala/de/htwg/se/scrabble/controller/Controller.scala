@@ -15,6 +15,7 @@ class Controller extends Observable with Observer{
 
   var roundManager: GameManager = PreSetupManager(this)
   var gameStatus: GameStatus = IDLE
+  var activePlayer: Player = _
   private val undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString

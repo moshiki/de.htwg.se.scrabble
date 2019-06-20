@@ -10,10 +10,12 @@ case class SetupManager(controller:Controller) extends GameManager {
 
   controller.players.put(Player("A", "human"))
   controller.players.put(Player("B", "human"))
+  controller.activePlayer = controller.players.get("A").get
   controller.gameStatus = GameStatus.TWOP
 
   notifyObservers
   switchToNextState
 
+  override def switchToNextState(state: GameManager): Unit = controller.roundManager = state
   override def switchToNextState: Unit = controller.roundManager = RoundManager(this.controller)
 }

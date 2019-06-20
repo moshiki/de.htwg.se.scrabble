@@ -29,13 +29,11 @@ class TUISpec extends FlatSpec with Matchers {
           ||                                                                                                                                                              |
           || commands                   function                                                                                                                          |
           ||                        |                                                                                                                                     |
-          ||  new                   |   Play Scrabble                                                                                                                     |
+          ||  new                   |   new game                                                                                                                          |
           ||                        |                                                                                                                                     |
           ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
           ||                        |                                                                                                                                     |
           ||  pv                    |   print vector - prints the alphabet vector to console                                                                              |
-          ||                        |                                                                                                                                     |
-          ||  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                                                                           |
           ||                        |                                                                                                                                     |
           ||  players               |   displays a list of the players                                                                                                    |
           ||                        |                                                                                                                                     |
@@ -43,5 +41,6 @@ class TUISpec extends FlatSpec with Matchers {
           ||                        |                                                                                                                                     |
           ||  exit                  |   exit scrabble                                                                                                                     |
           ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin)
+
     }
 }

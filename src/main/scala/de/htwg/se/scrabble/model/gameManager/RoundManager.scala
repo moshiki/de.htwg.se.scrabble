@@ -3,7 +3,6 @@ package de.htwg.se.scrabble.model.gameManager
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
 
 case class RoundManager(controller:Controller) extends GameManager {
-  //override var nextState: GameManager = this
   this.add(controller)
   controller.roundManager = this
 
@@ -11,10 +10,7 @@ case class RoundManager(controller:Controller) extends GameManager {
   controller.gameStatus = GameStatus.FILLHAND
   notifyObservers
 
-  //nextState = GameOverManager(this.controller)
   switchToNextState
-
-  controller.roundManager = GameOverManager(this.controller)
 
   def fillHand = {
     for (player <- controller.players.getList) {
@@ -24,6 +20,6 @@ case class RoundManager(controller:Controller) extends GameManager {
     }
   }
 
-  override def switchToNextState: Unit = controller.roundManager = this
-
+  override def switchToNextState(state: GameManager): Unit = controller.roundManager = state
+  override def switchToNextState: Unit = controller.roundManager = GameOverManager(this.controller)
 }

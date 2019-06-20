@@ -34,7 +34,7 @@ class TUI(controller: Controller) extends Observer {
     ||                                                                                                                                                              |
     || commands                   function                                                                                                                          |
     ||                        |                                                                                                                                     |
-    ||  new                   |   new game                                                                                                                   |
+    ||  new                   |   new game                                                                                                                          |
     ||                        |                                                                                                                                     |
     ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
     ||                        |                                                                                                                                     |
