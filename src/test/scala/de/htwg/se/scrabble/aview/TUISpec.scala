@@ -37,6 +37,8 @@ class TUISpec extends FlatSpec with Matchers {
           ||                        |                                                                                                                                     |
           ||  players               |   displays a list of the players                                                                                                    |
           ||                        |                                                                                                                                     |
+          ||  set                   |   set a Word into the Field                                                                                                         |
+          ||                        |                                                                                                                                     |
           ||  help                  |   displays the command list                                                                                                         |
           ||                        |                                                                                                                                     |
           ||  exit                  |   exit scrabble                                                                                                                     |
