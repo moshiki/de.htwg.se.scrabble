@@ -34,13 +34,11 @@ class TUI(controller: Controller) extends Observer {
     ||                                                                                                                                                              |
     || commands                   function                                                                                                                          |
     ||                        |                                                                                                                                     |
-    ||  new                   |   Play Scrabble                                                                                                                     |
+    ||  new                   |   new game                                                                                                                   |
     ||                        |                                                                                                                                     |
     ||  pd                    |   print dictionary - prints the dictionary to console                                                                               |
     ||                        |                                                                                                                                     |
     ||  pv                    |   print vector - prints the alphabet vector to console                                                                              |
-    ||                        |                                                                                                                                     |
-    ||  player [a|b] <name>   |   adds a new player with specified role (a or b) and name                                                                           |
     ||                        |                                                                                                                                     |
     ||  players               |   displays a list of the players                                                                                                    |
     ||                        |                                                                                                                                     |
@@ -58,7 +56,7 @@ class TUI(controller: Controller) extends Observer {
         case "new" => newGame()
         case "pd" => printDict()
         case "pv" => printVector()
-        case "player" => player(command)
+        //case "player" => player(command)
         case "players" => players()
         case "undo" => controller.undo()
         case "redo" => controller.redo()
@@ -84,7 +82,7 @@ class TUI(controller: Controller) extends Observer {
 
   def printVector(): Unit = print(controller.vectorToString)
 
-  def player(parameters:Array[String]): Unit = {
+  /*def player(parameters:Array[String]): Unit = {
     if (parameters.length == 3) {
       parameters(1) match {
         case "A" | "a" =>
@@ -98,7 +96,7 @@ class TUI(controller: Controller) extends Observer {
     } else {
       System.err.println("wrong number of arguments! use command: player [a|b] <name>")
     }
-  }
+  }*/
 
   def newGame() : Unit = {
     controller.newGame()
