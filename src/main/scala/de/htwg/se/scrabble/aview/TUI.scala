@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
-import de.htwg.se.scrabble.util.Observer
+import de.htwg.se.scrabble.util.{Observer, ProccessWord}
 
 class TUI(controller: Controller) extends Observer {
   controller.add(this)
@@ -42,6 +42,8 @@ class TUI(controller: Controller) extends Observer {
     ||                        |                                                                                                                                     |
     ||  players               |   displays a list of the players                                                                                                    |
     ||                        |                                                                                                                                     |
+    ||  set                   |   set a Word into the Field                                                                                                         |
+    ||                        |                                                                                                                                     |
     ||  help                  |   displays the command list                                                                                                         |
     ||                        |                                                                                                                                     |
     ||  exit                  |   exit scrabble                                                                                                                     |
@@ -61,6 +63,7 @@ class TUI(controller: Controller) extends Observer {
         case "undo" => controller.undo()
         case "redo" => controller.redo()
         //case "set" => controller.set(command[1].toString().charAt(0), command[1].toString().charAt(1), command[2].toString())
+        case "set" => ProccessWord.setWord(command, controller)     // Aktuallisierter set Befehl aus se-08-UndoRedo
         case "next" => controller.next()
         case _ => com match {
           case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>

@@ -12,4 +12,5 @@ trait FieldTemplate {
 
   def getCols: String //return filed as concatenation of columns
 
+  def getSize: Integer //returnnd the field size
 }

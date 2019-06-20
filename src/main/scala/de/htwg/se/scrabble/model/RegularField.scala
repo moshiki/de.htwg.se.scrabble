@@ -62,5 +62,8 @@ case class RegularField(size: Integer, controller: Controller) extends FieldTemp
     str.toString()
   }
 
+  override def getSize: Integer = {
+    size
+  }
   // undo je runde: spieler und deren Punktestand. Zustand des Feldes. Karten der Hand.
 }
