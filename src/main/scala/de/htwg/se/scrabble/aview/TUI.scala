@@ -1,7 +1,8 @@
 package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.controller.{Controller, GameStatus}
-import de.htwg.se.scrabble.util.{Observer, ProcessWord}
+import de.htwg.se.scrabble.model.processWord.ProcessWord
+import de.htwg.se.scrabble.util.Observer
 
 class TUI extends Observer {
   val controller = Controller
