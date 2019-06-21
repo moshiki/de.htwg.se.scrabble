@@ -11,4 +11,5 @@ class Cell(letter: String) {
 
   def isLetter(str: String): Boolean = str.matches("[A-Z#*_]")
 
+  def isEmpty: Boolean = if (value == "_") true else false
 }

@@ -5,12 +5,20 @@ class CellSpec extends WordSpec with Matchers {
   "A cell" when {
     val cell = new Cell("")
     "is empty" should {
-      "contain nothing" in {cell.getValue should be("_")}
+      "contain nothing" in {
+        cell.getValue should be("_")
+        cell.isEmpty should be(true)
+      }
     }
     "is set" should {
-      val cell = new Cell("Acv")
+      val cell1 = new Cell("A")
+      val cell2 = new Cell("xyz")
       "contain only one capital letter or is empty" in {
-        cell.getValue should fullyMatch regex "[A-Z]||[^$]"
+        cell1.getValue should be ("A")
+        cell1.isEmpty should be(false)
+        cell2.getValue should be("_")
+        cell2.isEmpty should be(true)
+
       }
     }
     "setValue is called set the specific value" in {
