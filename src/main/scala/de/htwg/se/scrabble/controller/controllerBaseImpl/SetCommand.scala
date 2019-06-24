@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.controller
+package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.Command

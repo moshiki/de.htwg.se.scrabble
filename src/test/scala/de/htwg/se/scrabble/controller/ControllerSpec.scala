@@ -1,7 +1,8 @@
 package de.htwg.se.scrabble.controller
 
 
-import de.htwg.se.scrabble.model.gameManager.{GameOverManagerState, RoundManagerState}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameOverManagerState, RoundManagerState}
 import de.htwg.se.scrabble.util.Observer
 import org.scalatest._
 

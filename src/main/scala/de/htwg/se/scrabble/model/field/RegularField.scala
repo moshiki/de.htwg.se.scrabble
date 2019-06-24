@@ -1,8 +1,9 @@
-package de.htwg.se.scrabble.model
+package de.htwg.se.scrabble.model.field
 
 import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.model.FieldInterface
 
-case class RegularField(size: Integer) extends FieldTemplate {
+case class RegularField(size: Integer) extends FieldInterface {
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 

@@ -1,6 +1,6 @@
-package de.htwg.se.scrabble.model.gameManager
+package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
-import de.htwg.se.scrabble.controller.Controller
+import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import org.scalatest._
 
 class PreSetupManagerSpec extends WordSpec with Matchers{

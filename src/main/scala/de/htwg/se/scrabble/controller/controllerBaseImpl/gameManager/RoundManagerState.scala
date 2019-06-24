@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.model.gameManager
+package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
 import de.htwg.se.scrabble.controller.GameStatus
 

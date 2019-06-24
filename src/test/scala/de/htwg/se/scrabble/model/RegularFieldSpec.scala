@@ -1,5 +1,6 @@
 package de.htwg.se.scrabble.model
 
+import de.htwg.se.scrabble.model.field.RegularField
 import org.scalatest.{FlatSpec, Matchers}
 
 class RegularFieldSpec extends FlatSpec with Matchers{

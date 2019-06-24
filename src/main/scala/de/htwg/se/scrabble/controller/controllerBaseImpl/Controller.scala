@@ -1,17 +1,20 @@
-package de.htwg.se.scrabble.controller
+package de.htwg.se.scrabble.controller.controllerBaseImpl
 
-import de.htwg.se.scrabble.controller.GameStatus._
-import de.htwg.se.scrabble.model.{Dictionary, FieldTemplate, RegularField}
-import de.htwg.se.scrabble.model.cards.{Card, CardStackTemplate, RegularCardStack}
-import de.htwg.se.scrabble.model.gameManager._
+import de.htwg.se.scrabble.controller.ControllerInterface
+import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
+import de.htwg.se.scrabble.model.cards.{Card, RegularCardStack}
+import de.htwg.se.scrabble.model.field.RegularField
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
-import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
+import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerInterface}
+import de.htwg.se.scrabble.util.UndoManager
 
-object Controller extends Observable with Observer{
+// TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
+object Controller extends ControllerInterface {
   val dict = Dictionary
-  var players = new PlayerList
-  var field: FieldTemplate = RegularField(15)
-  var stack: CardStackTemplate = new RegularCardStack
+  var players: PlayerInterface = new PlayerList
+  var field: FieldInterface = RegularField(15)
+  var stack: CardInterface = new RegularCardStack
 
   var roundManager: GameManagerState = new PreSetupManagerState
   var gameStatus: GameStatus = IDLE
@@ -35,7 +38,8 @@ object Controller extends Observable with Observer{
     notifyObservers
   }
 
-  def next(): Unit = {
+
+  override def next(): Unit = {
     if (roundManager.isInstanceOf[RoundManagerState]) {
       activePlayer = inactivePlayer
       roundManager = new RoundManagerState
@@ -56,15 +60,15 @@ object Controller extends Observable with Observer{
     stack.getCard
   }
 
-  def set(x: String, y: Int, value: String): Unit = {
+  override def set(x: String, y: Int, value: String): Unit = {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer))
     notifyObservers
   }
-  def undo(): Unit = {
+  override def undo(): Unit = {
     undoManager.undoStep
     notifyObservers
   }
-  def redo(): Unit = {
+  override def redo(): Unit = {
     undoManager.redoStep
     notifyObservers
   }

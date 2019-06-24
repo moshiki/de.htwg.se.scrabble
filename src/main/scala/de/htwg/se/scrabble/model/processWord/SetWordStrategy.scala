@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.model.processWord
 
-import de.htwg.se.scrabble.controller.Controller
-import de.htwg.se.scrabble.model.Cell
+import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
+import de.htwg.se.scrabble.model.field.Cell
 
 trait SetWordStrategy {
   val controller = Controller

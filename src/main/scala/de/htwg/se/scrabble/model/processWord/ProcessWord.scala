@@ -1,9 +1,12 @@
 package de.htwg.se.scrabble.model.processWord
 
-import de.htwg.se.scrabble.controller.{Controller, GameStatus}
-import de.htwg.se.scrabble.model.Cell
+import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
+import de.htwg.se.scrabble.model.ProcessWordInterface
+import de.htwg.se.scrabble.model.field.Cell
 
-object ProcessWord {
+//TODO in Controllerschicht packen, falls nicht alle Controller zugriffe beseitigt werden können oder es in den Round Manager aufgenommn wurde
+object ProcessWord extends ProcessWordInterface {
 
   val controller = Controller
 
@@ -78,7 +81,7 @@ object ProcessWord {
   }
 
   def checkWord(word: String): Boolean = {
-    if (controller.dict.dict.contains(word.toUpperCase())) {
+    if (controller.dict.dict.contains(word.toUpperCase())) {  // TODO Dictionary hier laden
       true
     }
     else {

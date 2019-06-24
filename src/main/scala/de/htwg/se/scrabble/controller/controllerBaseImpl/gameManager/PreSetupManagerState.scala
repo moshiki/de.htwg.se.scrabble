@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.model.gameManager
+package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
 class PreSetupManagerState extends GameManagerState {
   this.add(controller)

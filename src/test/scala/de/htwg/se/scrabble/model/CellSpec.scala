@@ -1,4 +1,5 @@
 package de.htwg.se.scrabble.model
+import de.htwg.se.scrabble.model.field.Cell
 import org.scalatest._
 
 class CellSpec extends WordSpec with Matchers {

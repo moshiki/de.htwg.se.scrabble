@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.model.processWord
 
 import de.htwg.se.scrabble.controller.GameStatus
-import de.htwg.se.scrabble.model.Cell
+import de.htwg.se.scrabble.model.field.Cell
 
 class SetWordVertical extends SetWordStrategy {
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
@@ -15,5 +15,5 @@ class SetWordVertical extends SetWordStrategy {
       //        }
       true
     }
-    true
+  true
 }

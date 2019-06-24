@@ -1,11 +1,10 @@
 package de.htwg.se.scrabble.aview
 
-import de.htwg.se.scrabble.controller.{Controller, GameStatus}
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.processWord.ProcessWord
 import de.htwg.se.scrabble.util.Observer
 
-class TUI extends Observer {
-  val controller = Controller
+class TUI(controller: ControllerInterface) extends Observer {
   controller.add(this)
 
   println(init)
@@ -51,13 +50,13 @@ class TUI extends Observer {
     ||  exit                  |   exit scrabble                                                                                                                     |
     ||--------------------------------------------------------------------------------------------------------------------------------------------------------------|""".stripMargin
 
-
+//Todo: direkte controller zugriffe, anstelle der methodenaufrufe und deren zugriff (kürzen) überall wo controller. steht (nicht alle, nur die welche nötig sind)
   def processCommand(com:String): Unit = {
       val command = com.split(" ")
       command(0) match {
         case "exit" => exit()
         case "help" => println(help)
-        case "new" => newGame()
+        case "new" => controller.newGame()
         case "pd" => printDict()
         case "pv" => printVector()
         //case "player" => player(command)
@@ -78,6 +77,7 @@ class TUI extends Observer {
     }
   }
 
+  //Todo : 2. könnte ich methoden abkürzen um kleinere zugriffe zu haben?
   def exit(): Unit = {
     System.err.println("bye!")
     System.exit(0)
@@ -103,9 +103,6 @@ class TUI extends Observer {
     }
   }*/
 
-  def newGame() : Unit = {
-    controller.newGame()
-  }
 
   def players(): Unit = {
     println(controller.players.toString)
@@ -121,7 +118,7 @@ class TUI extends Observer {
     println()
     println("Cards in stack: " + controller.stack.getSize)
     println()
-    print(controller.field.toString)
+    print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
     println(GameStatus.message(controller.gameStatus))
     controller.gameStatus = GameStatus.IDLE
     true

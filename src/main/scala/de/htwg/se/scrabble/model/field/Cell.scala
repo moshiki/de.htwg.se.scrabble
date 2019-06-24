@@ -1,4 +1,4 @@
-package de.htwg.se.scrabble.model
+package de.htwg.se.scrabble.model.field
 
 class Cell(letter: String) {
   private var value: String =
