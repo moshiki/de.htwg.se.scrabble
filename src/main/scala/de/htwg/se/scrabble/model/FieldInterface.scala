@@ -16,5 +16,5 @@ trait FieldInterface {
 
   def getCols: String //return filed as concatenation of columns
 
-  def getSize: Integer //returnnd the field size
+  def getSize: Int //returnnd the field size
 }
