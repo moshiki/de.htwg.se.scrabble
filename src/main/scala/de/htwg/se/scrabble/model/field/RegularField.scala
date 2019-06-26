@@ -3,7 +3,7 @@ package de.htwg.se.scrabble.model.field
 import de.htwg.se.scrabble.controller.GameStatus
 import de.htwg.se.scrabble.model.FieldInterface
 
-case class RegularField(size: Integer) extends FieldInterface {
+case class RegularField(size: Int) extends FieldInterface {
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 
@@ -63,7 +63,7 @@ case class RegularField(size: Integer) extends FieldInterface {
     str.toString()
   }
 
-  override def getSize: Integer = {
+  override def getSize: Int = {
     size
   }
   // undo je runde: spieler und deren Punktestand. Zustand des Feldes. Karten der Hand.
