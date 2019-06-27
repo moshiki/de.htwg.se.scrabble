@@ -6,6 +6,7 @@ import de.htwg.se.scrabble.model.FieldInterface
 case class RegularField(size: Int) extends FieldInterface {
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
+  var field =
 
   for ( i <- 0 until size){
     for ( j <- 0 until size){
@@ -23,6 +24,10 @@ case class RegularField(size: Int) extends FieldInterface {
       controller.gameStatus = GameStatus.OOBOUND
       None
     }
+  }
+
+  override def getNextCell(cell: Cell): Option[Cell] = {
+    println(matrix.indexWhere(cell))
   }
 
   override def setCell(x: String, y: Int, value: String): Boolean = {

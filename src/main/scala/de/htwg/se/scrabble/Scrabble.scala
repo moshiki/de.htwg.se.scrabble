@@ -15,11 +15,9 @@ object Scrabble {
     if (args.length>0) input=args(0)
     if (!input.isEmpty) tui.processCommand(input)
     else do {
+
       input = readLine(">> ")
       tui.processCommand(input)
     } while (input != "q")
-      /*do {
-        tui.processCommand(readLine(">> "))
-      } while (true)*/
   }
 }
