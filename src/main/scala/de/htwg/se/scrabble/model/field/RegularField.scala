@@ -12,7 +12,7 @@ case class RegularField(size: Int) extends FieldInterface {
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
 
-  for (row <- 0 until size) {
+  for (row <- 1 to size) {
     grid += (row -> SortedMap.empty[String, Cell])
     for (a <- 65 until (65 + size)) {
       var col = a.toChar.toString
@@ -23,7 +23,7 @@ case class RegularField(size: Int) extends FieldInterface {
 
   override def getCell(col: String, row: Int): Option[Cell] = {
     val X = col.toUpperCase().charAt(0)-65
-    if (X < size && row < size) {
+    if (X < size && X >= 0 && row <= size && row > 0) {
       Some(grid(row)(col))
     } else {
       controller.gameStatus = GameStatus.OOBOUND
@@ -33,12 +33,12 @@ case class RegularField(size: Int) extends FieldInterface {
 
   override def getNextCell(cell: Cell): Option[Cell] = {
     var coord = getCoordinates(cell).getOrElse(return None)
-    getCell((coord.col+1).toString, coord.row)
+    getCell((coord.col+1).toChar.toString, coord.row)
   }
 
   override def getPrevCell(cell: Cell): Option[Cell] = {
     var coord = getCoordinates(cell).getOrElse(return None)
-    getCell((coord.col-1).toString, coord.row)
+    getCell((coord.col-1).toChar.toString, coord.row)
   }
 
   override def getUpperCell(cell: Cell): Option[Cell] = {
