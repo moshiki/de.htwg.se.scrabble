@@ -8,7 +8,6 @@ import scala.collection.mutable.SortedMap
 
 
 case class RegularField(size: Int) extends FieldInterface {
-  // var size = 15
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
 
   for (row <- 1 to size) {
