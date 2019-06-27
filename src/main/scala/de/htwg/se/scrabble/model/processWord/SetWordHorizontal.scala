@@ -5,7 +5,7 @@ import de.htwg.se.scrabble.model.field.Cell
 
 class SetWordHorizontal extends SetWordStrategy {
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
-    if (x.toInt - 65 + word.length > controller.field.getSize + 1) {
+    if (x.charAt(0) - 65 + word.length > controller.field.getSize + 1) {
       controller.gameStatus = GameStatus.TOOLONG
       return false
     }

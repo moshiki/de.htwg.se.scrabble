@@ -11,7 +11,9 @@ object ProcessWord extends ProcessWordInterface {
   val controller = Controller
 
   def setWord(parameters: Array[String]): Unit = {
-    val x: String = parameters(1).charAt(0).toString
+    if (parameters.length != 4) return
+
+    val x: String = parameters(1).charAt(0).toString.toUpperCase()
     val y: Int = parameters(1).substring(1).toInt
 
     val alignment: SetWordStrategy = {
@@ -21,7 +23,6 @@ object ProcessWord extends ProcessWordInterface {
     }
     val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3) else return
     val cell: Cell = if (controller.field.getCell(x, y).isDefined) controller.field.getCell(x, y).get else return
-
 
     if (checkWord(word)) {
       alignment.setWord(word, cell, x, y)
@@ -40,7 +41,7 @@ object ProcessWord extends ProcessWordInterface {
     }
   }
 
-  def error() = {
+  def error(): Unit = {
     //ToDO: Errorhandling (Info für User)" pls type cmd like: set B5 - Hallo"
   }
 
