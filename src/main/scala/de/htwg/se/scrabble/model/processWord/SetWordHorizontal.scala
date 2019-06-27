@@ -16,13 +16,13 @@ class SetWordHorizontal extends SetWordStrategy {
 
     for (c <- word) {
 
-      if (currCell.isEmpty)
+      if (currCell.isEmpty) {}
       // TODO: Nach rechts Cellenbuchstaben mit eingabe prüfenn, je nach index
     }
     true
   }
 
-  def validatePlacement(word:String, startCell: Cell) = {
+  /*def validatePlacement(word:String, startCell: Cell) = {
     val placementMap = SortedMap[Cell, String]()
     var matches: Int = 0
     var currCell: Cell = startCell
@@ -37,7 +37,7 @@ class SetWordHorizontal extends SetWordStrategy {
         return None
       }
 
-      currCell =
+      currCell
     }
-  }
+  }*/
 }
