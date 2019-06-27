@@ -1,14 +1,16 @@
 package de.htwg.se.scrabble
 
+import com.google.inject.Guice
 import de.htwg.se.scrabble.aview.TUI
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
-
+import de.htwg.se.scrabble.controller.ControllerInterface
 import scala.io.StdIn.readLine
 
-
+//TODO: Controller wieder in richtige Klasse umbauen für funktionalität
 object Scrabble {
- // val controller = Controller
-  val tui = new TUI(Controller)
+  val injector = Guice.createInjector(new ScrabbleModule)
+  val controller = injector.getInstance(classOf[ControllerInterface])
+ // val controller = new Controller(15)
+  val tui = new TUI(controller)
 
   def main(args: Array[String]): Unit= {
     var input: String = ""

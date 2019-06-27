@@ -10,10 +10,10 @@ import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, Pla
 import de.htwg.se.scrabble.util.UndoManager
 
 // TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
-object Controller extends ControllerInterface {
+case class Controller(fieldSize : Int) extends ControllerInterface {
   val dict = Dictionary
   var players: PlayerInterface = new PlayerList
-  var field: FieldInterface = RegularField(15)
+  var field: FieldInterface = RegularField(fieldSize)
   var stack: CardInterface = new RegularCardStack
 
   var roundManager: GameManagerState = new PreSetupManagerState
