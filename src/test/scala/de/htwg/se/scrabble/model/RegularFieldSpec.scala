@@ -1,6 +1,6 @@
 package de.htwg.se.scrabble.model
 
-import de.htwg.se.scrabble.model.field.RegularField
+import de.htwg.se.scrabble.model.field.{Cell, RegularField}
 import org.scalatest.{FlatSpec, Matchers}
 
 class RegularFieldSpec extends FlatSpec with Matchers{
@@ -45,6 +45,24 @@ class RegularFieldSpec extends FlatSpec with Matchers{
     rf.setCell("B", 3, "H")
     rf.getLowerCell(rf.getCell("B", 2).get).get.getValue should be("H")
     rf.getLowerCell(rf.getCell("B", 15).get) should not be defined
+  }
+
+  "getCoordinates" should "return the coordinates of a cell or nothing if not existent"  in {
+    val c = rf.getCoordinates(rf.getCell("B", 10).get).get
+    c.col should be('B')
+    c.row should be(10)
+
+    rf.getCoordinates(new Cell("_")) should not be defined
+  }
+
+  "A coordinate" should "contain a column and a row" in {
+    val c = rf.Coordinate(3, 'A')
+    c.col should be('A')
+    c.row should be(3)
+  }
+
+  "getSize" should "return the field size" in {
+    rf.getSize should be(15)
   }
 
 

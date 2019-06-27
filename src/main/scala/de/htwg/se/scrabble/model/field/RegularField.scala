@@ -70,7 +70,7 @@ case class RegularField(size: Int) extends FieldInterface {
     board
   }
 
-  private def getCoordinates(cell: Cell): Option[Coordinate] = {
+  def getCoordinates(cell: Cell): Option[Coordinate] = {
     grid.foreach(y => {
       val revMap: mutable.Map[Cell, String] = y._2 map {_.swap}
       if (revMap.contains(cell)) {
