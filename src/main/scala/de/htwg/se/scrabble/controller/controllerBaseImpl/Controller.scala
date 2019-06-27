@@ -1,5 +1,6 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
+import com.google.inject.Inject
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
@@ -10,10 +11,10 @@ import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, Pla
 import de.htwg.se.scrabble.util.UndoManager
 
 // TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
-case class Controller(fieldSize : Int) extends ControllerInterface {
+case class Controller @Inject() () extends ControllerInterface {
   val dict = Dictionary
   var players: PlayerInterface = new PlayerList
-  var field: FieldInterface = RegularField(fieldSize)
+  var field: FieldInterface = RegularField(15)
   var stack: CardInterface = new RegularCardStack
 
   var roundManager: GameManagerState = new PreSetupManagerState

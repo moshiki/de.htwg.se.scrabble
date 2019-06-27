@@ -6,7 +6,7 @@ import de.htwg.se.scrabble.model.ProcessWordInterface
 import de.htwg.se.scrabble.model.field.Cell
 
 //TODO in Controllerschicht packen, falls nicht alle Controller zugriffe beseitigt werden können oder es in den Round Manager aufgenommn wurde
-object ProcessWord extends ProcessWordInterface {
+class ProcessWord extends ProcessWordInterface {
 
   val controller = Controller
 
