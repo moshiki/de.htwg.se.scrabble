@@ -21,7 +21,7 @@ object ProcessWord extends ProcessWordInterface {
       else if (parameters(2).matches("[|]")) new SetWordVertical
       else return
     }
-    val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3) else return
+    val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
     val cell: Cell = if (controller.field.getCell(x, y).isDefined) controller.field.getCell(x, y).get else return
 
     if (checkWord(word)) {

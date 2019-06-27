@@ -4,7 +4,7 @@ import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
 import de.htwg.se.scrabble.model.cards.{Card, RegularCardStack}
-import de.htwg.se.scrabble.model.field.RegularField
+import de.htwg.se.scrabble.model.field.{Cell, RegularField}
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerInterface}
 import de.htwg.se.scrabble.util.UndoManager
@@ -64,6 +64,11 @@ object Controller extends ControllerInterface {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer))
     notifyObservers
   }
+  override def set(cell: Cell, value: String): Unit = {
+    val coord = field.getCoordinates(cell).getOrElse(return)
+    set(coord.col.toString, coord.row, value)
+  }
+
   override def undo(): Unit = {
     undoManager.undoStep
     notifyObservers

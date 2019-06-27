@@ -81,6 +81,4 @@ case class RegularField(size: Int) extends FieldInterface {
     })
     None
   }
-
-  case class Coordinate(row: Int, col: Char)
 }
