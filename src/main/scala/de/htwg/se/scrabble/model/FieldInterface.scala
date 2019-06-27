@@ -6,7 +6,7 @@ import de.htwg.se.scrabble.model.field.Cell
 trait FieldInterface {
   val controller = Controller
 
-  def getCell(x: String, y: Int): Option[Cell] //return cell for the coordinates
+  def getCell(x: String, y: Int): Option[Cell]
 
   def getNextCell(cell: Cell): Option[Cell]
 
@@ -18,11 +18,7 @@ trait FieldInterface {
 
   def setCell(x: String, y: Int, value: String): Boolean
 
-  def toString: String //return field as grid
+  def toString: String
 
-  //def getRows: String //return field as concatenation of rows
-
-  //def getCols: String //return filed as concatenation of columns
-
-  def getSize: Int //returnnd the field size
+  def getSize: Int
 }

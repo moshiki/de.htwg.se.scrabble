@@ -9,7 +9,6 @@ import scala.collection.mutable.SortedMap
 
 case class RegularField(size: Int) extends FieldInterface {
   // var size = 15
-  var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
 
   for (row <- 1 to size) {
@@ -70,6 +69,10 @@ case class RegularField(size: Int) extends FieldInterface {
     board
   }
 
+  override def getSize: Int = {
+    size
+  }
+
   def getCoordinates(cell: Cell): Option[Coordinate] = {
     grid.foreach(y => {
       val revMap: mutable.Map[Cell, String] = y._2 map {_.swap}
@@ -81,24 +84,4 @@ case class RegularField(size: Int) extends FieldInterface {
   }
 
   case class Coordinate(row: Int, col: Char)
-
-  /*override def getRows: String = {
-    val str = new StringBuilder
-    for { i <- 0 until size
-          j <- 0 until size
-    } str.append(s"${matrix(i)(j).getValue}")
-    str.toString()
-  }*/
-
-  /*override def getCols: String = {
-    val str = new StringBuilder
-    for { i <- 0 until size
-          j <- 0 until size
-    } str.append(s"${matrix(j)(i).getValue}")
-    str.toString()
-  }*/
-
-  override def getSize: Int = {
-    size
-  }
 }
