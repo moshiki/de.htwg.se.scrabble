@@ -1,26 +1,22 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
-import com.google.inject.{Guice, Inject}
-import de.htwg.se.scrabble.ScrabbleModule
-import net.codingwell.scalaguice.InjectorExtensions._
+import de.htwg.se.scrabble.Scrabble.injector
+import com.google.inject.Inject
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
-import de.htwg.se.scrabble.model.cards.{Card, RegularCardStack}
-import de.htwg.se.scrabble.model.field.{Cell, RegularField}
-import de.htwg.se.scrabble.model.player.{Player, PlayerList}
+import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerInterface}
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
 
 // TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
-case class Controller @Inject() () extends ControllerInterface {
-  val injektor = Guice.createInjector(new ScrabbleModule)
-  var field = injektor.instance[FieldInterface]
-  var stack = injektor.instance[CardInterface]
-  var players = injektor.instance[PlayerInterface]
- // var card = injektor.instance[CardInterface]
+case class Controller @Inject() (
+  var field : FieldInterface ,
+  var stack : CardInterface ,
+  var players : PlayerInterface ) extends ControllerInterface {
 
   val dict = Dictionary
 
@@ -34,11 +30,12 @@ case class Controller @Inject() () extends ControllerInterface {
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
- //   field = RegularField(15, this)
-  //  stack = new RegularCardStack
+    field = injector.getInstance(classOf[FieldInterface])
+    stack = injector.getInstance(classOf[CardInterface])
+    players = injector.getInstance(classOf[PlayerInterface])
     roundManager = new SetupManagerState(this)
     roundManager.start()
-    //notifyObservers
+    notifyObservers
   }
 
   def newPlayer(role:String, name:String): Unit = {

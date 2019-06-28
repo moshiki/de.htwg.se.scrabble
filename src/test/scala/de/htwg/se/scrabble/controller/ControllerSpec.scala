@@ -1,6 +1,7 @@
 package de.htwg.se.scrabble.controller
 
 
+import de.htwg.se.scrabble.Scrabble.injector
 import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameOverManagerState, RoundManagerState}
 import de.htwg.se.scrabble.util.Observer
@@ -9,7 +10,7 @@ import org.scalatest._
 class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
-      val controller = new Controller
+      val controller = injector.getInstance(classOf[ControllerInterface])
       val observer = new Observer {
         var updated: Boolean = false
 
@@ -25,10 +26,9 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.update
         observer.updated should be(true)
       }
-
     }
     "empty" should {
-      val controller = new Controller
+      val controller = injector.getInstance(classOf[ControllerInterface])
       "handle undo/redo correctly on an empty undo-stack" in {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.undo
@@ -48,7 +48,7 @@ class ControllerSpec extends WordSpec with Matchers {
     }
   }
   "A controller" should {
-    val controller = new Controller
+    val controller = injector.getInstance(classOf[ControllerInterface])
     "return the word list of the dictionary as string with dictToString" in {
       controller.dictToString
     }

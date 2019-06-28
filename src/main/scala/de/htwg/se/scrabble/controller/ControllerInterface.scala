@@ -19,8 +19,11 @@ trait ControllerInterface extends Observable with Observer{
   def newGame()
   def dictToString() : String
   def getDict: immutable.HashSet[String]
+  def getCard: Option[CardInterface]
   def vectorToString() : String
   def players() : PlayerInterface
+  def newPlayer(role:String, name:String)
+  def inactivePlayer: Option[Player]
   var activePlayer : Option[Player]
   var field : FieldInterface
   var stack : CardInterface

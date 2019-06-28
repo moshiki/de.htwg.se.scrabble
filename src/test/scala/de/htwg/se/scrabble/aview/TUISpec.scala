@@ -1,11 +1,13 @@
 package de.htwg.se.scrabble.aview
 
+import de.htwg.se.scrabble.Scrabble.injector
+import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import org.scalatest._
 
 class TUISpec extends FlatSpec with Matchers {
   //val ct = new Controller
-  val tui = new TUI(new Controller)
+  val tui = new TUI(injector.getInstance(classOf[ControllerInterface]))
 
     "TUI initialisation" should "build the Main Screen in Text Form" in {
       tui.init should be(
