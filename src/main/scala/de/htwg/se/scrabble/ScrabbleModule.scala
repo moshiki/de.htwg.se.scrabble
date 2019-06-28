@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.{CardInterface, FieldInterface, PlayerInterface, ProcessWordInterface}
-import de.htwg.se.scrabble.model.cards.Card
+import de.htwg.se.scrabble.model.cards.{Card, RegularCardStack}
 import de.htwg.se.scrabble.model.field.RegularField
 import de.htwg.se.scrabble.model.player.PlayerList
 import de.htwg.se.scrabble.model.processWord.ProcessWord
@@ -15,11 +15,10 @@ class ScrabbleModule extends AbstractModule with ScalaModule{
 
   override def configure(): Unit = {
     bind[ControllerInterface].to[Controller]
-    bind[CardInterface].to[Card]
+    bind[CardInterface].to[RegularCardStack]
     bind[FieldInterface].toInstance(RegularField(defaultSize))
     bind[PlayerInterface].to[PlayerList]
     bind[ProcessWordInterface].to[ProcessWord]
-
   }
 
 //  def configure() = {             // Bogers Code

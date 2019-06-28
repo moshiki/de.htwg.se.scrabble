@@ -14,7 +14,7 @@ import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 object Scrabble {
   val injector = Guice.createInjector(new ScrabbleModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
-  val controller = new Controller
+//  val controller = new Controller
   val tui = new TUI(controller:ControllerInterface)
 
   def main(args: Array[String]): Unit= {

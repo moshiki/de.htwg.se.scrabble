@@ -1,12 +1,13 @@
 package de.htwg.se.scrabble.model.processWord
 
+import com.google.inject.Inject
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.ProcessWordInterface
 import de.htwg.se.scrabble.model.field.Cell
 
 //TODO in Controllerschicht packen, falls nicht alle Controller zugriffe beseitigt werden können oder es in den Round Manager aufgenommn wurde
-case class ProcessWord(controller:ControllerInterface) extends ProcessWordInterface {
+case class ProcessWord @Inject()(controller:ControllerInterface) extends ProcessWordInterface {
 
   def setWord(parameters: Array[String]): Unit = {
     if (parameters.length != 4) return

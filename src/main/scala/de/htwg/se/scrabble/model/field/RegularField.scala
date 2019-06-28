@@ -1,15 +1,17 @@
 package de.htwg.se.scrabble.model.field
 
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.scrabble.ScrabbleModule
 import de.htwg.se.scrabble.controller.GameStatus
 import de.htwg.se.scrabble.model.FieldInterface
-
 import scala.collection.mutable
 import scala.collection.mutable.SortedMap
-
-  case class RegularField @Inject()(size: Integer, controller:ControllerInterface)  extends FieldInterface {
+                                          // (... , ControllerInterface)
+  case class RegularField @Inject()(size: Integer)  extends FieldInterface {
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
+//    val injektor = Guice.createInjector(new ScrabbleModule)
+//    var controller = injektor.instance[ControllerInterface]
 
   for (row <- 1 to size) {
     grid += (row -> SortedMap.empty[String, Cell])
@@ -24,8 +26,8 @@ import scala.collection.mutable.SortedMap
     val X = col.toUpperCase().charAt(0)-65
     if (X < size && X >= 0 && row <= size && row > 0) {
       Some(grid(row)(col))
-    } else {
-      controller.gameStatus = GameStatus.OOBOUND
+    } else {  // unterer zugrif bricht bedingung, greift nach oben um was zu ändern
+      //controller.gameStatus = GameStatus.OOBOUND
       None
     }
   }

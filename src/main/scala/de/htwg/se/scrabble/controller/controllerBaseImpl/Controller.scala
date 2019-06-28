@@ -18,15 +18,11 @@ import scala.collection.immutable
 case class Controller @Inject() () extends ControllerInterface {
   val injektor = Guice.createInjector(new ScrabbleModule)
   var field = injektor.instance[FieldInterface]
+  var stack = injektor.instance[CardInterface]
   var players = injektor.instance[PlayerInterface]
-  var stack = injektor.instance[RegularCardStack]
-  //  var players: PlayerInterface = new PlayerList
-  //  var field: FieldInterface = RegularField(15)
-  //  var stack: CardInterface = new RegularCardStack
+ // var card = injektor.instance[CardInterface]
+
   val dict = Dictionary
-  var players: PlayerInterface = new PlayerList
-  var field: FieldInterface = RegularField(15, this)
-  var stack: CardInterface = new RegularCardStack
 
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
@@ -38,8 +34,8 @@ case class Controller @Inject() () extends ControllerInterface {
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
-    field = RegularField(15, this)
-    stack = new RegularCardStack
+ //   field = RegularField(15, this)
+  //  stack = new RegularCardStack
     roundManager = new SetupManagerState(this)
     roundManager.start()
     //notifyObservers
@@ -68,7 +64,7 @@ case class Controller @Inject() () extends ControllerInterface {
     }
   }
 
-  def getCard: Option[Card] = {
+  def getCard: Option[CardInterface] = {
     stack.getCard
   }
 
