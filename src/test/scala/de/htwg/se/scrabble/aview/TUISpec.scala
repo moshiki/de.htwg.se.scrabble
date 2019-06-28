@@ -5,7 +5,7 @@ import org.scalatest._
 
 class TUISpec extends FlatSpec with Matchers {
   //val ct = new Controller
-  val tui = new TUI(Controller)
+  val tui = new TUI(new Controller)
 
     "TUI initialisation" should "build the Main Screen in Text Form" in {
       tui.init should be(

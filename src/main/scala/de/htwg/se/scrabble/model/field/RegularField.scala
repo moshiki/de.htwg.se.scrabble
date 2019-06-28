@@ -1,32 +1,56 @@
 package de.htwg.se.scrabble.model.field
 
-import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.FieldInterface
 
-case class RegularField(size: Integer) extends FieldInterface {
-  // var size = 15
-  var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
+import scala.collection.mutable
+import scala.collection.mutable.SortedMap
 
-  for ( i <- 0 until size){
-    for ( j <- 0 until size){
-      matrix(i)(j) = new Cell("_")
+
+case class RegularField(size: Int, controller:ControllerInterface) extends FieldInterface {
+  var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
+
+  for (row <- 1 to size) {
+    grid += (row -> SortedMap.empty[String, Cell])
+    for (a <- 65 until (65 + size)) {
+      var col = a.toChar.toString
+      grid(row) += (col -> new Cell("_"))
     }
   }
+  setCell((65+size/2).toChar.toString, size/2, "*")
 
-  matrix(size/2)(size/2) = new Cell("X")
-
-  override def getCell(x: String, y: Int): Option[Cell] = {
-    val X = x.toUpperCase().charAt(0)-65
-    if (X < size && y < size) {
-      Some(matrix(y)(X))
+  override def getCell(col: String, row: Int): Option[Cell] = {
+    val X = col.toUpperCase().charAt(0)-65
+    if (X < size && X >= 0 && row <= size && row > 0) {
+      Some(grid(row)(col))
     } else {
       controller.gameStatus = GameStatus.OOBOUND
       None
     }
   }
 
-  override def setCell(x: String, y: Int, value: String): Boolean = {
-    val c = getCell(x.toUpperCase(),y)
+  override def getNextCell(cell: Cell): Option[Cell] = {
+    var coord = getCoordinates(cell).getOrElse(return None)
+    getCell((coord.col+1).toChar.toString, coord.row)
+  }
+
+  override def getPrevCell(cell: Cell): Option[Cell] = {
+    var coord = getCoordinates(cell).getOrElse(return None)
+    getCell((coord.col-1).toChar.toString, coord.row)
+  }
+
+  override def getUpperCell(cell: Cell): Option[Cell] = {
+    var coord = getCoordinates(cell).getOrElse(return None)
+    getCell(coord.col.toString, coord.row-1)
+  }
+
+  override def getLowerCell(cell: Cell): Option[Cell] = {
+    var coord = getCoordinates(cell).getOrElse(return None)
+    getCell(coord.col.toString, coord.row+1)
+  }
+
+  override def setCell(row: String, col: Int, value: String): Boolean = {
+    val c = getCell(row.toUpperCase(),col)
     if (c.isDefined) {
       c.get.setValue(value.toUpperCase())
       true
@@ -35,36 +59,26 @@ case class RegularField(size: Integer) extends FieldInterface {
 
   override def toString: String = {
     var board: String = "|"
-    for (a <- 65 until (65+ size)) board = board + a.toChar + "|"
-    board = board + "\n_______________________________\n"
-    for ( i <- 0 until size){
-      for ( j <- 0 until size){
-        board = board + "|" + matrix(i)(j).getValue
-      }
-      board = board + "| " + i + "\n"
-    }
-    board = board + "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
+    val r = 65 until 65+size
+    r.foreach(col => board += col.toChar + "|")
+    board += "\n_______________________________\n"
+    grid.foreach(row => {row._2.foreach(col => board += "|" + col._2.getValue)
+                         board += "| " + row._1 + "\n"})
+    board += "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
     board
   }
 
-  override def getRows: String = {
-    val str = new StringBuilder
-    for { i <- 0 until size
-          j <- 0 until size
-    } str.append(s"${matrix(i)(j).getValue}")
-    str.toString()
-  }
-
-  override def getCols: String = {
-    val str = new StringBuilder
-    for { i <- 0 until size
-          j <- 0 until size
-    } str.append(s"${matrix(j)(i).getValue}")
-    str.toString()
-  }
-
-  override def getSize: Integer = {
+  override def getSize: Int = {
     size
   }
-  // undo je runde: spieler und deren Punktestand. Zustand des Feldes. Karten der Hand.
+
+  def getCoordinates(cell: Cell): Option[Coordinate] = {
+    grid.foreach(y => {
+      val revMap: mutable.Map[Cell, String] = y._2 map {_.swap}
+      if (revMap.contains(cell)) {
+        return Some(Coordinate(y._1, revMap(cell).charAt(0)))
+      }
+    })
+    None
+  }
 }

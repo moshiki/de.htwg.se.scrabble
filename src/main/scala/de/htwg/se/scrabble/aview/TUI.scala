@@ -63,7 +63,7 @@ class TUI(controller: ControllerInterface) extends Observer {
         case "players" => players()
         case "undo" => controller.undo()
         case "redo" => controller.redo()
-        case "set" => ProcessWord setWord command     // Aktuallisierter set Befehl aus se-08-UndoRedo
+        case "set" => ProcessWord(controller).setWord(command)     // Aktuallisierter set Befehl aus se-08-UndoRedo
         case "next" => controller.next()
         case _ => com match {
           case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>

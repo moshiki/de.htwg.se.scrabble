@@ -6,7 +6,7 @@ trait CardInterface {
 
   def getCard: Option[Card]
 
-  def getSize: Integer
+  def getSize: Int
 
   def isEmpty: Boolean
 

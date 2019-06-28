@@ -5,19 +5,21 @@ import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
 import de.htwg.se.scrabble.model.cards.{Card, RegularCardStack}
-import de.htwg.se.scrabble.model.field.RegularField
+import de.htwg.se.scrabble.model.field.{Cell, RegularField}
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerInterface}
 import de.htwg.se.scrabble.util.UndoManager
+
+import scala.collection.immutable
 
 // TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
 case class Controller @Inject() () extends ControllerInterface {
   val dict = Dictionary
   var players: PlayerInterface = new PlayerList
-  var field: FieldInterface = RegularField(15)
+  var field: FieldInterface = RegularField(15, this)
   var stack: CardInterface = new RegularCardStack
 
-  var roundManager: GameManagerState = new PreSetupManagerState
+  var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[Player] = None
   private val undoManager = new UndoManager
@@ -27,9 +29,9 @@ case class Controller @Inject() () extends ControllerInterface {
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
-    field = RegularField(15)
+    field = RegularField(15, this)
     stack = new RegularCardStack
-    roundManager = new SetupManagerState
+    roundManager = new SetupManagerState(this)
     roundManager.start()
     //notifyObservers
   }
@@ -43,7 +45,7 @@ case class Controller @Inject() () extends ControllerInterface {
   override def next(): Unit = {
     if (roundManager.isInstanceOf[RoundManagerState]) {
       activePlayer = inactivePlayer
-      roundManager = new RoundManagerState
+      roundManager = new RoundManagerState(this)
       roundManager.start()
       notifyObservers
     }
@@ -61,10 +63,17 @@ case class Controller @Inject() () extends ControllerInterface {
     stack.getCard
   }
 
+  def getDict(): immutable.HashSet[String] = dict.dict
+
   override def set(x: String, y: Int, value: String): Unit = {
-    undoManager.doStep(new SetCommand(x, y, value, activePlayer))
+    undoManager.doStep(new SetCommand(x, y, value, activePlayer, this))
     notifyObservers
   }
+  override def set(cell: Cell, value: String): Unit = {
+    val coord = field.getCoordinates(cell).getOrElse(return)
+    set(coord.col.toString, coord.row, value)
+  }
+
   override def undo(): Unit = {
     undoManager.undoStep
     notifyObservers

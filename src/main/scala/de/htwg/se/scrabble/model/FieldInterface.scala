@@ -1,20 +1,26 @@
 package de.htwg.se.scrabble.model
 
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.field.Cell
 
 trait FieldInterface {
-  val controller = Controller
 
-  def getCell(x: String, y: Int): Option[Cell] //return cell for the coordinates
+  def getCell(col: String, row: Int): Option[Cell]
 
-  def setCell(x: String, y: Int, value: String): Boolean
+  def getCoordinates(cell: Cell): Option[Coordinate]
 
-  def toString: String //return field as grid
+  def getNextCell(cell: Cell): Option[Cell]
 
-  def getRows: String //return field as concatenation of rows
+  def getPrevCell(cell: Cell): Option[Cell]
 
-  def getCols: String //return filed as concatenation of columns
+  def getUpperCell(cell: Cell): Option[Cell]
 
-  def getSize: Integer //returnnd the field size
+  def getLowerCell(cell: Cell): Option[Cell]
+
+  def setCell(col: String, row: Int, value: String): Boolean
+
+  def toString: String
+
+  def getSize: Int
+
+  case class Coordinate(row: Int, col: Char)
 }
