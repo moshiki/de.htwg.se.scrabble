@@ -16,7 +16,7 @@ class ScrabbleModule extends AbstractModule with ScalaModule{
   override def configure(): Unit = {
     bind[ControllerInterface].to[Controller]
     bind[CardInterface].to[Card]
-    bind[FieldInterface].to[RegularField]
+    bind[FieldInterface].toInstance(RegularField(defaultSize))
     bind[PlayerInterface].to[PlayerList]
     bind[ProcessWordInterface].to[ProcessWord]
 

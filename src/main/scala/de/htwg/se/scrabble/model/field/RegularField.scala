@@ -1,9 +1,10 @@
 package de.htwg.se.scrabble.model.field
 
+import com.google.inject.Inject
 import de.htwg.se.scrabble.controller.GameStatus
 import de.htwg.se.scrabble.model.FieldInterface
 
-case class RegularField(size: Integer) extends FieldInterface {
+case class RegularField @Inject()(size: Integer)  extends FieldInterface {
   // var size = 15
   var matrix: Array[Array[Cell]] = Array.ofDim[Cell](size,size)
 
