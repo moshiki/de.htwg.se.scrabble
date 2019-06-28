@@ -1,12 +1,11 @@
 package de.htwg.se.scrabble.model.processWord
 
-import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 
-import scala.collection.SortedMap
 
-class SetWordHorizontal extends SetWordStrategy {
+class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy {
   var matches = List.empty[String]
 
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {

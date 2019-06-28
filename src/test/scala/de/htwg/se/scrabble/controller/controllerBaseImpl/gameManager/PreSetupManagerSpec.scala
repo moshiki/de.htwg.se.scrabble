@@ -5,8 +5,8 @@ import org.scalatest._
 
 class PreSetupManagerSpec extends WordSpec with Matchers{
   "A PreSetupManager is a GameManager state and responsible for pre setup tasks of the game" when {
-    val ctl = Controller
-    val gm: GameManagerState = new PreSetupManagerState
+    val ctl = new Controller
+    val gm: GameManagerState = new PreSetupManagerState(ctl)
     "start is invoked" should {
       "do nothing ans stay in game over state" in {
         gm.start()

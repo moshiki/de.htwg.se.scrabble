@@ -9,7 +9,7 @@ import org.scalatest._
 class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
-      val controller = Controller
+      val controller = new Controller
       val observer = new Observer {
         var updated: Boolean = false
 
@@ -28,7 +28,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
     }
     "empty" should {
-      val controller = Controller
+      val controller = new Controller
       "handle undo/redo correctly on an empty undo-stack" in {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.undo
@@ -48,7 +48,7 @@ class ControllerSpec extends WordSpec with Matchers {
     }
   }
   "A controller" should {
-    val controller = Controller
+    val controller = new Controller
     "return the word list of the dictionary as string with dictToString" in {
       controller.dictToString
     }
@@ -89,7 +89,7 @@ class ControllerSpec extends WordSpec with Matchers {
 
     "go on to the next player when RoundManager is active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = new RoundManagerState
+      controller.roundManager = new RoundManagerState(controller)
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should not be currPlayer
@@ -97,7 +97,7 @@ class ControllerSpec extends WordSpec with Matchers {
     }
     "do nothing when RoundManager is not active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = new GameOverManagerState
+      controller.roundManager = new GameOverManagerState(controller)
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should be(currPlayer)

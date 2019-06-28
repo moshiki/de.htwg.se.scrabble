@@ -1,13 +1,13 @@
 package de.htwg.se.scrabble.model.field
 
-import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.FieldInterface
 
 import scala.collection.mutable
 import scala.collection.mutable.SortedMap
 
 
-case class RegularField(size: Int) extends FieldInterface {
+case class RegularField(size: Int, controller:ControllerInterface) extends FieldInterface {
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
 
   for (row <- 1 to size) {

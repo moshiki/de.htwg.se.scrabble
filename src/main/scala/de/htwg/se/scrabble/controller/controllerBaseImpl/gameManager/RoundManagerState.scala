@@ -1,8 +1,8 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
-import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 
-class RoundManagerState extends GameManagerState {
+class RoundManagerState(controller:ControllerInterface) extends GameManagerState {
   this.add(controller)
 
   override def start(): Unit = {
@@ -22,7 +22,7 @@ class RoundManagerState extends GameManagerState {
 
   //override def switchToNextState(state: GameManagerState): Unit = controller.roundManager = state
   override def switchToNextState(): Unit = {
-    controller.roundManager = new GameOverManagerState
+    controller.roundManager = new GameOverManagerState(controller)
     controller.roundManager.start()
   }
 }

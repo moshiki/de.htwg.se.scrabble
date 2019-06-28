@@ -1,14 +1,15 @@
 package de.htwg.se.scrabble
 
 import de.htwg.se.scrabble.aview.TUI
+import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 
 import scala.io.StdIn.readLine
 
 
 object Scrabble {
- // val controller = Controller
-  val tui = new TUI(Controller)
+  val controller = new Controller
+  val tui = new TUI(controller:ControllerInterface)
 
   def main(args: Array[String]): Unit= {
     var input: String = ""

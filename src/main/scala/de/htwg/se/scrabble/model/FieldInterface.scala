@@ -1,10 +1,8 @@
 package de.htwg.se.scrabble.model
 
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.field.Cell
 
 trait FieldInterface {
-  val controller = Controller
 
   def getCell(col: String, row: Int): Option[Cell]
 

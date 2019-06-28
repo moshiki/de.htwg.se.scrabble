@@ -1,8 +1,8 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
-import de.htwg.se.scrabble.controller.GameStatus
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 
-class GameOverManagerState extends GameManagerState {
+class GameOverManagerState(controller:ControllerInterface) extends GameManagerState {
   this.add(controller)
 
   override def start(): Unit = {
