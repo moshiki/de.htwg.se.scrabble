@@ -1,5 +1,6 @@
 package de.htwg.se.scrabble.model.cards
 
+import com.google.inject.Inject
 import de.htwg.se.scrabble.model.CardInterface
 
 import scala.collection.mutable.ListBuffer

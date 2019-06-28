@@ -1,6 +1,8 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.scrabble.ScrabbleModule
+import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
@@ -14,6 +16,13 @@ import scala.collection.immutable
 
 // TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
 case class Controller @Inject() () extends ControllerInterface {
+  val injektor = Guice.createInjector(new ScrabbleModule)
+  var field = injektor.instance[FieldInterface]
+  var players = injektor.instance[PlayerInterface]
+  var stack = injektor.instance[RegularCardStack]
+  //  var players: PlayerInterface = new PlayerList
+  //  var field: FieldInterface = RegularField(15)
+  //  var stack: CardInterface = new RegularCardStack
   val dict = Dictionary
   var players: PlayerInterface = new PlayerList
   var field: FieldInterface = RegularField(15, this)
