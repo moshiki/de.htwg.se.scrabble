@@ -2,13 +2,8 @@ package de.htwg.se.scrabble
 
 import com.google.inject.Guice
 import de.htwg.se.scrabble.aview.TUI
-import de.htwg.se.scrabble.controller.ControllerInterface
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
-
 import scala.io.StdIn.readLine
 import de.htwg.se.scrabble.controller.ControllerInterface
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
-
 
 //TODO: Controller wieder in richtige Klasse umbauen für funktionalität
 object Scrabble {

@@ -4,6 +4,9 @@ import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 
+import scala.collection.SortedMap
+import scala.collection.immutable.ListMap
+
 
 class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy {
   var matches = List.empty[String]
@@ -27,16 +30,16 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
     true
   }
 
-  def validPlacement(word:String, start:Cell): Option[Map[Cell, String]] = {
-    val placementMap: Map[Cell, String] = Map.empty[Cell, String]
+  def validPlacement(word:String, start:Cell): Option[ListMap[Cell, String]] = {
+    var placementMap: ListMap[Cell, String] = ListMap.empty[Cell, String]
     matches = List.empty[String]
     var currCell: Cell = start
 
     for (c <- word.toUpperCase) {
       if (currCell.isEmpty) {
-        placementMap + (currCell -> c)
+        placementMap += (currCell -> c.toString)
       } else if (currCell.getValue == c.toString) {
-        placementMap + (currCell -> c)
+        placementMap += (currCell -> c.toString)
         matches + c.toString
       } else {
         return None
@@ -47,7 +50,8 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
   }
 
   def validHand(word:String, hand:List[Card], usableCards:List[String]): Boolean = {
-    val allCards = hand.map(s => s.value) :: usableCards
+    var allCards: List[String] = hand.map(s => s.value)
+    allCards ++= usableCards
     for (c <- word) {
       if (!allCards.contains(c.toString)) {
         return false
