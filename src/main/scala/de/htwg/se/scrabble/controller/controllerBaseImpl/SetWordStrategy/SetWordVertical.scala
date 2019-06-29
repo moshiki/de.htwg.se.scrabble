@@ -10,11 +10,11 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
   var matches = List.empty[String]
 
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
-    if (y + word.length > controller.field.getSize + 1) {
+    if (x.charAt(0) - 65 + word.length > controller.field.getSize + 1) {
       controller.gameStatus = GameStatus.TOOLONG
       return false
     }
-    var placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
+    val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
       controller.set(placementMap)
     }
@@ -30,7 +30,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
       if (currCell.isEmpty) {
         placementMap += (currCell -> c.toString)
       } else if (currCell.getValue == c.toString) {
-
+        matches = c.toString :: matches
       } else {
         return None
       }
@@ -44,6 +44,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
     allCards ++= usableCards
     for (c <- word) {
       if (!allCards.contains(c.toString)) {
+        controller.gameStatus = GameStatus.NOHANDCARD
         return false
       }
       allCards diff List(c.toString)

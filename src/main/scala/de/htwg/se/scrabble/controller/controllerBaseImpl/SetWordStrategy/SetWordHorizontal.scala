@@ -13,7 +13,7 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
       controller.gameStatus = GameStatus.TOOLONG
       return false
     }
-    var placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
+    val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
       controller.set(placementMap)
     }
