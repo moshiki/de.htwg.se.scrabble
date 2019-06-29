@@ -8,13 +8,12 @@ import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManage
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
 import de.htwg.se.scrabble.model.field.{Cell, RegularField}
 import de.htwg.se.scrabble.model.player.Player
-import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerListInterface}
+import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
 
-// TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
 case class Controller @Inject() (
   var field : FieldInterface ,
   var stack : CardInterface ,
@@ -24,7 +23,7 @@ case class Controller @Inject() (
 
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
-  var activePlayer: Option[Player] = None
+  var activePlayer: Option[PlayerInterface] = None
   private val undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
@@ -55,7 +54,7 @@ case class Controller @Inject() (
     }
   }
 
-  def inactivePlayer: Option[Player] = {
+  def inactivePlayer: Option[PlayerInterface] = {
     if (activePlayer.get == players.get("A").get) {
       players.get("B")
     } else {
