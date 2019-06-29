@@ -1,7 +1,6 @@
 package de.htwg.se.scrabble.aview
 
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
-import de.htwg.se.scrabble.model.processWord.ProcessWord
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: ControllerInterface) extends Observer {
@@ -63,7 +62,7 @@ class TUI(controller: ControllerInterface) extends Observer {
         case "players" => players()
         case "undo" => controller.undo()
         case "redo" => controller.redo()
-        case "set" => ProcessWord(controller).setWord(command)     // Aktuallisierter set Befehl aus se-08-UndoRedo
+        case "set" => controller.setWord(command)
         case "next" => controller.next()
         case _ => com match {
           case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>
@@ -77,7 +76,6 @@ class TUI(controller: ControllerInterface) extends Observer {
     }
   }
 
-  //Todo : 2. könnte ich methoden abkürzen um kleinere zugriffe zu haben?
   def exit(): Unit = {
     System.err.println("bye!")
     System.exit(0)

@@ -1,32 +1,23 @@
-package de.htwg.se.scrabble.model.processWord
+package de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy
 
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 
-import scala.collection.SortedMap
 import scala.collection.immutable.ListMap
 
-
-class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy {
+class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
   var matches = List.empty[String]
 
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
-    if (x.charAt(0) - 65 + word.length > controller.field.getSize + 1) {
+    if (y + word.length > controller.field.getSize + 1) {
       controller.gameStatus = GameStatus.TOOLONG
       return false
     }
     var placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
-      placementMap.foreach(p => controller.set(p._1,
-        if (matches.contains(p._2)) {
-          matches = matches diff List(p._2)
-          p._2
-        } else {
-          controller.activePlayer.get.putCard(Card(p._2)).get.value
-        }))
+      controller.set(placementMap)
     }
-
     true
   }
 
@@ -39,12 +30,11 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
       if (currCell.isEmpty) {
         placementMap += (currCell -> c.toString)
       } else if (currCell.getValue == c.toString) {
-        placementMap += (currCell -> c.toString)
-        matches + c.toString
+
       } else {
         return None
       }
-      currCell = controller.field.getNextCell(currCell).getOrElse(return None)
+      currCell = controller.field.getLowerCell(currCell).getOrElse(return None)
     }
     Some(placementMap)
   }

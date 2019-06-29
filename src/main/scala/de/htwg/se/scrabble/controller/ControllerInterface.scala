@@ -8,6 +8,7 @@ import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.{Observable, Observer}
 
 import scala.collection.immutable
+import scala.collection.immutable.ListMap
 
 trait ControllerInterface extends Observable with Observer{
 
@@ -16,12 +17,14 @@ trait ControllerInterface extends Observable with Observer{
   def next()
   def set(x: String, y: Int, value: String)
   def set(cell:Cell, value:String)
+  def set(placementMap: ListMap[Cell, String])
+  def setWord(parameters: Array[String]): Unit
   def newGame()
-  def dictToString() : String
+  def dictToString : String
   def getDict: immutable.HashSet[String]
   def getCard: Option[CardInterface]
-  def vectorToString() : String
-  def players() : PlayerInterface
+  def vectorToString : String
+  def players : PlayerInterface
   def newPlayer(role:String, name:String)
   def inactivePlayer: Option[Player]
   var activePlayer : Option[Player]

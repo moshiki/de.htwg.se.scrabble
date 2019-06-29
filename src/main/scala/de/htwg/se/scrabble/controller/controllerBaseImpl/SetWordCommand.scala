@@ -1,21 +1,31 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.controller.ControllerInterface
+import de.htwg.se.scrabble.model.cards.Card
+import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.Command
 
-class SetWordCommand(word: String, x: String, y: Int, activePlayer: Option[Player], controller: ControllerInterface) extends Command {
+import scala.collection.immutable.ListMap
+
+class SetWordCommand(placementMap: ListMap[Cell, String], activePlayer: Option[Player], controller: ControllerInterface) extends Command {
   override def doStep:   Unit = {
-    //controller.field.setCell(x, y)
+    for (p <- placementMap) {
+      val c = controller.field.getCoordinates(p._1).getOrElse(return)
+      controller.field.setCell(c.col.toString, c.row, controller.activePlayer.get.putCard(Card(p._2)).get.value)
+    }
     controller.activePlayer = activePlayer
   }
   override def undoStep: Unit = {
-    controller.field.setCell(x, y, "_")
+    for (p <- placementMap) {
+      val c = controller.field.getCoordinates(p._1).get
+      controller.field.setCell(c.col.toString, c.row, "_")
+      controller.activePlayer.get.addToHand(Card(p._2))
+    }
     controller.activePlayer = activePlayer
   }
   override def redoStep: Unit = {
-    //controller.field.setCell(x, y)
-    controller.activePlayer = activePlayer
+    doStep
   }
 }
 

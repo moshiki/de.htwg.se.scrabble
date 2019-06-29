@@ -1,6 +1,5 @@
-package de.htwg.se.scrabble.model.processWord
+package de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy
 
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.field.Cell
 
 trait SetWordStrategy {

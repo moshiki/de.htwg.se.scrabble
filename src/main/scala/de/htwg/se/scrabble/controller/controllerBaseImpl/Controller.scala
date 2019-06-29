@@ -2,15 +2,17 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
-import de.htwg.se.scrabble.controller.ControllerInterface
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
 import de.htwg.se.scrabble.model.field.{Cell, RegularField}
 import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerInterface}
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
+import scala.collection.immutable.ListMap
 
 // TODO Traid erzeugen der alle funktionalitäten und zugriffe kürzt auf einen befehl von auserhalb
 case class Controller @Inject() (
@@ -65,7 +67,7 @@ case class Controller @Inject() (
     stack.getCard
   }
 
-  def getDict(): immutable.HashSet[String] = dict.dict
+  def getDict: immutable.HashSet[String] = dict.dict
 
   override def set(x: String, y: Int, value: String): Unit = {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer, this))
@@ -74,6 +76,31 @@ case class Controller @Inject() (
   override def set(cell: Cell, value: String): Unit = {
     val coord = field.getCoordinates(cell).getOrElse(return)
     set(coord.col.toString, coord.row, value)
+  }
+  override def set(placementMap: ListMap[Cell, String]): Unit = {
+    undoManager.doStep(new SetWordCommand(placementMap, activePlayer, this))
+    notifyObservers
+  }
+
+  override def setWord(parameters: Array[String]): Unit = {
+    if (parameters.length != 4) return
+
+    val x: String = parameters(1).charAt(0).toString.toUpperCase()
+    val y: Int = parameters(1).substring(1).toInt
+    val alignment: SetWordStrategy = {
+      if (parameters(2).matches("[-]")) new SetWordHorizontal(this)
+      else if (parameters(2).matches("[|]")) new SetWordVertical(this)
+      else return}
+    val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
+    val cell: Cell = if (field.getCell(x, y).isDefined) field.getCell(x, y).get else return
+
+    if (getDict.contains(word.toUpperCase())) {
+      alignment.setWord(word, cell, x, y)
+      // TODO: INSERT -> wird beim einsetzen min. ein anderer Bustabe genutzt? (oder Mittelfeld) (checkenn ob buchstabenn auch alle gleich sind oder _ oder *)
+    } else {
+      gameStatus = GameStatus.ILLEGAL
+    }
+    notifyObservers
   }
 
   override def undo(): Unit = {
