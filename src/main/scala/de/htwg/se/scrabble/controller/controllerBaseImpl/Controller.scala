@@ -8,7 +8,7 @@ import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManage
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
 import de.htwg.se.scrabble.model.field.{Cell, RegularField}
 import de.htwg.se.scrabble.model.player.Player
-import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerInterface}
+import de.htwg.se.scrabble.model.{CardInterface, Dictionary, FieldInterface, PlayerListInterface}
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
@@ -18,7 +18,7 @@ import scala.collection.immutable.ListMap
 case class Controller @Inject() (
   var field : FieldInterface ,
   var stack : CardInterface ,
-  var players : PlayerInterface ) extends ControllerInterface {
+  var players : PlayerListInterface ) extends ControllerInterface {
 
   val dict = Dictionary
 
@@ -34,7 +34,7 @@ case class Controller @Inject() (
   def newGame(): Unit = {
     field = RegularField(15)
     stack = injector.getInstance(classOf[CardInterface])
-    players = injector.getInstance(classOf[PlayerInterface])
+    players = injector.getInstance(classOf[PlayerListInterface])
     roundManager = new SetupManagerState(this)
     roundManager.start()
     notifyObservers

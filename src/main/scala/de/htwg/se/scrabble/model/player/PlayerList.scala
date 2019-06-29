@@ -1,11 +1,11 @@
 package de.htwg.se.scrabble.model.player
 
 import com.google.inject.Inject
-import de.htwg.se.scrabble.model.PlayerInterface
+import de.htwg.se.scrabble.model.PlayerListInterface
 
 import scala.collection.mutable
 
-class PlayerList @Inject() extends PlayerInterface  {
+class PlayerList @Inject() extends PlayerListInterface  {
   private val playerMap = mutable.TreeMap[String, Player]()
 
   def put(player:Player): Option[Player] = playerMap.put(player.role, player)

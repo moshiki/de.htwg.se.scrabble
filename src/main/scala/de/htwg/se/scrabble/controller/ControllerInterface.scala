@@ -3,7 +3,7 @@ package de.htwg.se.scrabble.controller
 import de.htwg.se.scrabble.controller.GameStatus.GameStatus
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManagerState
 import de.htwg.se.scrabble.model.field.Cell
-import de.htwg.se.scrabble.model.{CardInterface, FieldInterface, PlayerInterface}
+import de.htwg.se.scrabble.model.{CardInterface, FieldInterface, PlayerListInterface}
 import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.{Observable, Observer}
 
@@ -24,7 +24,7 @@ trait ControllerInterface extends Observable with Observer{
   def getDict: immutable.HashSet[String]
   def getCard: Option[CardInterface]
   def vectorToString : String
-  def players : PlayerInterface
+  def players : PlayerListInterface
   def newPlayer(role:String, name:String)
   def inactivePlayer: Option[Player]
   var activePlayer : Option[Player]

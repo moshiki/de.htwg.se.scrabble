@@ -5,7 +5,7 @@ import de.htwg.se.scrabble.model.cards.Card
 
 import scala.collection.mutable.ArrayBuffer
 
-case class Player(role: String, name: String){
+case class Player(role: String, name: String) extends PlayerInterface {
   private var hand: List[Card] = Nil
   private val handSize = 7
 
