@@ -3,9 +3,8 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
-
 import scala.collection.immutable.ListMap
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.ListBuffer
 
 class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy {
   var matches = List.empty[String]
@@ -17,7 +16,7 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
     }
     val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
-      controller.set(placementMap)
+      if (validSurrounding(placementMap)) controller.set(placementMap)
     }
     true
   }
@@ -42,24 +41,50 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
 
   def validSurrounding(placementMap: ListMap[Cell, String]): Boolean = {
     val head: (Cell, String) = placementMap.toList.head
+    val tail: (Cell, String) = placementMap.toList.last
     var prevCell: Option[Cell] = controller.field.getPrevCell(head._1)
+    var nextCell: Option[Cell] = controller.field.getNextCell(tail._1)
+    val lb = ListBuffer[String]() ++= placementMap.values
+    val sb = new StringBuilder()
 
-    if (prevCell.isDefined) {
-      val lb = ArrayBuffer[String]
+    if (prevCell.isDefined) { //check previous cells
       while (!prevCell.get.isEmpty) {
-        //lb = lb :: prevCell.get.getValue
+        lb.prepend(prevCell.get.getValue)
+        prevCell = controller.field.getPrevCell(prevCell.get)
       }
-
     }
-
-    for (p <- placementMap) {
-      var upCell: Option[Cell] = controller.field.getUpperCell(head._1)
-      var lowCell: Option[Cell] = controller.field.getLowerCell(head._1)
-
-
-
+    if (nextCell.isDefined) { //check following cells
+      while (!nextCell.get.isEmpty) {
+        lb.append(nextCell.get.getValue)
+        nextCell = controller.field.getNextCell(nextCell.get)
       }
+    }
+    sb.appendAll(lb.map(s => s.charAt(0)))
+    if (!controller.getDict.contains(sb.toString())) return false
 
+    for (p <- placementMap) { // check upper and lower cells for each cell to be set
+      val currCell: Cell = p._1
+      var upCell: Option[Cell] = controller.field.getUpperCell(currCell)
+      var lowCell: Option[Cell] = controller.field.getLowerCell(currCell)
+      lb.clear()
+      lb += currCell.getValue
+      sb.clear()
+
+      if (upCell.isDefined) { // upper cells
+        while (!upCell.get.isEmpty) {
+          lb.prepend(upCell.get.getValue)
+          upCell = controller.field.getUpperCell(upCell.get)
+        }
+      }
+      if (lowCell.isDefined) { // lower cells
+        while (!lowCell.get.isEmpty) {
+          lb.append(lowCell.get.getValue)
+          lowCell = controller.field.getLowerCell(lowCell.get)
+        }
+      }
+      sb.appendAll(lb.map(s => s.charAt(0)))
+      if (!controller.getDict.contains(sb.toString())) return false
+    }
     true
   }
 

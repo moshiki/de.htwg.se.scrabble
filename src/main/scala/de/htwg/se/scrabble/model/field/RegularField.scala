@@ -5,8 +5,9 @@ import com.google.inject.{Guice, Inject}
 import de.htwg.se.scrabble.ScrabbleModule
 import de.htwg.se.scrabble.controller.GameStatus
 import de.htwg.se.scrabble.model.FieldInterface
+
 import scala.collection.mutable
-import scala.collection.mutable.SortedMap
+import scala.collection.mutable.{ArrayBuffer, SortedMap}
                                           // (... , ControllerInterface)
   case class RegularField @Inject()(size: Integer)  extends FieldInterface {
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
@@ -62,8 +63,8 @@ import scala.collection.mutable.SortedMap
 
   override def toString: String = {
     var board: String = "|"
-    val r = 65 until 65+size
-    r.foreach(col => board += col.toChar + "|")
+    val a = ArrayBuffer.tabulate(size)(n => 'A'+n)
+    a.foreach(col => board += col.toChar + "|")
     board += "\n_______________________________\n"
     grid.foreach(row => {row._2.foreach(col => board += "|" + col._2.getValue)
                          board += "| " + row._1 + "\n"})
