@@ -93,9 +93,8 @@ case class Controller @Inject() (
     val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
     val cell: Cell = if (field.getCell(x, y).isDefined) field.getCell(x, y).get else return
 
-    if (getDict.contains(word.toUpperCase())) {
+    if (word.length >= 2 && getDict.contains(word.toUpperCase())) {
       alignment.setWord(word, cell, x, y)
-      // TODO: INSERT -> wird beim einsetzen min. ein anderer Bustabe genutzt? (oder Mittelfeld) (checkenn ob buchstabenn auch alle gleich sind oder _ oder *)
     } else {
       gameStatus = GameStatus.ILLEGAL
     }

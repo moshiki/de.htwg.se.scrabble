@@ -3,7 +3,9 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
+
 import scala.collection.immutable.ListMap
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy {
   var matches = List.empty[String]
@@ -36,6 +38,29 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
       currCell = controller.field.getNextCell(currCell).getOrElse(return None)
     }
     Some(placementMap)
+  }
+
+  def validSurrounding(placementMap: ListMap[Cell, String]): Boolean = {
+    val head: (Cell, String) = placementMap.toList.head
+    var prevCell: Option[Cell] = controller.field.getPrevCell(head._1)
+
+    if (prevCell.isDefined) {
+      val lb = ArrayBuffer[String]
+      while (!prevCell.get.isEmpty) {
+        //lb = lb :: prevCell.get.getValue
+      }
+
+    }
+
+    for (p <- placementMap) {
+      var upCell: Option[Cell] = controller.field.getUpperCell(head._1)
+      var lowCell: Option[Cell] = controller.field.getLowerCell(head._1)
+
+
+
+      }
+
+    true
   }
 
   def validHand(word:String, hand:List[Card], usableCards:List[String]): Boolean = {
