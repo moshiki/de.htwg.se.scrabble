@@ -17,8 +17,9 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
     val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
       if (validSurrounding(placementMap)) controller.set(placementMap)
+      return true
     }
-    true
+    false
   }
 
   def validPlacement(word:String, start:Cell): Option[ListMap[Cell, String]] = {
@@ -60,14 +61,14 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
       }
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
-    if (!controller.getDict.contains(sb.toString())) return false
+    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return false}
 
     for (p <- placementMap) { // check upper and lower cells for each cell to be set
       val currCell: Cell = p._1
       var upCell: Option[Cell] = controller.field.getUpperCell(currCell)
       var lowCell: Option[Cell] = controller.field.getLowerCell(currCell)
       lb.clear()
-      lb += currCell.getValue
+      lb += p._2
       sb.clear()
 
       if (upCell.isDefined) { // upper cells
@@ -83,7 +84,7 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy 
         }
       }
       sb.appendAll(lb.map(s => s.charAt(0)))
-      if (!controller.getDict.contains(sb.toString())) return false
+      if (sb.length > 1 && !controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return false}
     }
     true
   }
