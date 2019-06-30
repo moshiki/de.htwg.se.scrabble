@@ -23,7 +23,7 @@ case class Controller @Inject() (
 
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
-  var activePlayer: Option[PlayerInterface] = None
+  var activePlayer: Option[Player] = None
   private val undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
@@ -54,7 +54,7 @@ case class Controller @Inject() (
     }
   }
 
-  def inactivePlayer: Option[PlayerInterface] = {
+  def inactivePlayer: Option[Player] = {
     if (activePlayer.get == players.get("A").get) {
       players.get("B")
     } else {

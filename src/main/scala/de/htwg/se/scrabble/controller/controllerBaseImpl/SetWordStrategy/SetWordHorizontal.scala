@@ -85,8 +85,14 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
         }
       }
       sb.appendAll(lb.map(s => s.charAt(0)))
-      if (sb.length > 1 && !controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
-      encounteredWords += sb.toString()
+      if (sb.length > 1) {
+        if (controller.getDict.contains(sb.toString())) {
+          encounteredWords += sb.toString()
+        } else {
+          controller.gameStatus = GameStatus.PLACEMENT
+          None
+        }
+      }
     }
     Some(encounteredWords.toList)
   }

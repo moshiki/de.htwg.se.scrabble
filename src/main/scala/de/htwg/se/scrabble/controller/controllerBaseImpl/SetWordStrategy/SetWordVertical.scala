@@ -57,7 +57,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
     if (lowCell.isDefined) { //check lower cells
       while (!lowCell.get.isEmpty || placementMap.keys.toList.contains(lowCell.get)) {
         lb.append(if (lowCell.get.isEmpty) placementMap(lowCell.get) else lowCell.get.getValue)
-        lowCell = controller.field.getNextCell(lowCell.get)
+        lowCell = controller.field.getLowerCell(lowCell.get)
       }
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
@@ -85,8 +85,14 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
         }
       }
       sb.appendAll(lb.map(s => s.charAt(0)))
-      if (sb.length > 1 && !controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
-      encounteredWords += sb.toString()
+      if (sb.length > 1) {
+        if (controller.getDict.contains(sb.toString())) {
+          encounteredWords += sb.toString()
+        } else {
+          controller.gameStatus = GameStatus.PLACEMENT
+          None
+        }
+      }
     }
     Some(encounteredWords.toList)
   }
