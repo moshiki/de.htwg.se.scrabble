@@ -10,5 +10,8 @@ trait PlayerInterface {
   def getPoints: Int
   def addPoints(value: Int)
   def subPoints(value: Int)
+  def actionPermitted: Boolean
+  def grantActionPermit()
+  def revokeActionPermit()
   def toString:String
 }

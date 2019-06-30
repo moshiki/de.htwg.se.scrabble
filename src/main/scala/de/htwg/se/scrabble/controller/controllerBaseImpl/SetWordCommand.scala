@@ -15,6 +15,7 @@ class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List
       controller.field.setCell(c.col.toString, c.row, activePlayer.get.putCard(Card(p._2)).get.value)
     }
     activePlayer.get.addPoints(controller.evalPoints(surroundingWords))
+    activePlayer.get.revokeActionPermit()
     controller.activePlayer = activePlayer
   }
   override def undoStep: Unit = {
@@ -24,6 +25,7 @@ class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List
       controller.activePlayer.get.addToHand(Card(p._2))
     }
     activePlayer.get.subPoints(controller.evalPoints(surroundingWords))
+    activePlayer.get.grantActionPermit()
     controller.activePlayer = activePlayer
   }
   override def redoStep: Unit = {

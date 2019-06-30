@@ -48,17 +48,15 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
     val sb = new StringBuilder()
     val encounteredWords = ListBuffer[String]()
 
-    if (upCell.isDefined) { //check upper cells
-      while (!upCell.get.isEmpty) {
-        lb.prepend(upCell.get.getValue)
-        upCell = controller.field.getPrevCell(upCell.get)
-      }
+    //check upper cells
+    while (upCell.isDefined && !upCell.get.isEmpty) {
+      lb.prepend(upCell.get.getValue)
+      upCell = controller.field.getPrevCell(upCell.get)
     }
-    if (lowCell.isDefined) { //check lower cells
-      while (!lowCell.get.isEmpty || placementMap.keys.toList.contains(lowCell.get)) {
-        lb.append(if (lowCell.get.isEmpty) placementMap(lowCell.get) else lowCell.get.getValue)
-        lowCell = controller.field.getLowerCell(lowCell.get)
-      }
+    //check lower cells
+    while (lowCell.isDefined && !lowCell.get.isEmpty || placementMap.keys.toList.contains(lowCell.get)) {
+      lb.append(if (lowCell.get.isEmpty) placementMap(lowCell.get) else lowCell.get.getValue)
+      lowCell = controller.field.getLowerCell(lowCell.get)
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
     if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
@@ -72,17 +70,15 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
       lb += p._2
       sb.clear()
 
-      if (prevCell.isDefined) { // previous cells
-        while (!prevCell.get.isEmpty) {
-          lb.prepend(prevCell.get.getValue)
-          prevCell = controller.field.getPrevCell(prevCell.get)
-        }
+      // previous cells
+      while (prevCell.isDefined && !prevCell.get.isEmpty) {
+        lb.prepend(prevCell.get.getValue)
+        prevCell = controller.field.getPrevCell(prevCell.get)
       }
-      if (nextCell.isDefined) { // following cells
-        while (!nextCell.get.isEmpty) {
-          lb.append(nextCell.get.getValue)
-          nextCell = controller.field.getNextCell(nextCell.get)
-        }
+      // following cells
+      while (nextCell.isDefined && !nextCell.get.isEmpty) {
+        lb.append(nextCell.get.getValue)
+        nextCell = controller.field.getNextCell(nextCell.get)
       }
       sb.appendAll(lb.map(s => s.charAt(0)))
       if (sb.length > 1) {

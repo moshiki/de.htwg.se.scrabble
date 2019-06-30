@@ -8,6 +8,7 @@ case class Player(role: String, name: String) extends PlayerInterface {
   private var hand: List[Card] = Nil
   private val handSize = 7
   private var points = 0
+  private var actionPermit: Boolean = true
 
   def getHand: List[Card] = hand
 
@@ -33,6 +34,10 @@ case class Player(role: String, name: String) extends PlayerInterface {
   override def getPoints: Int = points
   override def addPoints(value: Int): Unit = points += value
   override def subPoints(value: Int): Unit = points -= value
+
+  override def actionPermitted: Boolean = actionPermit
+  override def grantActionPermit(): Unit = actionPermit = true
+  override def revokeActionPermit(): Unit = actionPermit = false
 
   override def toString:String = "PLAYER "+role+s" | $points points"
 }

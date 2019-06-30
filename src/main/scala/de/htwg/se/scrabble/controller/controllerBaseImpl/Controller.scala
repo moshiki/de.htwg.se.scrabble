@@ -19,9 +19,7 @@ case class Controller @Inject() (
   var field : FieldInterface ,
   var stack : CardInterface ,
   var players : PlayerListInterface ) extends ControllerInterface {
-
   val dict = Dictionary
-
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[Player] = None
@@ -93,20 +91,24 @@ case class Controller @Inject() (
 
   override def setWord(parameters: Array[String]): Unit = {
     if (parameters.length != 4) return
+    if (activePlayer.get.actionPermitted) {
+      val x: String = parameters(1).charAt(0).toString.toUpperCase()
+      val y: Int = parameters(1).substring(1).toInt
+      val alignment: SetWordStrategy = {
+        if (parameters(2).matches("[-]")) new SetWordHorizontal(this)
+        else if (parameters(2).matches("[|]")) new SetWordVertical(this)
+        else return
+      }
+      val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
+      val cell: Cell = if (field.getCell(x, y).isDefined) field.getCell(x, y).get else return
 
-    val x: String = parameters(1).charAt(0).toString.toUpperCase()
-    val y: Int = parameters(1).substring(1).toInt
-    val alignment: SetWordStrategy = {
-      if (parameters(2).matches("[-]")) new SetWordHorizontal(this)
-      else if (parameters(2).matches("[|]")) new SetWordVertical(this)
-      else return}
-    val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
-    val cell: Cell = if (field.getCell(x, y).isDefined) field.getCell(x, y).get else return
-
-    if (word.length >= 2 && getDict.contains(word.toUpperCase())) {
-      alignment.setWord(word, cell, x, y)
+      if (word.length >= 2 && getDict.contains(word.toUpperCase())) {
+        alignment.setWord(word, cell, x, y)
+      } else {
+        gameStatus = GameStatus.ILLEGAL
+      }
     } else {
-      gameStatus = GameStatus.ILLEGAL
+      gameStatus = GameStatus.ACTIONPERMIT
     }
     notifyObservers
   }
