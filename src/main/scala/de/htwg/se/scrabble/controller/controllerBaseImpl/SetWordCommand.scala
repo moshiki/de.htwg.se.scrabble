@@ -1,14 +1,14 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.controller.ControllerInterface
-import de.htwg.se.scrabble.model.PlayerInterface
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.Command
 
 import scala.collection.immutable.ListMap
 
-class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List[String], activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
+class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List[String], activePlayer: Option[Player], controller: ControllerInterface) extends Command {
   override def doStep:   Unit = {
     for (p <- placementMap) {
       val c = controller.field.getCoordinates(p._1).getOrElse(return)
