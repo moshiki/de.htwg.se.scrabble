@@ -13,5 +13,8 @@ trait PlayerInterface {
   def actionPermitted: Boolean
   def grantActionPermit()
   def revokeActionPermit()
+  def switchedHand: Boolean
+  def grantSwitchedHand()
+  def revokeSwitchedHand()
   def toString:String
 }

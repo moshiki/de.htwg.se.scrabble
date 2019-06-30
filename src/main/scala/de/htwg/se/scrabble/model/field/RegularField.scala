@@ -8,7 +8,8 @@ import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, SortedMap}
 
 class RegularField @Inject()(@Named("DefaultSize") size:Int)  extends FieldInterface {
-  var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
+  private var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
+  private val starCell: Coordinate = Coordinate(size/2+1, (65+size/2).toChar)
 
   for (row <- 1 to size) {
     grid += (row -> SortedMap.empty[String, Cell])
@@ -17,7 +18,7 @@ class RegularField @Inject()(@Named("DefaultSize") size:Int)  extends FieldInter
       grid(row) += (col -> new Cell("_"))
     }
   }
-  setCell((65+size/2).toChar.toString, size/2+1, "*")
+  setCell(starCell.col.toString, starCell.row, "*")
 
   override def getCell(col: String, row: Int): Option[Cell] = {
     val X = col.toUpperCase().charAt(0)-65
@@ -28,6 +29,8 @@ class RegularField @Inject()(@Named("DefaultSize") size:Int)  extends FieldInter
       None
     }
   }
+
+  override def getStarCell: Option[Cell] = getCell(starCell.col.toString, starCell.row)
 
   override def getNextCell(cell: Cell): Option[Cell] = {
     var coord = getCoordinates(cell).getOrElse(return None)

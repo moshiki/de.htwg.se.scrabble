@@ -16,6 +16,8 @@ trait FieldInterface {
 
   def getLowerCell(cell: Cell): Option[Cell]
 
+  def getStarCell: Option[Cell]
+
   def setCell(col: String, row: Int, value: String): Boolean
 
   def toString: String

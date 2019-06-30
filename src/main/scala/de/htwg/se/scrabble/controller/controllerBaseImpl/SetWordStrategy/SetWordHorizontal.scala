@@ -37,6 +37,10 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
       }
       currCell = controller.field.getNextCell(currCell).getOrElse(return None)
     }
+    if (controller.firstDraw) {
+      if (!placementMap.keys.toList.contains(controller.field.getStarCell.getOrElse(return None))) return None
+      controller.firstDraw = false
+    }
     Some(placementMap)
   }
 

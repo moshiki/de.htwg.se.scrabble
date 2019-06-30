@@ -19,4 +19,5 @@ abstract class SetWordStrategy(controller:ControllerInterface) {
     }
     true
   }
+
 }

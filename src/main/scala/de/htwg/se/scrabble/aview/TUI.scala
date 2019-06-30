@@ -63,6 +63,7 @@ class TUI(controller: ControllerInterface) extends Observer {
         case "undo" => controller.undo()
         case "redo" => controller.redo()
         case "set" => controller.setWord(command)
+        case "switch" => controller.switchHand()
         case "next" => controller.next()
         case _ => com match {
           case r"""[A-Za-z]\d{1,2}\s[A-Za-z#]""" =>

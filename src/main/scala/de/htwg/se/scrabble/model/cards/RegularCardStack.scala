@@ -17,6 +17,14 @@ class RegularCardStack extends CardInterface {
       None
   }
 
+  override def getSpecificCard(card:Card): Option[Card] = {
+    if (cardList.contains(card)) {
+      cardList -= card
+      Some(card)
+    } else
+      None
+  }
+
   override def putCard(card:Card): Unit = {
     cardList += card
   }
