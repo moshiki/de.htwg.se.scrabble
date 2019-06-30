@@ -6,7 +6,7 @@ import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
-import de.htwg.se.scrabble.model.field.{Cell, RegularField}
+import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.util.UndoManager
@@ -31,7 +31,7 @@ case class Controller @Inject() (
   def vectorToString: String = dict.vectorToString
 
   def newGame(): Unit = {
-    field = RegularField(15)
+    field = injector.getInstance(classOf[FieldInterface])
     stack = injector.getInstance(classOf[CardInterface])
     players = injector.getInstance(classOf[PlayerListInterface])
     roundManager = new SetupManagerState(this)

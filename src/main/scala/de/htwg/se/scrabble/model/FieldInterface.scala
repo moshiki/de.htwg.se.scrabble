@@ -24,13 +24,3 @@ trait FieldInterface {
 
   case class Coordinate(row: Int, col: Char)
 }
-
-//trait CellInterface{
-//  def getValue: String
-//
-//  def setValue(value: String): Boolean
-//
-//  def isLetter(str: String): Boolean = str.matches("[A-Z#*_]")
-//
-//  def isEmpty: Boolean
-//}

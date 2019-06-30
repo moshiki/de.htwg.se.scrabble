@@ -1,12 +1,13 @@
 package de.htwg.se.scrabble.model.field
 
 import com.google.inject.Inject
+import com.google.inject.name.Named
 import de.htwg.se.scrabble.model.FieldInterface
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, SortedMap}
-                                          // (... , ControllerInterface)
-  case class RegularField @Inject()(size: Integer)  extends FieldInterface {
+
+class RegularField @Inject()(@Named("DefaultSize") size:Int)  extends FieldInterface {
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
 
   for (row <- 1 to size) {

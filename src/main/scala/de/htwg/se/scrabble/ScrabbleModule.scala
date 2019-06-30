@@ -1,6 +1,7 @@
 package de.htwg.se.scrabble
 
 import com.google.inject.AbstractModule
+import com.google.inject.name.Names
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.{CardInterface, FieldInterface, PlayerListInterface}
@@ -13,10 +14,12 @@ class ScrabbleModule extends AbstractModule with ScalaModule{
   val defaultSize:Int = 15
 
   override def configure(): Unit = {
+    bindConstant().annotatedWith(Names.named("DefaultSize")).to(defaultSize)
     bind[ControllerInterface].to[Controller]
     bind[CardInterface].to[RegularCardStack]
-    bind[FieldInterface].toInstance(RegularField(defaultSize))
     bind[PlayerListInterface].to[PlayerList]
+    bind[FieldInterface].to[RegularField]
+    bind[FieldInterface].annotatedWithName("regular").toInstance(new RegularField(15))
   }
 
 //  def configure() = {             // Bogers Code
