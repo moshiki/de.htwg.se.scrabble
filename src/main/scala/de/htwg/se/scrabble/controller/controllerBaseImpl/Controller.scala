@@ -9,6 +9,7 @@ import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWor
 import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.model._
+import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
@@ -47,11 +48,18 @@ case class Controller @Inject() (
 
   override def next(): Unit = {
     if (roundManager.isInstanceOf[RoundManagerState]) {
-      activePlayer = inactivePlayer
+      undoManager.doStep(new NextCommand(inactivePlayer, activePlayer, this))
       roundManager = new RoundManagerState(this)
       roundManager.start()
       notifyObservers
     }
+  }
+
+  override def fillHand(): Unit = {
+    for (player <- players.getList) {
+      undoManager.doStep(new FillHandCommand(player, stack, activePlayer, this))
+    }
+    gameStatus = GameStatus.FILLHAND
   }
 
   def inactivePlayer: Option[Player] = {
@@ -62,7 +70,7 @@ case class Controller @Inject() (
     }
   }
 
-  def getCard: Option[CardInterface] = {
+  def getCard: Option[Card] = {
     stack.getCard
   }
 

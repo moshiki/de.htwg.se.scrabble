@@ -17,6 +17,10 @@ class RegularCardStack extends CardInterface {
       None
   }
 
+  override def putCard(card:Card): Unit = {
+    cardList += card
+  }
+
   override def getSize: Int = {cardList.size}
 
   override def isEmpty: Boolean = cardList.isEmpty

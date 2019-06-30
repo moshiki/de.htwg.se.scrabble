@@ -12,7 +12,7 @@ class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List
   override def doStep:   Unit = {
     for (p <- placementMap) {
       val c = controller.field.getCoordinates(p._1).getOrElse(return)
-      controller.field.setCell(c.col.toString, c.row, controller.activePlayer.get.putCard(Card(p._2)).get.value)
+      controller.field.setCell(c.col.toString, c.row, activePlayer.get.putCard(Card(p._2)).get.value)
     }
     activePlayer.get.addPoints(controller.evalPoints(surroundingWords))
     controller.activePlayer = activePlayer

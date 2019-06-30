@@ -2,7 +2,6 @@ package de.htwg.se.scrabble.model.player
 
 import de.htwg.se.scrabble.model.PlayerInterface
 import de.htwg.se.scrabble.model.cards.Card
-
 import scala.collection.mutable.ArrayBuffer
 
 case class Player(role: String, name: String) extends PlayerInterface {
