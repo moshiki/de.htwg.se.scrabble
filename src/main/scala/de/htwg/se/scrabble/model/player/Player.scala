@@ -8,6 +8,7 @@ import scala.collection.mutable.ArrayBuffer
 case class Player(role: String, name: String) extends PlayerInterface {
   private var hand: List[Card] = Nil
   private val handSize = 7
+  private var points = 0
 
   def getHand: List[Card] = hand
 
@@ -30,9 +31,9 @@ case class Player(role: String, name: String) extends PlayerInterface {
     false
   }
 
-  // ToDo: FUnktion zum legen einer Karte implementieren. Muss prüfen, ob Karte auch wirklich in Hand vorhanden ist.
+  override def getPoints: Int = points
+  override def addPoints(value: Int): Unit = points += value
+  override def subPoints(value: Int): Unit = points -= value
 
-  // ToDO: Punkte im SPieler speichern
-
-  override def toString:String = "Player "+role+": "+name
+  override def toString:String = "PLAYER "+role+s" | $points points"
 }

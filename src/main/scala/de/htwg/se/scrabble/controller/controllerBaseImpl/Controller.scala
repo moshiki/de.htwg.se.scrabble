@@ -68,6 +68,8 @@ case class Controller @Inject() (
 
   def getDict: immutable.HashSet[String] = dict.dict
 
+  def getAlphabet: immutable.TreeMap[String, Integer] = dict.alphabet
+
   override def set(x: String, y: Int, value: String): Unit = {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer, this))
     notifyObservers
@@ -76,8 +78,8 @@ case class Controller @Inject() (
     val coord = field.getCoordinates(cell).getOrElse(return)
     set(coord.col.toString, coord.row, value)
   }
-  override def set(placementMap: ListMap[Cell, String]): Unit = {
-    undoManager.doStep(new SetWordCommand(placementMap, activePlayer, this))
+  override def set(placementMap: ListMap[Cell, String], surroundingWords: List[String]): Unit = {
+    undoManager.doStep(new SetWordCommand(placementMap, surroundingWords, activePlayer, this))
     notifyObservers
   }
 
@@ -99,6 +101,16 @@ case class Controller @Inject() (
       gameStatus = GameStatus.ILLEGAL
     }
     notifyObservers
+  }
+
+  override def evalPoints(encounteredWords: List[String]): Int = {
+    var points = 0
+    for (word <- encounteredWords) {
+      for (c <- word) {
+        points += dict.alphabet(c.toString)
+      }
+    }
+    points
   }
 
   override def undo(): Unit = {

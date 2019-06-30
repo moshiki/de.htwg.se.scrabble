@@ -7,7 +7,8 @@ trait PlayerInterface {
   def putCard(card: Card): Option[Card]
   def getNrCardsInHand: Integer
   def addToHand(card: Card): Boolean
+  def getPoints: Int
+  def addPoints(value: Int)
+  def subPoints(value: Int)
   def toString:String
-  // ToDo: FUnktion zum legen einer Karte implementieren. Muss prüfen, ob Karte auch wirklich in Hand vorhanden ist.
-  // ToDO: Punkte im SPieler speichern
 }

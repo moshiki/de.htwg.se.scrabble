@@ -8,12 +8,13 @@ import de.htwg.se.scrabble.util.Command
 
 import scala.collection.immutable.ListMap
 
-class SetWordCommand(placementMap: ListMap[Cell, String], activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
+class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List[String], activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
   override def doStep:   Unit = {
     for (p <- placementMap) {
       val c = controller.field.getCoordinates(p._1).getOrElse(return)
       controller.field.setCell(c.col.toString, c.row, controller.activePlayer.get.putCard(Card(p._2)).get.value)
     }
+    activePlayer.get.addPoints(controller.evalPoints(surroundingWords))
     controller.activePlayer = activePlayer
   }
   override def undoStep: Unit = {
@@ -22,6 +23,7 @@ class SetWordCommand(placementMap: ListMap[Cell, String], activePlayer: Option[P
       controller.field.setCell(c.col.toString, c.row, "_")
       controller.activePlayer.get.addToHand(Card(p._2))
     }
+    activePlayer.get.subPoints(controller.evalPoints(surroundingWords))
     controller.activePlayer = activePlayer
   }
   override def redoStep: Unit = {

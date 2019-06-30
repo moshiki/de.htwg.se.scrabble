@@ -9,7 +9,7 @@ class RoundManagerState(controller:ControllerInterface) extends GameManagerState
     //controller.roundManager = this
     fillHand()
     controller.gameStatus = GameStatus.FILLHAND
-    notifyObservers
+    //notifyObservers
   }
 
   def fillHand(): Unit = {

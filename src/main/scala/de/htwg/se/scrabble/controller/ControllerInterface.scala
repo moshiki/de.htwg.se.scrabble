@@ -16,16 +16,18 @@ trait ControllerInterface extends Observable with Observer{
   def next()
   def set(x: String, y: Int, value: String)
   def set(cell:Cell, value:String)
-  def set(placementMap: ListMap[Cell, String])
+  def set(placementMap: ListMap[Cell, String], surroundingWords: List[String])
   def setWord(parameters: Array[String]): Unit
   def newGame()
   def dictToString : String
   def getDict: immutable.HashSet[String]
+  def getAlphabet: immutable.TreeMap[String, Integer]
   def getCard: Option[CardInterface]
   def vectorToString : String
   def players : PlayerListInterface
   def newPlayer(role:String, name:String)
   def inactivePlayer: Option[PlayerInterface]
+  def evalPoints(words: List[String]): Int
   var activePlayer : Option[PlayerInterface]
   var field : FieldInterface
   var stack : CardInterface

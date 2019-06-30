@@ -1,12 +1,11 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy
 
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
-import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 import scala.collection.immutable.ListMap
 import scala.collection.mutable.ListBuffer
 
-class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
+class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(controller:ControllerInterface) {
   var matches = List.empty[String]
 
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
@@ -16,7 +15,8 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
     }
     val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
-      if (validSurrounding(placementMap)) controller.set(placementMap)
+      val surroundingWords = validSurrounding(placementMap)
+      if (surroundingWords.isDefined) controller.set(placementMap, surroundingWords.get)
       return true
     }
     false
@@ -40,13 +40,13 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
     Some(placementMap)
   }
 
-  def validSurrounding(placementMap: ListMap[Cell, String]): Boolean = {
+  def validSurrounding(placementMap: ListMap[Cell, String]): Option[List[String]] = {
     val head: (Cell, String) = placementMap.toList.head
-    val tail: (Cell, String) = placementMap.toList.last
     var upCell: Option[Cell] = controller.field.getUpperCell(head._1)
-    var lowCell: Option[Cell] = controller.field.getLowerCell(tail._1)
-    val lb = ListBuffer[String]() ++= placementMap.values
+    var lowCell: Option[Cell] = Some(head._1)
+    val lb = ListBuffer[String]()
     val sb = new StringBuilder()
+    val encounteredWords = ListBuffer[String]()
 
     if (upCell.isDefined) { //check upper cells
       while (!upCell.get.isEmpty) {
@@ -55,13 +55,14 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
       }
     }
     if (lowCell.isDefined) { //check lower cells
-      while (!lowCell.get.isEmpty) {
-        lb.append(lowCell.get.getValue)
+      while (!lowCell.get.isEmpty || placementMap.keys.toList.contains(lowCell.get)) {
+        lb.append(if (lowCell.get.isEmpty) placementMap(lowCell.get) else lowCell.get.getValue)
         lowCell = controller.field.getNextCell(lowCell.get)
       }
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
-    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return false}
+    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
+    encounteredWords += sb.toString()
 
     for (p <- placementMap) { // check previous and following cells for each cell to be set
       val currCell: Cell = p._1
@@ -84,21 +85,11 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy {
         }
       }
       sb.appendAll(lb.map(s => s.charAt(0)))
-      if (sb.length > 1 && !controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return false}
+      if (sb.length > 1 && !controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
+      encounteredWords += sb.toString()
     }
-    true
+    Some(encounteredWords.toList)
   }
 
-  def validHand(word:String, hand:List[Card], usableCards:List[String]): Boolean = {
-    var allCards: List[String] = hand.map(s => s.value)
-    allCards ++= usableCards
-    for (c <- word) {
-      if (!allCards.contains(c.toString)) {
-        controller.gameStatus = GameStatus.NOHANDCARD
-        return false
-      }
-      allCards diff List(c.toString)
-    }
-    true
-  }
+
 }

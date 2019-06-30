@@ -111,10 +111,9 @@ class TUI(controller: ControllerInterface) extends Observer {
     println()
     println(controller.activePlayer.getOrElse(""))
     if (controller.activePlayer.isDefined) {
-      println("Hand: " + controller.activePlayer.get.getHand.toString())
+      println("hand     | " + controller.activePlayer.get.getHand.mkString(" "))
     }
-    println()
-    println("Cards in stack: " + controller.stack.getSize)
+    println("stack    | " + controller.stack.getSize + " cards")
     println()
     print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
     println(GameStatus.message(controller.gameStatus))

@@ -1,9 +1,6 @@
 package de.htwg.se.scrabble.model.field
 
-import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
-import com.google.inject.{Guice, Inject}
-import de.htwg.se.scrabble.ScrabbleModule
-import de.htwg.se.scrabble.controller.GameStatus
+import com.google.inject.Inject
 import de.htwg.se.scrabble.model.FieldInterface
 
 import scala.collection.mutable
@@ -11,8 +8,6 @@ import scala.collection.mutable.{ArrayBuffer, SortedMap}
                                           // (... , ControllerInterface)
   case class RegularField @Inject()(size: Integer)  extends FieldInterface {
   var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
-//    val injektor = Guice.createInjector(new ScrabbleModule)
-//    var controller = injektor.instance[ControllerInterface]
 
   for (row <- 1 to size) {
     grid += (row -> SortedMap.empty[String, Cell])
@@ -21,7 +16,7 @@ import scala.collection.mutable.{ArrayBuffer, SortedMap}
       grid(row) += (col -> new Cell("_"))
     }
   }
-  setCell((65+size/2).toChar.toString, size/2, "*")
+  setCell((65+size/2).toChar.toString, size/2+1, "*")
 
   override def getCell(col: String, row: Int): Option[Cell] = {
     val X = col.toUpperCase().charAt(0)-65
