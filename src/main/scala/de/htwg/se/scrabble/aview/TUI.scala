@@ -1,11 +1,12 @@
 package de.htwg.se.scrabble.aview
 
+import de.htwg.se.scrabble.Scrabble.controller
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: ControllerInterface) extends Observer {
   controller.add(this)
-
+  controller.newGame()  // TODO: wieder löschen (nur für debug zwecke hier)
   println(init)
 
   def init: String = artScrabble + head + help

@@ -18,7 +18,7 @@ object Scrabble {
 
 
   def main(args: Array[String]): Unit= {
-//    gui.main(args: Array[String])
+
     var input: String = ""
     if (args.length>0) input=args(0)
     if (!input.isEmpty) tui.processCommand(input)

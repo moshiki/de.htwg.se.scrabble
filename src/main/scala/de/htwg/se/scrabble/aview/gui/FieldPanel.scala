@@ -63,6 +63,7 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
 
   /** Get a "Cell" from Array to display */
   def getCell(cell: Cell) {
+    cell.getValue
     repaint()     // Tell Scala that the display should be repainted
   }
 //    def myCell = controller.cell(row, column)

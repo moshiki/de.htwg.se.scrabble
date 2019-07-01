@@ -7,7 +7,7 @@ import de.htwg.se.scrabble.controller.ControllerInterface
 import scala.swing.{Dimension, Panel}
 
 class OptionPanel (controller: ControllerInterface) extends Panel{
-  preferredSize = new Dimension(400, 1100)
-  background = Color.black
+  preferredSize = new Dimension(300, 800)
+  background = Color.white
   visible = true
 }

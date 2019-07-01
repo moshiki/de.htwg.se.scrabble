@@ -46,8 +46,8 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     // choose a top-level Panel and put components in it
     // Components may include other Panels
     contents = new BorderPanel {
-      layout(gridPanel) = North
-      layout(opt) = West
+//      layout(gridPanel) = North
+//      layout(opt) = West
       layout(field) = Center
       layout(act) = East
       layout(statusText) = South
