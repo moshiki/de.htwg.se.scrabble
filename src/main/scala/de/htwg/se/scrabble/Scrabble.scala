@@ -6,7 +6,7 @@ import de.htwg.se.scrabble.aview.gui.GUI
 import de.htwg.se.scrabble.controller.ControllerInterface
 
 import scala.io.StdIn.readLine
-
+import de.htwg.se.scrabble.controller.ControllerInterface
 
 //TODO: Controller wieder in richtige Klasse umbauen für funktionalität
 object Scrabble {

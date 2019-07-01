@@ -16,6 +16,8 @@ trait FieldInterface {
 
   def getLowerCell(cell: Cell): Option[Cell]
 
+  def getStarCell: Option[Cell]
+
   def setCell(col: String, row: Int, value: String): Boolean
 
   def toString: String
@@ -24,13 +26,3 @@ trait FieldInterface {
 
   case class Coordinate(row: Int, col: Char)
 }
-
-//trait CellInterface{
-//  def getValue: String
-//
-//  def setValue(value: String): Boolean
-//
-//  def isLetter(str: String): Boolean = str.matches("[A-Z#*_]")
-//
-//  def isEmpty: Boolean
-//}

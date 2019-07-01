@@ -2,12 +2,14 @@ package de.htwg.se.scrabble.model.player
 
 import de.htwg.se.scrabble.model.PlayerInterface
 import de.htwg.se.scrabble.model.cards.Card
-
 import scala.collection.mutable.ArrayBuffer
 
-case class Player(role: String, name: String){
+case class Player(role: String, name: String) extends PlayerInterface {
   private var hand: List[Card] = Nil
   private val handSize = 7
+  private var points = 0
+  private var actionPermit: Boolean = true
+  private var switched = false
 
   def getHand: List[Card] = hand
 
@@ -30,9 +32,17 @@ case class Player(role: String, name: String){
     false
   }
 
-  // ToDo: FUnktion zum legen einer Karte implementieren. Muss prüfen, ob Karte auch wirklich in Hand vorhanden ist.
+  override def getPoints: Int = points
+  override def addPoints(value: Int): Unit = points += value
+  override def subPoints(value: Int): Unit = points -= value
 
-  // ToDO: Punkte im SPieler speichern
+  override def actionPermitted: Boolean = actionPermit
+  override def grantActionPermit(): Unit = actionPermit = true
+  override def revokeActionPermit(): Unit = actionPermit = false
 
-  override def toString:String = "Player "+role+": "+name
+  override def switchedHand: Boolean = switched
+  override def grantSwitchedHand(): Unit = switched = false
+  override def revokeSwitchedHand(): Unit = switched = true
+
+  override def toString:String = "PLAYER "+role+s" | $points points"
 }

@@ -9,7 +9,7 @@ import scala.collection.immutable
 object Dictionary {
   private val directory = System.getProperty("user.dir")
   private val alphaPath = directory + "/src/main/resources/alphabet.txt"
-  private val dictionaryPath = directory + "/src/main/resources/deutsch2000.txt"
+  private val dictionaryPath = directory + "/src/main/resources/words200000.txt"
   val alphabet: immutable.TreeMap[String, Integer] = loadAlphabet(alphaPath)
   val dict: immutable.HashSet[String] = loadDictionary(dictionaryPath)
 

@@ -12,7 +12,7 @@ class PlayerSpec extends WordSpec with Matchers {
         player.name should be("Mampfred")
       }
       "have a nice String representation" in {
-        player.toString should be("Player A: Mampfred")
+        player.toString should be("PLAYER A | 0 points")
       }
     }
     "exists" should {

@@ -1,17 +1,15 @@
 package de.htwg.se.scrabble.model.field
 
-import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
-import com.google.inject.{Guice, Inject}
-import de.htwg.se.scrabble.ScrabbleModule
-import de.htwg.se.scrabble.controller.GameStatus
+import com.google.inject.Inject
+import com.google.inject.name.Named
 import de.htwg.se.scrabble.model.FieldInterface
+
 import scala.collection.mutable
-import scala.collection.mutable.SortedMap
-                                          // (... , ControllerInterface)
-  case class RegularField @Inject()(size: Integer)  extends FieldInterface {
-  var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
-//    val injektor = Guice.createInjector(new ScrabbleModule)
-//    var controller = injektor.instance[ControllerInterface]
+import scala.collection.mutable.{ArrayBuffer, SortedMap}
+
+class RegularField @Inject()(@Named("DefaultSize") size:Int)  extends FieldInterface {
+  private var grid: SortedMap[Int, SortedMap[String, Cell]] = SortedMap.empty[Int, SortedMap[String, Cell]]
+  private val starCell: Coordinate = Coordinate(size/2+1, (65+size/2).toChar)
 
   for (row <- 1 to size) {
     grid += (row -> SortedMap.empty[String, Cell])
@@ -20,7 +18,7 @@ import scala.collection.mutable.SortedMap
       grid(row) += (col -> new Cell("_"))
     }
   }
-  setCell((65+size/2).toChar.toString, size/2, "*")
+  setCell(starCell.col.toString, starCell.row, "*")
 
   override def getCell(col: String, row: Int): Option[Cell] = {
     val X = col.toUpperCase().charAt(0)-65
@@ -31,6 +29,8 @@ import scala.collection.mutable.SortedMap
       None
     }
   }
+
+  override def getStarCell: Option[Cell] = getCell(starCell.col.toString, starCell.row)
 
   override def getNextCell(cell: Cell): Option[Cell] = {
     var coord = getCoordinates(cell).getOrElse(return None)
@@ -62,8 +62,8 @@ import scala.collection.mutable.SortedMap
 
   override def toString: String = {
     var board: String = "|"
-    val r = 65 until 65+size
-    r.foreach(col => board += col.toChar + "|")
+    val a = ArrayBuffer.tabulate(size)(n => 'A'+n)
+    a.foreach(col => board += col.toChar + "|")
     board += "\n_______________________________\n"
     grid.foreach(row => {row._2.foreach(col => board += "|" + col._2.getValue)
                          board += "| " + row._1 + "\n"})
