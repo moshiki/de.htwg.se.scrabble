@@ -1,14 +1,70 @@
 package de.htwg.se.scrabble.aview.gui
 
 import de.htwg.se.scrabble.controller.ControllerInterface
+import de.htwg.se.scrabble.model.field.Cell
 
-import scala.swing.{Color, FlowPanel}
 
-class FieldPanel (controller: ControllerInterface) extends FlowPanel{
+import scala.swing.event.Event
+import scala.swing.{Button, Color, GridPanel}
+
+class CellClicked(val row: Int, val column: Int) extends Event
+
+class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.field.getSize,controller.field.getSize){
+  var f = controller.field      //kürzel für bessere Lesbarkeit
+
+
+  // Loade all Cells
+  for (i <- 0 until f.getSize) {
+    for (j <- 0 until f.getSize) {
+      var cellChar: String = "" + f.getCell((i + 65).toString, j).foreach(Cell => Cell.getValue)
+      contents += new Button(cellChar)
+    }
+  }
+  repaint()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // alles weg
     val givenCellColor = new Color(200, 200, 255)
     val cellColor = new Color(224, 224, 255)
     val highlightedCellColor = new Color(192, 255, 192)
 
+
+
+
+
+//  reactions += {
+//    case ButtonClicked(component) if component == button =>
+//      val x = Random.nextInt(100)
+//      val y = Random.nextInt(100)
+    //        val c = new Color(Random.nextInt(Int.MaxValue))
+    //        field.throwDart(new Dart(x, y, c))
+    //        textField.text = s"Dart thrown at $x, $y"
+    //      case ButtonClicked(component) if component == toggle =>
+    //        toggle.text = if (toggle.selected) "On" else "Off"
+    //      case MouseClicked(_, point, _, _, _) =>
+    //        field.throwDart(new Dart(point.x, point.y, Color.black))
+    //        textField.text = (s"You clicked in the Canvas at x=${point.x}, y=${point.y}.")
+//  }
+
+  /** Get a "Cell" from Array to display */
+  def getCell(cell: Cell) {
+    repaint()     // Tell Scala that the display should be repainted
+  }
 //    def myCell = controller.cell(row, column)
 //
 //    def cellText(row: Int, col: Int) = if (controller.isSet(row, column)) " " + controller.cell(row, column).value.toString else " "
@@ -35,53 +91,6 @@ class FieldPanel (controller: ControllerInterface) extends FlowPanel{
 //          controller.showCandidates(row, column)
 //          repaint
 //        }
-//      }
-//    }
-//
-//    val candidatelist = (1 to controller.gridSize).map {
-//      (value =>
-//        new Label {
-//          text = if (controller.available(row, column).contains(value)) value.toString else " "
-//          preferredSize = new Dimension(17, 17)
-//          font = new Font("Verdana", 1, 9)
-//          background = cellColor
-//          border = Swing.BeveledBorder(Swing.Raised)
-//          listenTo(mouse.clicks)
-//          listenTo(controller)
-//          reactions += {
-//            case e: CellChanged => {
-//              text = if (controller.available(row, column).contains(value)) value.toString else " "
-//              repaint
-//            }
-//            case MouseClicked(src, pt, mod, clicks, pops) => {
-//              controller.set(row, column, value)
-//              text = if (controller.available(row, column).contains(value)) value.toString else " "
-//              repaint
-//            }
-//          }
-//        })
-//    }
-//    val candidates = new GridPanel(controller.blockSize, controller.blockSize) {
-//      setBackground(this)
-//      contents ++= candidatelist
-//    }
-//    contents += candidates
-//
-//    def redraw = {
-//      contents.clear()
-//      if ((controller.isShowCandidates(row, column) || controller.showAllCandidates) && !controller.isSet(row, column)) {
-//        setBackground(candidates)
-//        contents += candidates
-//      } else {
-//        label.text = cellText(row, column)
-//        setBackground(cell)
-//        contents += cell
-//      }
-//      repaint
-//    }
-//
-//    def setBackground(p: Panel) = p.background = if (controller.isGiven(row, column)) givenCellColor
-//    else if (controller.isHighlighted(row, column)) highlightedCellColor
-//    else cellColor
 
+  visible = true
   }

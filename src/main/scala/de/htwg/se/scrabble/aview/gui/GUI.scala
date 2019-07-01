@@ -1,116 +1,94 @@
 package de.htwg.se.scrabble.aview.gui
+
+import java.awt.Color
+
 import de.htwg.se.scrabble.controller.ControllerInterface
 
+import scala.swing.BorderPanel.Position._
 import scala.swing._
-import scala.swing.event._
 
-class GUI(controller: ControllerInterface) extends Frame {
+// (controller: ControllerInterface)
+class GUI(controller: ControllerInterface) extends MainFrame {
+//  def top = new MainFrame { // top is a required method
+    title = "Scrabble - HTWG Software Engineering"
+    size = new Dimension(300, 200)
 
-//  class CellClicked(val row: Int, val column: Int) extends Event
+    val act = new ActionPanel(controller: ControllerInterface)  // TODO: implementierung
+    val opt = new OptionPanel(controller: ControllerInterface)  // TODO: implementierung
+    val field = new FieldPanel(controller: ControllerInterface)
 
-//    listenTo(controller)
 
-    title = "HTWG Scrabble"
-//    var cells = Array.ofDim[CellPanel](controller.gridSize, controller.gridSize)
-//
-//    def highlightpanel = new FlowPanel {
-//      contents += new Label("Highlight:")
-//      for {index <- 0 to controller.gridSize} {
-//        val button = Button(if (index == 0) "" else index.toString) {
-//          controller.highlight(index)
-//        }
-//        button.preferredSize_=(new Dimension(30, 30))
-//        contents += button
-//        listenTo(button)
-//      }
-//    }
-//
-//    def gridPanel = new GridPanel(controller.blockSize, controller.blockSize) {
-//      border = LineBorder(java.awt.Color.BLACK, 2)
-//      background = java.awt.Color.BLACK
-//      for {
-//        outerRow <- 0 until controller.blockSize
-//        outerColumn <- 0 until controller.blockSize
-//      } {
-//        contents += new GridPanel(controller.blockSize, controller.blockSize) {
-//          border = LineBorder(java.awt.Color.BLACK, 2)
-//          for {
-//            innerRow <- 0 until controller.blockSize
-//            innerColumn <- 0 until controller.blockSize
-//          } {
-//            val x = outerRow * controller.blockSize + innerRow
-//            val y = outerColumn * controller.blockSize + innerColumn
-//            val cellPanel = new CellPanel(x, y, controller)
-//            cells(x)(y) = cellPanel
-//            contents += cellPanel
-//            listenTo(cellPanel)
-//          }
-//        }
-//      }
-//    }
-//    val statusline = new TextField(controller.statusText, 20)
-//
-//    contents = new BorderPanel {
-//      add(highlightpanel, BorderPanel.Position.North)
-//      add(gridPanel, BorderPanel.Position.Center)
-//      add(statusline, BorderPanel.Position.South)
-//    }
 
+
+    val statusText = new TextField {
+      columns = 10
+      text = "TODO: Game Status ausgeben"
+   //   text = controller.gameStatus. TODO: Game Status ausgeben
+    }
+    val button = new Button {
+      text = "Throw!"
+      foreground = Color.blue
+      background = Color.red
+      borderPainted = true
+      enabled = true
+      tooltip = "Click to throw a dart"
+    }
+    val textArea = new TextArea {
+      text = "initial text\nline two"
+      background = Color.green
+    }
+    val gridPanel = new GridPanel(1, 2) {
+//      contents += checkBox
+//      contents += label
+      contents += textArea
+    }
+
+    // choose a top-level Panel and put components in it
+    // Components may include other Panels
+    contents = new BorderPanel {
+      layout(gridPanel) = North
+      layout(opt) = West
+      layout(field) = Center
+      layout(act) = East
+      layout(statusText) = South
+
+    }
     menuBar = new MenuBar {
       contents += new Menu("File") {
-        mnemonic = Key.F
-        contents += new MenuItem(Action("Empty") {         }) //  controller.createEmptyGrid
-        contents += new MenuItem(Action("New") {           })  // controller.createNewGrid
-        contents += new MenuItem(Action("Quit") { System.exit(0) })
+        //        mnemonic = Key.F
+        contents += new MenuItem(Action("New") {  controller.newGame()})  // controller.createNewGrid
+        contents += new MenuItem(Action("Exit") { sys.exit(0)         })
       }
       contents += new Menu("Edit") {
-        mnemonic = Key.E
+        //        mnemonic = Key.E
         contents += new MenuItem(Action("Undo") { controller.undo })
         contents += new MenuItem(Action("Redo") { controller.redo })
       }
-//      contents += new Menu("Solve") {
-//        mnemonic = Key.S
-//        contents += new MenuItem(Action("Solve") { controller.solve })
-//      }
-//      contents += new Menu("Highlight") {
-//        mnemonic = Key.H
-//        for { index <- 0 to controller.gridSize } {
-//          contents += new MenuItem(Action(index.toString) { controller.highlight(index) })
-//        }
-//      }
-//      contents += new Menu("Options") {
-//        mnemonic = Key.O
-//        contents += new MenuItem(Action("Show all candidates") { controller.toggleShowAllCandidates })
-//        contents += new MenuItem(Action("Size 1*1") { controller.resize(1) })
-//        contents += new MenuItem(Action("Size 4*4") { controller.resize(4) })
-//        contents += new MenuItem(Action("Size 9*9") { controller.resize(9) })
-//
-//      }
     }
 
-    visible = true
-//    redraw
 
+
+
+
+    // specify which Components produce events of interest
+    listenTo(button)
+//    listenTo(toggle)
+    listenTo(field.mouse.clicks)
+
+    // react to events
 //    reactions += {
-//      case event: GridSizeChanged => resize(event.newSize)
-//      case event: CellChanged     => redraw
-//      case event: CandidatesChanged => redraw
+//      case ButtonClicked(component) if component == button =>
+//        val x = Random.nextInt(100)
+//        val y = Random.nextInt(100)
+////        val c = new Color(Random.nextInt(Int.MaxValue))
+////        field.throwDart(new Dart(x, y, c))
+////        textField.text = s"Dart thrown at $x, $y"
+////      case ButtonClicked(component) if component == toggle =>
+////        toggle.text = if (toggle.selected) "On" else "Off"
+////      case MouseClicked(_, point, _, _, _) =>
+////        field.throwDart(new Dart(point.x, point.y, Color.black))
+////        textField.text = (s"You clicked in the Canvas at x=${point.x}, y=${point.y}.")
 //    }
-//
-//    def resize(gridSize: Int) = {
-//      cells = Array.ofDim[CellPanel](controller.gridSize, controller.gridSize)
-//      contents = new BorderPanel {
-//        add(highlightpanel, BorderPanel.Position.North)
-//        add(gridPanel, BorderPanel.Position.Center)
-//        add(statusline, BorderPanel.Position.South)
-//      }
-//    }
-//    def redraw = {
-//      for {
-//        row <- 0 until controller.gridSize
-//        column <- 0 until controller.gridSize
-//      } cells(row)(column).redraw
-//      statusline.text = controller.statusText
-//      repaint
-//    }
+//  }
+  visible = true
 }
