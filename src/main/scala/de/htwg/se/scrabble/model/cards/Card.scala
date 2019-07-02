@@ -3,7 +3,7 @@ package de.htwg.se.scrabble.model.cards
 import com.google.inject.Inject
 import de.htwg.se.scrabble.model.CardInterface
 
-case class Card @Inject()(letter: String) {
+case class Card (letter: String) {
   val value: String =
     if (isLetter(letter)) {letter}
     else "_"

@@ -3,45 +3,67 @@ package de.htwg.se.scrabble.aview.gui
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.model.field.Cell
 
-
 import scala.swing.event.Event
-import scala.swing.{Button, Color, GridPanel}
+import scala.swing.{Button, Color, Dimension, GridPanel, Label}
 
 class CellClicked(val row: Int, val column: Int) extends Event
 
-class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.field.getSize,controller.field.getSize){
-  var f = controller.field      //kürzel für bessere Lesbarkeit
+class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.field.getSize+1,controller.field.getSize+1){
+  val f = controller.field      //kürzel für bessere Lesbarkeit
+
+  val btnSize = new Dimension(50,50)
+
+  // https://www.w3schools.com/colors/colors_picker.asp
+  val cardCellColor = new Color(255, 255, 153)
+  val cellColor = new Color(255, 204, 0)
+  val highlightedCellColor = new Color(192, 255, 192)
+  val WHITE = new Color(255, 255, 255)
+
+
+
 
 
   // Loade all Cells
-  for (i <- 0 until f.getSize) {
-    for (j <- 0 until f.getSize) {
-      var cellChar: String = "" + f.getCell((i + 65).toString, j).foreach(Cell => Cell.getValue)
-      contents += new Button(cellChar)
-    }
+  def rePaintField {
+
+    for (i <- 0 until f.getSize) {
+      contents += new Label(){
+        preferredSize = btnSize
+        text = i.toString
+        background = WHITE
+
+      }}
+    for (i <- 0 until f.getSize) {
+      contents += new Label(){
+        preferredSize = btnSize
+        text = ((i + 65).toChar).toString
+        background = WHITE
+
+      }
+    for (j <- 1 until f.getSize) {
+    //      var zellChar = new String
+    //      var
+    //      val cellChar: String = f.getCell((i + 65).toString, j).foreach(Cell => Cell.getValue).toString
+    //      var cellEmp:Boolean =
+
+    contents += new Button(){
+    preferredSize = btnSize
+    f.getCell(((i + 65).toChar).toString, j).foreach(Cell => { text = Cell.getValue})
+    if(f.getCell((i + 65).toString, j).isEmpty == true)  background = cardCellColor
+    else background = cardCellColor
+
   }
-  repaint()
+  }
+  }
+  }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+  rePaintField
 
 
 
   // alles weg
-    val givenCellColor = new Color(200, 200, 255)
-    val cellColor = new Color(224, 224, 255)
-    val highlightedCellColor = new Color(192, 255, 192)
+
 
 
 
