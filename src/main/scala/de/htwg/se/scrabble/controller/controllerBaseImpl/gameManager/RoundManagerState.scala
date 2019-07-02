@@ -7,6 +7,7 @@ class RoundManagerState(controller:ControllerInterface) extends GameManagerState
 
   override def start(): Unit = {
     controller.fillHand()
+
   }
 
 

@@ -37,6 +37,10 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
       }
       currCell = controller.field.getNextCell(currCell).getOrElse(return None)
     }
+    if (controller.firstDraw) {
+      if (!placementMap.keys.toList.contains(controller.field.getStarCell.getOrElse(return None))) return None
+      controller.firstDraw = false
+    }
     Some(placementMap)
   }
 
@@ -48,17 +52,15 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
     val sb = new StringBuilder()
     val encounteredWords = ListBuffer[String]()
 
-    if (prevCell.isDefined) { //check previous cells
-      while (!prevCell.get.isEmpty) {
-        lb.prepend(prevCell.get.getValue)
-        prevCell = controller.field.getPrevCell(prevCell.get)
-      }
+    //check previous cells
+    while (prevCell.isDefined && !prevCell.get.isEmpty) {
+      lb.prepend(prevCell.get.getValue)
+      prevCell = controller.field.getPrevCell(prevCell.get)
     }
-    if (nextCell.isDefined) { //check following cells
-      while (!nextCell.get.isEmpty || placementMap.keys.toList.contains(nextCell.get)) {
-        lb.append(if (nextCell.get.isEmpty) placementMap(nextCell.get) else nextCell.get.getValue)
-        nextCell = controller.field.getNextCell(nextCell.get)
-      }
+    //check following cells
+    while (nextCell.isDefined && (!nextCell.get.isEmpty || placementMap.keys.toList.contains(nextCell.get))) {
+      lb.append(if (nextCell.get.isEmpty) placementMap(nextCell.get) else nextCell.get.getValue)
+      nextCell = controller.field.getNextCell(nextCell.get)
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
     if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
@@ -72,17 +74,15 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
       lb += p._2
       sb.clear()
 
-      if (upCell.isDefined) { // upper cells
-        while (!upCell.get.isEmpty) {
-          lb.prepend(upCell.get.getValue)
-          upCell = controller.field.getUpperCell(upCell.get)
-        }
+      // upper cells
+      while (upCell.isDefined && !upCell.get.isEmpty) {
+        lb.prepend(upCell.get.getValue)
+        upCell = controller.field.getUpperCell(upCell.get)
       }
-      if (lowCell.isDefined) { // lower cells
-        while (!lowCell.get.isEmpty) {
-          lb.append(lowCell.get.getValue)
-          lowCell = controller.field.getLowerCell(lowCell.get)
-        }
+      // lower cells
+      while (lowCell.isDefined && !lowCell.get.isEmpty) {
+        lb.append(lowCell.get.getValue)
+        lowCell = controller.field.getLowerCell(lowCell.get)
       }
       sb.appendAll(lb.map(s => s.charAt(0)))
       if (sb.length > 1) {

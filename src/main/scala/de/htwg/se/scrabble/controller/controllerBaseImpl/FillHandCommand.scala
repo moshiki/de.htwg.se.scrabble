@@ -1,14 +1,13 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.controller.ControllerInterface
-import de.htwg.se.scrabble.model.CardInterface
+import de.htwg.se.scrabble.model.{CardInterface, PlayerInterface}
 import de.htwg.se.scrabble.model.cards.Card
-import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.Command
 
 import scala.collection.mutable.ListBuffer
 
-class FillHandCommand(player: Player, stack: CardInterface, activePlayer: Option[Player], controller: ControllerInterface) extends Command {
+class FillHandCommand(player: PlayerInterface, stack: CardInterface, activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
   private val cardList = ListBuffer[Card]()
 
   override def doStep: Unit = {

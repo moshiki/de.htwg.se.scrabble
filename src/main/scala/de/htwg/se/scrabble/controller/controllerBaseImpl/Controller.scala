@@ -14,41 +14,41 @@ import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
+import scala.collection.mutable.ListBuffer
 
 case class Controller @Inject() (
   var field : FieldInterface ,
   var stack : CardInterface ,
   var players : PlayerListInterface ) extends ControllerInterface {
-
   val dict = Dictionary
-
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
-  var activePlayer: Option[Player] = None
+  var activePlayer: Option[PlayerInterface] = None
+  var firstDraw = true
   private val undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
 
   def vectorToString: String = dict.vectorToString
 
-  def newGame(): Unit = {
+  override def newGame(): Unit = {
     field = injector.getInstance(classOf[FieldInterface])
     stack = injector.getInstance(classOf[CardInterface])
     players = injector.getInstance(classOf[PlayerListInterface])
+    firstDraw = true
     roundManager = new SetupManagerState(this)
     roundManager.start()
     notifyObservers
   }
 
-  def newPlayer(role:String, name:String): Unit = {
+  override def newPlayer(role:String, name:String): Unit = {
     players.put(Player(role, name))
     notifyObservers
   }
 
-
   override def next(): Unit = {
     if (roundManager.isInstanceOf[RoundManagerState]) {
-      undoManager.doStep(new NextCommand(inactivePlayer, activePlayer, this))
+      undoManager.doStep(new NextCommand(inactivePlayer, activePlayer,this))
       roundManager = new RoundManagerState(this)
       roundManager.start()
       notifyObservers
@@ -62,7 +62,18 @@ case class Controller @Inject() (
     gameStatus = GameStatus.FILLHAND
   }
 
-  def inactivePlayer: Option[Player] = {
+  override def switchHand(): Boolean = {
+    if (roundManager.isInstanceOf[RoundManagerState]) {
+      if (!activePlayer.getOrElse(return false).switchedHand) {
+        undoManager.doStep(new SwitchHandCommand(activePlayer, stack, this))
+        notifyObservers
+        return true
+      }
+    }
+    false
+  }
+
+  override def inactivePlayer: Option[PlayerInterface] = {
     if (activePlayer.get == players.get("A").get) {
       players.get("B")
     } else {
@@ -74,9 +85,9 @@ case class Controller @Inject() (
     stack.getCard
   }
 
-  def getDict: immutable.HashSet[String] = dict.dict
+  override def getDict: immutable.HashSet[String] = dict.dict
 
-  def getAlphabet: immutable.TreeMap[String, Integer] = dict.alphabet
+  override def getAlphabet: immutable.TreeMap[String, Integer] = dict.alphabet
 
   override def set(x: String, y: Int, value: String): Unit = {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer, this))
@@ -87,26 +98,30 @@ case class Controller @Inject() (
     set(coord.col.toString, coord.row, value)
   }
   override def set(placementMap: ListMap[Cell, String], surroundingWords: List[String]): Unit = {
-    undoManager.doStep(new SetWordCommand(placementMap, surroundingWords, activePlayer, this))
+    undoManager.doStep(new SetWordCommand(placementMap, surroundingWords, activePlayer, firstDraw, this))
     notifyObservers
   }
 
   override def setWord(parameters: Array[String]): Unit = {
     if (parameters.length != 4) return
+    if (activePlayer.get.actionPermitted) {
+      val x: String = parameters(1).charAt(0).toString.toUpperCase()
+      val y: Int = parameters(1).substring(1).toInt
+      val alignment: SetWordStrategy = {
+        if (parameters(2).matches("[-]")) new SetWordHorizontal(this)
+        else if (parameters(2).matches("[|]")) new SetWordVertical(this)
+        else return
+      }
+      val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
+      val cell: Cell = if (field.getCell(x, y).isDefined) field.getCell(x, y).get else return
 
-    val x: String = parameters(1).charAt(0).toString.toUpperCase()
-    val y: Int = parameters(1).substring(1).toInt
-    val alignment: SetWordStrategy = {
-      if (parameters(2).matches("[-]")) new SetWordHorizontal(this)
-      else if (parameters(2).matches("[|]")) new SetWordVertical(this)
-      else return}
-    val word: String = if (parameters(3).matches("[A-Za-z#]+")) parameters(3).toUpperCase() else return
-    val cell: Cell = if (field.getCell(x, y).isDefined) field.getCell(x, y).get else return
-
-    if (word.length >= 2 && getDict.contains(word.toUpperCase())) {
-      alignment.setWord(word, cell, x, y)
+      if (word.length >= 2 && getDict.contains(word.toUpperCase())) {
+        alignment.setWord(word, cell, x, y)
+      } else {
+        gameStatus = GameStatus.ILLEGAL
+      }
     } else {
-      gameStatus = GameStatus.ILLEGAL
+      gameStatus = GameStatus.ACTIONPERMIT
     }
     notifyObservers
   }
