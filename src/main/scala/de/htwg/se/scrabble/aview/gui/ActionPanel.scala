@@ -22,6 +22,9 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
   val half = new Dimension(74, 40)
 
   var direction : String = "-"
+  var setWord = new Array[String](4)
+  setWord(0) = "set"
+  setWord(2) = "-"
 
   class FreeSpace extends Panel { preferredSize  = full }
 
@@ -38,7 +41,8 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
 
 
   var wordToSet = new Label{
-    text = "B5 - Word" // TODO Zusammensetzen aus Auswahl der Zellen
+    text = setWord.mkString(" ")
+      // "B5 - Word" // TODO Zusammensetzen aus Auswahl der Zellen
     preferredSize  = full
 //    font = Scramble
     font = basicFont
@@ -132,32 +136,35 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     preferredSize  = full
     font = basicFont
     reactions += {
-      case _: ButtonClicked =>
-//        controller.setWord(String[] ) String Array übergeben...
-    }
+      case _: ButtonClicked => controller.setWord(setWord)}
   }
 
   val directionChoose = List(
     new RadioButton() {
       name = "-"
-      text = "↦ Horizontal"
-
+      text = "↦"
+      selected = true
+      font = headFont
+      tooltip = "Set Word: Horizontal"
+      reactions += { case _: ButtonClicked => setWord(2) = "-" }
     },
     new RadioButton() {
       name = "|"
-      text = "↧  Vertical"
+      text = "↧"
+      font = headFont
+      tooltip = "Set Word: Vertical"
+      reactions += { case _: ButtonClicked => setWord(2) = "|" }
     }
   )
   new ButtonGroup(directionChoose: _*)
   contents ++= directionChoose
   directionChoose.foreach(listenTo(_))
   reactions += {
-    case ButtonClicked(button) => {
+    case ButtonClicked(button) =>
       button.name match {
         case "-" => direction = " - "
         case "|" => direction = " | "
       }
-    }
   }
   contents += wordToSet
   contents += new Button() {
@@ -166,10 +173,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     preferredSize  = half
     font = basicFont
     enabled = false
-    reactions += {
-      case _: ButtonClicked =>
-
-    }
+   // reactions += { case _: ButtonClicked => //TODO: Neue Karten geben und Skip }
   }
   contents += new Button() {
     text = "\u2B9A"
@@ -177,10 +181,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     preferredSize  = half
     font = basicFont
     enabled = false
-//    reactions += {
-//      case _: ButtonClicked =>
-//
-//    }
+//    reactions += { case _: ButtonClicked => }
   }
 //  contents += new FreeSpace
 

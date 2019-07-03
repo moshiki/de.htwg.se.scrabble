@@ -3,6 +3,7 @@ package de.htwg.se.scrabble.aview.gui
 import java.util.logging.Logger
 
 import com.sun.glass.ui.Window.Level
+import de.htwg.se.scrabble.Scrabble
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.model.field.Cell
 
@@ -66,6 +67,7 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
           //TODO: ort übergabe für wort legen
           actField = ((i + 65).toChar).toString + j
           background = actCellColor
+          reactions += { case _: ButtonClicked => Scrabble.gui.act.setWord(1) = "|" }
       }
   }
   }
