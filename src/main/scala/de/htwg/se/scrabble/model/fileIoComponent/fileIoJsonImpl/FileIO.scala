@@ -4,13 +4,13 @@ import com.google.inject.Guice
 import com.google.inject.name.Names
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.scrabble.ScrabbleModule
-import de.htwg.se.scrabble.controller.{GameStatus, StateCacheInterface}
+import de.htwg.se.scrabble.controller.StateCacheInterface
 import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.controller.controllerBaseImpl.StateCache
 import de.htwg.se.scrabble.model._
-import de.htwg.se.scrabble.model.cards.{Card, EmptyCardStack, RegularCardStack}
+import de.htwg.se.scrabble.model.cards.{Card, EmptyCardStack}
 import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
-import de.htwg.se.scrabble.model.player.{Player, PlayerList}
+import de.htwg.se.scrabble.model.player.Player
 import play.api.libs.json._
 
 import scala.io.Source
