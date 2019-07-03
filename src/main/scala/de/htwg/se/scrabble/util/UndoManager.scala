@@ -2,8 +2,8 @@ package de.htwg.se.scrabble.util
 
 
 class UndoManager { // invoker
-  private var undoStack: List[Command]= Nil
-  private var redoStack: List[Command]= Nil
+  var undoStack: List[Command]= Nil     // Private
+  var redoStack: List[Command]= Nil     // Private
 
   def doStep(command: Command) = {
     undoStack = command::undoStack

@@ -25,7 +25,7 @@ case class Controller @Inject() (
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
   var firstDraw = true
-  private val undoManager = new UndoManager
+  var undoManager = new UndoManager // private val
 
   def dictToString: String = dict.dictToString
 

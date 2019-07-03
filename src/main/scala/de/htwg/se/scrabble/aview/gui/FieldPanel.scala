@@ -36,42 +36,48 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
 
   // Loade all Cells
   def rePaintField {
-
-    for (i <- 0 until f.getSize) {
-      contents += new Label(){
-        preferredSize = btnSize
-        text = i.toString
-        background = WHITE
-
-      }}
+    contents += new Label(){
+      preferredSize = btnSize
+      text = "♥"
+      background = WHITE
+    }
     for (i <- 0 until f.getSize) {
       contents += new Label(){
         preferredSize = btnSize
         text = ((i + 65).toChar).toString
         background = WHITE
 
+      }}
+    for (i <- 0 until f.getSize) {
+      contents += new Label(){
+        preferredSize = btnSize
+        text = (1+i).toString
+        background = WHITE
       }
-    for (j <- 1 until f.getSize) {
-    //      var zellChar = new String
-    //      var
-    //      val cellChar: String = f.getCell((i + 65).toString, j).foreach(Cell => Cell.getValue).toString
-    //      var cellEmp:Boolean =
+      for (j <- 1 until f.getSize+1) {
+      //      var zellChar = new String
+      //      var
+      //      val cellChar: String = f.getCell((i + 65).toString, j).foreach(Cell => Cell.getValue).toString
+      //      var cellEmp:Boolean =
 
-    contents += new Button(){
-    preferredSize = btnSize
-    f.getCell(((i + 65).toChar).toString, j).foreach(Cell => { text = Cell.getValue})
-    if(f.getCell((i + 65).toString, j).isEmpty == true)  background = cardCellColor
-    else background = cardCellColor
-      reactions += {
-        case _: ButtonClicked =>
-          //TODO: ort übergabe für wort legen
-          actField = ((i + 65).toChar).toString + j
-          background = actCellColor
-          reactions += { case _: ButtonClicked => Scrabble.gui.act.setWord(1) = "|" }
+        contents += new Button(){
+          preferredSize = btnSize
+          //    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
+          f.getCell(((i + 65).toChar).toString, j).foreach(Cell => {
+            if (Cell.getValue.equals("_")) text = " "
+            else text = Cell.getValue
+
+          })
+          if(f.getCell((i + 65).toString, j).isEmpty == true)  background = cardCellColor
+          else background = cardCellColor
+            reactions += {
+              case _: ButtonClicked =>
+                background = actCellColor
+                reactions += { case _: ButtonClicked => Scrabble.gui.act.setWord(1) = ((i + 65).toChar).toString + j}
+            }
+          }
       }
-  }
-  }
-  }
+    }
   }
 
 

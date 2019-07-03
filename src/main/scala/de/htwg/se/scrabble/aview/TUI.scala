@@ -6,7 +6,7 @@ import de.htwg.se.scrabble.util.Observer
 
 class TUI(controller: ControllerInterface) extends Observer {
   controller.add(this)
-  controller.newGame()  // TODO: wieder löschen (nur für debug zwecke hier)
+  controller.newGame()  // Direckt Play!
   println(init)
 
   def init: String = artScrabble + head + help
@@ -112,6 +112,8 @@ class TUI(controller: ControllerInterface) extends Observer {
   def update: Boolean = {
     println()
     println(controller.activePlayer.getOrElse(""))
+//  val letters = new String ...
+    //    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
     if (controller.activePlayer.isDefined) {
       println("hand     | " + controller.activePlayer.get.getHand.mkString(" "))
     }

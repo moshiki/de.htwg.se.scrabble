@@ -33,18 +33,20 @@ class GUI(controller: ControllerInterface) extends MainFrame {
       layout(statusText) = South
 
     }
-//    menuBar = new MenuBar {
-//      contents += new Menu("File") {
-//        //        mnemonic = Key.F
-//        contents += new MenuItem(Action("New") {  controller.newGame()})  // controller.createNewGrid
-//        contents += new MenuItem(Action("Exit") { sys.exit(0)         })
-//      }
-//      contents += new Menu("Edit") {
-//        //        mnemonic = Key.E
-//        contents += new MenuItem(Action("Undo") { controller.undo })
-//        contents += new MenuItem(Action("Redo") { controller.redo })
-//      }
-//    }
+    menuBar = new MenuBar {
+      contents += new Menu("File") {
+        contents += new MenuItem(Action("New") {  controller.newGame()})  // controller.createNewGrid
+//        contents += new MenuItem(Action("Loade") { )
+//        contents += new MenuItem(Action("Save") { )
+
+        contents += new MenuItem(Action("Exit") { sys.exit(0)         })
+      }
+      contents += new Menu("Edit") {
+        //        mnemonic = Key.E
+        contents += new MenuItem(Action("Undo") { controller.undo })
+        contents += new MenuItem(Action("Redo") { controller.redo })
+      }
+    }
 
     listenTo(field.mouse.clicks)
 

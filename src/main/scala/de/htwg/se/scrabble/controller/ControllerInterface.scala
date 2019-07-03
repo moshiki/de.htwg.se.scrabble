@@ -5,7 +5,7 @@ import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.{CardInterface, FieldInterface, PlayerInterface, PlayerListInterface}
-import de.htwg.se.scrabble.util.{Observable, Observer}
+import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
@@ -33,6 +33,7 @@ trait ControllerInterface extends Observable with Observer{
   def evalPoints(words: List[String]): Int
   var activePlayer : Option[PlayerInterface]
   var firstDraw: Boolean
+  var undoManager : UndoManager   // unüblich, doch für Btn erforderlich
   var field : FieldInterface
   var stack : CardInterface
   var gameStatus : GameStatus

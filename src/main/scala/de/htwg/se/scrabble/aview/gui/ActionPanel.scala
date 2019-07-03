@@ -41,13 +41,10 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
 
 
   var wordToSet = new Label{
-    text = setWord.mkString(" ")
-      // "B5 - Word" // TODO Zusammensetzen aus Auswahl der Zellen
+    text = setWord.mkString(" ")       // "B5 - Word" // TODO Zusammensetzen aus Auswahl der Zellen im Array (NEED FIX)
     preferredSize  = full
-//    font = Scramble
     font = basicFont
   }
-
   contents += new FreeSpace
   contents += new Button() {
     text = "New Game!"
@@ -65,7 +62,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     tooltip = "undo"
     preferredSize  = half
     font = basicFont
-    enabled = false
+   if (controller.undoManager.undoStack.size == 2 )     enabled = false
     reactions += {
       case _: ButtonClicked =>
        controller.undo()
@@ -76,7 +73,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     tooltip = "redo"
     preferredSize  = half
     font = basicFont
-    enabled = false
+    if (controller.undoManager.undoStack.size == 2 )     enabled = false
     reactions += {
       case _: ButtonClicked =>
         controller.redo()
@@ -120,9 +117,10 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     text = "Your Cards: "
     font = headFont
   }
-  contents += new Label {  // TODO: Felder anlegen, für jeden char eins, Hintergrund Bild + Anzahl der Punkte
+  contents += new Label {
     text = controller.activePlayer.get.getHand.mkString(" ")
     font = highlFont
+//    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
   }
   contents += new TextArea() {
     text = ""
@@ -172,16 +170,14 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     tooltip = "New Cards!"
     preferredSize  = half
     font = basicFont
-    enabled = false
-   // reactions += { case _: ButtonClicked => //TODO: Neue Karten geben und Skip }
+    reactions += { case _: ButtonClicked => controller.switchHand }
   }
   contents += new Button() {
     text = "\u2B9A"
-    tooltip = "Skip"
+    tooltip = "Skip | Next Player"
     preferredSize  = half
     font = basicFont
-    enabled = false
-//    reactions += { case _: ButtonClicked => }
+    reactions += { case _: ButtonClicked => controller.next}
   }
 //  contents += new FreeSpace
 
