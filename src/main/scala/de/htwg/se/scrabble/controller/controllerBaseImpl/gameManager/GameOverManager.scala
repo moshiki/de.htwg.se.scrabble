@@ -1,3 +1,4 @@
+/*
 package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
@@ -17,3 +18,4 @@ class GameOverManager(controller:ControllerInterface) extends GameManager {
   }
   override def toString = "GameOverManagerState"
 }
+*/

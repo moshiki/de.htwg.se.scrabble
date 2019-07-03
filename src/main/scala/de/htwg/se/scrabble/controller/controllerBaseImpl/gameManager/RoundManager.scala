@@ -1,3 +1,4 @@
+/*
 package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
 import de.htwg.se.scrabble.controller.ControllerInterface
@@ -15,3 +16,4 @@ class RoundManager(controller:ControllerInterface) extends GameManager {
   }
   override def toString = "RoundManagerState"
 }
+*/

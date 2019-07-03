@@ -3,9 +3,9 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
 import net.codingwell.scalaguice.InjectorExtensions._
-import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus, StateCacheInterface}
+import de.htwg.se.scrabble.controller.{ControllerInterface, StateCacheInterface}
 import de.htwg.se.scrabble.controller.GameStatus._
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManager, PreSetupManager, RoundManager, SetupManager}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.model.cards.Card
@@ -22,7 +22,7 @@ class Controller @Inject() (var field : FieldInterface,
                             var players : PlayerListInterface ) extends ControllerInterface {
   val fileIo = injector.instance[FileIOInterface]
   val dict = Dictionary
-  var roundManager: GameManager = new PreSetupManager(this)
+  var roundManager: GameManager = GameManager("PreSetupManager", this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
   var firstDraw = true
@@ -37,7 +37,7 @@ class Controller @Inject() (var field : FieldInterface,
     stack = injector.instance[CardStackInterface]
     players = injector.instance[PlayerListInterface]
     firstDraw = true
-    roundManager = new SetupManager(this)
+    roundManager = GameManager("SetupManager", this)
     roundManager.start()
     notifyObservers
   }
@@ -55,7 +55,7 @@ class Controller @Inject() (var field : FieldInterface,
     players = states.players
     firstDraw = states.firstDraw
     activePlayer = states.activePlayer
-    roundManager = null
+    roundManager = GameManager(states.roundManager, this)
     gameStatus = LOADED
     notifyObservers
   }
@@ -65,9 +65,9 @@ class Controller @Inject() (var field : FieldInterface,
   }
 
   override def next(): Unit = {
-    if (roundManager.isInstanceOf[RoundManager]) {
+    if (roundManager.toString == "RoundManager") {
       undoManager.doStep(new NextCommand(inactivePlayer, activePlayer,this))
-      roundManager = new RoundManager(this)
+      roundManager = GameManager("RoundManager", this)
       roundManager.start()
       notifyObservers
     }
@@ -81,7 +81,7 @@ class Controller @Inject() (var field : FieldInterface,
   }
 
   override def switchHand(): Boolean = {
-    if (roundManager.isInstanceOf[RoundManager]) {
+    if (roundManager.toString == "RoundManager") {
       if (!activePlayer.getOrElse(return false).switchedHand) {
         undoManager.doStep(new SwitchHandCommand(activePlayer, stack, this))
         notifyObservers
