@@ -4,9 +4,11 @@ import java.awt.{Color, Font}
 
 import de.htwg.se.scrabble.controller.ControllerInterface
 
-import scala.swing.{Button, Dimension, FlowPanel, Font, Label, Panel, TextArea}
+import scala.swing.{Button, ButtonGroup, Dimension, FlowPanel, Font, Label, Panel, RadioButton, TextArea}
 import java.io.{File, InputStream}
 import java.awt.GraphicsEnvironment
+
+import scala.swing.event.ButtonClicked
 
 
 class ActionPanel(controller: ControllerInterface) extends FlowPanel {
@@ -18,6 +20,8 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
   val highlFont = new Font("Ariel", java.awt.Font.BOLD, 20)
   val full = new Dimension(150, 40)
   val half = new Dimension(74, 40)
+
+  var direction : String = "-"
 
   class FreeSpace extends Panel { preferredSize  = full }
 
@@ -43,26 +47,47 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
   contents += new FreeSpace
   contents += new Button() {
     text = "New Game!"
+    tooltip = "↻"
     preferredSize  = full
     font = basicFont
     background = Color.green
+    reactions += {
+      case _: ButtonClicked =>
+        controller.newGame()
+    }
   }
   contents += new Button() {
-    text = "undo"
+    text = "↶"
+    tooltip = "undo"
     preferredSize  = half
     font = basicFont
+    enabled = false
+    reactions += {
+      case _: ButtonClicked =>
+       controller.undo()
+    }
   }
   contents += new Button() {
-    text = "redo"
+    text = "↷"
+    tooltip = "redo"
     preferredSize  = half
     font = basicFont
-
+    enabled = false
+    reactions += {
+      case _: ButtonClicked =>
+        controller.redo()
+    }
   }
   contents += new Button() {
-    text = "(RAGE) QUIT"
+    text = "Quit Game"
+    tooltip = "✗"
     preferredSize  = full
     font = basicFont
     background = Color.red
+    reactions += {
+      case _: ButtonClicked =>
+        sys.exit(0)
+    }
   }
   contents += new FreeSpace
   contents += new Label {
@@ -103,13 +128,61 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
     tooltip = "Pls set your Word here"
   }
   contents += new Button() {
-    text = "set Word"
+    text = "set Word \u2B8B"
     preferredSize  = full
     font = basicFont
+    reactions += {
+      case _: ButtonClicked =>
+//        controller.setWord(String[] ) String Array übergeben...
+    }
   }
 
+  val directionChoose = List(
+    new RadioButton() {
+      name = "-"
+      text = "↦ Horizontal"
+
+    },
+    new RadioButton() {
+      name = "|"
+      text = "↧  Vertical"
+    }
+  )
+  new ButtonGroup(directionChoose: _*)
+  contents ++= directionChoose
+  directionChoose.foreach(listenTo(_))
+  reactions += {
+    case ButtonClicked(button) => {
+      button.name match {
+        case "-" => direction = " - "
+        case "|" => direction = " | "
+      }
+    }
+  }
   contents += wordToSet
-  contents += new FreeSpace
+  contents += new Button() {
+    text = "⬔ \u2BB0"
+    tooltip = "New Cards!"
+    preferredSize  = half
+    font = basicFont
+    enabled = false
+    reactions += {
+      case _: ButtonClicked =>
+
+    }
+  }
+  contents += new Button() {
+    text = "\u2B9A"
+    tooltip = "Skip"
+    preferredSize  = half
+    font = basicFont
+    enabled = false
+//    reactions += {
+//      case _: ButtonClicked =>
+//
+//    }
+  }
+//  contents += new FreeSpace
 
 //  contents += new TextArea(){
   ////    """

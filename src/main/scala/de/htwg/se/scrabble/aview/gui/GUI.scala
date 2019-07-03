@@ -25,26 +25,6 @@ class GUI(controller: ControllerInterface) extends MainFrame {
       text = "TODO: Game Status ausgeben"
    //   text = controller.gameStatus. TODO: Game Status ausgeben
     }
-    val button = new Button {
-      text = "Throw!"
-      foreground = Color.blue
-      background = Color.red
-      borderPainted = true
-      enabled = true
-      tooltip = "Click to throw a dart"
-    }
-    val textArea = new TextArea {
-      text = "initial text\nline two"
-      background = Color.green
-    }
-    val gridPanel = new GridPanel(1, 2) {
-//      contents += checkBox
-//      contents += label
-      contents += textArea
-    }
-
-    // choose a top-level Panel and put components in it
-    // Components may include other Panels
     contents = new BorderPanel {
 //      layout(gridPanel) = North
 //      layout(opt) = West
@@ -53,26 +33,19 @@ class GUI(controller: ControllerInterface) extends MainFrame {
       layout(statusText) = South
 
     }
-    menuBar = new MenuBar {
-      contents += new Menu("File") {
-        //        mnemonic = Key.F
-        contents += new MenuItem(Action("New") {  controller.newGame()})  // controller.createNewGrid
-        contents += new MenuItem(Action("Exit") { sys.exit(0)         })
-      }
-      contents += new Menu("Edit") {
-        //        mnemonic = Key.E
-        contents += new MenuItem(Action("Undo") { controller.undo })
-        contents += new MenuItem(Action("Redo") { controller.redo })
-      }
-    }
+//    menuBar = new MenuBar {
+//      contents += new Menu("File") {
+//        //        mnemonic = Key.F
+//        contents += new MenuItem(Action("New") {  controller.newGame()})  // controller.createNewGrid
+//        contents += new MenuItem(Action("Exit") { sys.exit(0)         })
+//      }
+//      contents += new Menu("Edit") {
+//        //        mnemonic = Key.E
+//        contents += new MenuItem(Action("Undo") { controller.undo })
+//        contents += new MenuItem(Action("Redo") { controller.redo })
+//      }
+//    }
 
-
-
-
-
-    // specify which Components produce events of interest
-    listenTo(button)
-//    listenTo(toggle)
     listenTo(field.mouse.clicks)
 
     // react to events

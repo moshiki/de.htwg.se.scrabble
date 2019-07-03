@@ -6,7 +6,7 @@ import com.sun.glass.ui.Window.Level
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.model.field.Cell
 
-import scala.swing.event.Event
+import scala.swing.event.{ButtonClicked, Event}
 import scala.swing.{Button, Color, Dimension, GridPanel, Label}
 
 class CellClicked(val row: Int, val column: Int) extends Event
@@ -21,6 +21,8 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
   val cellColor = new Color(255, 204, 0)
   val highlightedCellColor = new Color(192, 255, 192)
   val WHITE = new Color(255, 255, 255)
+  val actCellColor = new Color(51, 204, 51)
+  var actField = new String
 
   import com.sun.javafx.tk.FontLoader
   import java.awt.Font
@@ -59,7 +61,12 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
     f.getCell(((i + 65).toChar).toString, j).foreach(Cell => { text = Cell.getValue})
     if(f.getCell((i + 65).toString, j).isEmpty == true)  background = cardCellColor
     else background = cardCellColor
-
+      reactions += {
+        case _: ButtonClicked =>
+          //TODO: ort übergabe für wort legen
+          actField = ((i + 65).toChar).toString + j
+          background = actCellColor
+      }
   }
   }
   }
