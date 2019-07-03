@@ -22,7 +22,7 @@ case class Player(role: String, name: String) extends PlayerInterface {
     }
   }
 
-  def getNrCardsInHand: Integer = hand.size
+  def getNrCardsInHand: Int = hand.size
 
   def addToHand(card: Card): Boolean = {
     if (getNrCardsInHand < handSize) {

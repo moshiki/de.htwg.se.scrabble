@@ -108,7 +108,7 @@ class FileIO extends FileIOInterface {
     <field size={ field.getSize.toString }>
       {
         for {
-          row <- 0 until field.getSize
+          row <- 1 to field.getSize
           col <- 65 until 65+field.getSize
         } yield cellToXml(field, row, col.toChar.toString)
       }

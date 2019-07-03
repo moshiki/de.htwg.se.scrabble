@@ -8,8 +8,7 @@ import de.htwg.se.scrabble.model.{CardStackInterface, FieldInterface, PlayerList
 import de.htwg.se.scrabble.model.cards.RegularCardStack
 import de.htwg.se.scrabble.model.field.RegularField
 import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
-import de.htwg.se.scrabble.model.fileIoComponent.fileIoXmlImpl
-//import de.htwg.se.scrabble.model.fileIoComponent.fileIoJsonImpl
+import de.htwg.se.scrabble.model.fileIoComponent._
 import de.htwg.se.scrabble.model.player.PlayerList
 import net.codingwell.scalaguice.ScalaModule
 
@@ -23,7 +22,7 @@ class ScrabbleModule extends AbstractModule with ScalaModule{
     bind[CardStackInterface].to[RegularCardStack]
     bind[PlayerListInterface].to[PlayerList]
     bind[FieldInterface].to[RegularField]
-    bind[FileIOInterface].to[fileIoXmlImpl.FileIO]
+    bind[FileIOInterface].to[fileIoJsonImpl.FileIO]
   }
 
 //  def configure() = {             // Bogers Code
