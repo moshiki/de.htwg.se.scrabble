@@ -38,7 +38,8 @@ class PlayerList @Inject() extends PlayerListInterface {
   }
 }
 
+/*
 object PlayerList {
   import play.api.libs.json._
   implicit val playerListWrites = Json.writes[PlayerList]
-}
+}*/

@@ -16,7 +16,7 @@ case class Cell(letter: String) extends CellInterface {
   def isEmpty: Boolean = if (value == "_" || value == "*") true else false
 }
 
-object Cell {
+/*object Cell {
   import play.api.libs.json._
   implicit val regularFieldWrites = Json.writes[RegularField]
-}
+}*/
