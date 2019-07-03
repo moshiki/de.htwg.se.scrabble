@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.aview.gui
 
 import java.util.logging.Logger
 
-import com.sun.glass.ui.Window.Level
+//import com.sun.glass.ui.Window.Level
 import de.htwg.se.scrabble.Scrabble
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.model.field.Cell
@@ -25,7 +25,7 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
   val actCellColor = new Color(51, 204, 51)
   var actField = new String
 
-  import com.sun.javafx.tk.FontLoader
+  //import com.sun.javafx.tk.FontLoader
   import java.awt.Font
   import java.awt.FontFormatException
   import java.io.IOException
