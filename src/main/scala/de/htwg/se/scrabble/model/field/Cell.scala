@@ -16,7 +16,9 @@ class Cell(letter: String) extends CellInterface {
   def isEmpty: Boolean = if (value == "_" || value == "*") true else false
 }
 
-/*object Cell {
+object Cell {
   import play.api.libs.json._
-  implicit val regularFieldWrites = Json.writes[RegularField]
-}*/
+  implicit val cellWrites = OWrites[Cell](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+    //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
+}

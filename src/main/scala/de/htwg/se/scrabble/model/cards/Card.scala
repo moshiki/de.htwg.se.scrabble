@@ -17,5 +17,7 @@ case class Card @Inject()(letter: String) {
 
 object Card {
   import play.api.libs.json._
-  implicit val cardWrites = Json.writes[Card]
+  implicit val cardWrites = OWrites[Card](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+  //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
 }

@@ -38,7 +38,9 @@ class RegularCardStack extends CardStackInterface {
   override def isEmpty: Boolean = cardList.isEmpty
 }
 
-/*object RegularCardStack {
+object RegularCardStack {
   import play.api.libs.json._
-  implicit val regularCardStackWrites = Json.writes[RegularCardStack]
-}*/
+  implicit val regularCardStackWrites = OWrites[RegularCardStack](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+  //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
+}

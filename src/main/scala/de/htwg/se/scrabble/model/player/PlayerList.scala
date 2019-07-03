@@ -38,8 +38,9 @@ class PlayerList @Inject() extends PlayerListInterface {
   }
 }
 
-/*
 object PlayerList {
   import play.api.libs.json._
-  implicit val playerListWrites = Json.writes[PlayerList]
-}*/
+  implicit val playerListWrites = OWrites[PlayerList](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+  //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
+}
