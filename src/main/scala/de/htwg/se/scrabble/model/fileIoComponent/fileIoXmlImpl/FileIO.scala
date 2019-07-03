@@ -4,16 +4,14 @@ import com.google.inject.Guice
 import com.google.inject.name.Names
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.scrabble.ScrabbleModule
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManager, RoundManager}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.controller.StateCacheInterface
 import de.htwg.se.scrabble.controller.GameStatus.GameStatus
 import de.htwg.se.scrabble.controller.controllerBaseImpl.StateCache
 import de.htwg.se.scrabble.model._
-import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
-
-import scala.xml.{Elem, NodeSeq, PrettyPrinter}
+import scala.xml.PrettyPrinter
 
 class FileIO extends FileIOInterface {
 
@@ -55,16 +53,18 @@ class FileIO extends FileIOInterface {
     import java.io._
     val pw = new PrintWriter(new File("savedstate.xml"))
     val pp = new PrettyPrinter(120, 4)
-    //val xml = pp.format(statesToXML(states))
-    //pw.write(xml)
+    val xml = pp.format(statesToXML(states))
+    pw.write(xml)
     pw.close
   }
 
   def statesToXML(states: StateCacheInterface) = {
-    fieldToXML(states.field)
-    stackToXML(states.stack)
-    playerListToXML(states.players)
-    variablesToXML(states.roundManager, states.gameStatus, states.activePlayer, states.firstDraw)
+    <states game="scrabble">
+      fieldToXML(states.field)
+      stackToXML(states.stack)
+      playerListToXML(states.players)
+      variablesToXML(states.roundManager, states.gameStatus, states.activePlayer, states.firstDraw)
+    </states>
   }
 
   def fieldToXML(field: FieldInterface) = {
