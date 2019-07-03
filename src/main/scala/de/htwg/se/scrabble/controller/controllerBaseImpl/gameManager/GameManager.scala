@@ -29,7 +29,7 @@ object GameManager {
       controller.players.put(Player("B", "human"))
       controller.activePlayer(controller.players.get("A"))
       controller.gameStatus(GameStatus.TWOP)
-      notifyObservers
+      //notifyObservers
       switchToNextState()
     }
     override def switchToNextState(): Unit = {

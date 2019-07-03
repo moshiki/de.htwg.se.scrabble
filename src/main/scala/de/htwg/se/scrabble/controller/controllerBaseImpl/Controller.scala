@@ -20,13 +20,13 @@ import scala.collection.immutable.ListMap
 class Controller @Inject() (var field : FieldInterface,
                             var stack : CardStackInterface,
                             var players : PlayerListInterface ) extends ControllerInterface {
-  val fileIo = injector.instance[FileIOInterface]
+  val fileIo: FileIOInterface = injector.instance[FileIOInterface]
   val dict = Dictionary
   var roundManager: GameManager = GameManager("PreSetupManager", this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
   var firstDraw = true
-  private val undoManager = new UndoManager
+  private var undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
 
@@ -38,6 +38,7 @@ class Controller @Inject() (var field : FieldInterface,
     players = injector.instance[PlayerListInterface]
     firstDraw = true
     roundManager = GameManager("SetupManager", this)
+    undoManager = new UndoManager
     roundManager.start()
     notifyObservers
   }
@@ -56,6 +57,7 @@ class Controller @Inject() (var field : FieldInterface,
     firstDraw = states.firstDraw
     activePlayer = states.activePlayer
     roundManager = GameManager(states.roundManager, this)
+    undoManager = new UndoManager
     gameStatus = LOADED
     notifyObservers
   }
@@ -78,6 +80,7 @@ class Controller @Inject() (var field : FieldInterface,
       undoManager.doStep(new FillHandCommand(player, stack, activePlayer, this))
     }
     gameStatus = FILLHAND
+    notifyObservers
   }
 
   override def switchHand(): Boolean = {
@@ -173,5 +176,5 @@ class Controller @Inject() (var field : FieldInterface,
 
   override def roundManager(rm: GameManager): Unit = this.roundManager = rm
 
-  override def getStateCache(): StateCacheInterface = StateCache(field,stack,players,roundManager.toString,gameStatus,activePlayer,firstDraw)
+  override def getStateCache: StateCacheInterface = StateCache(field,stack,players,roundManager.toString,gameStatus,activePlayer,firstDraw)
 }
