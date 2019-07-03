@@ -1,5 +1,8 @@
 package de.htwg.se.scrabble.aview.gui
 
+import java.util.logging.Logger
+
+import com.sun.glass.ui.Window.Level
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.model.field.Cell
 
@@ -19,6 +22,11 @@ class FieldPanel (controller: ControllerInterface) extends GridPanel(controller.
   val highlightedCellColor = new Color(192, 255, 192)
   val WHITE = new Color(255, 255, 255)
 
+  import com.sun.javafx.tk.FontLoader
+  import java.awt.Font
+  import java.awt.FontFormatException
+  import java.io.IOException
+  import java.io.InputStream
 
 
 

@@ -1,11 +1,12 @@
 package de.htwg.se.scrabble.aview.gui
 
-import java.awt.Color
+import java.awt.{Color, Font}
 
 import de.htwg.se.scrabble.controller.ControllerInterface
 
 import scala.swing.{Button, Dimension, FlowPanel, Font, Label, Panel, TextArea}
-
+import java.io.{File, InputStream}
+import java.awt.GraphicsEnvironment
 
 
 class ActionPanel(controller: ControllerInterface) extends FlowPanel {
@@ -20,9 +21,22 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
 
   class FreeSpace extends Panel { preferredSize  = full }
 
+
+//  // ♥♥♥ Scrabble FONT ♥♥♥
+//  var src: File = new File("C:\\01_IDEA_Projects\\IntelliJ\\de.htwg.se.scrabble\\src\\main\\scala\\de\\htwg\\se\\scrabble\\aview\\gui\\Scramble.ttf")
+//  var scrabbleFont: Font = Font.createFont(Font.TRUETYPE_FONT, src)
+//  var ge: GraphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment
+//  ge.registerFont(scrabbleFont)
+//  val Scramble = new Font("Scramble", Font.PLAIN, 35)
+
+
+
+
+
   var wordToSet = new Label{
-    text = "B5 - Wort" // TODO Zusammensetzen aus Auswahl der Zellen
+    text = "B5 - Word" // TODO Zusammensetzen aus Auswahl der Zellen
     preferredSize  = full
+//    font = Scramble
     font = basicFont
   }
 
