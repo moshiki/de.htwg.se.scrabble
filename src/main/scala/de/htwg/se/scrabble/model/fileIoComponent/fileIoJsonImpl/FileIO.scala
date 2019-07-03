@@ -9,7 +9,6 @@ import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.controller.controllerBaseImpl.StateCache
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.model.cards.{Card, EmptyCardStack, RegularCardStack}
-import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
 import de.htwg.se.scrabble.model.player.{Player, PlayerList}
 import play.api.libs.json._
@@ -19,11 +18,18 @@ import scala.io.Source
 class FileIO extends FileIOInterface {
 
   override def load: StateCacheInterface = {
-    var field: FieldInterface = null
+    val injector = Guice.createInjector(new ScrabbleModule)
     val source: String = Source.fromFile("savedstate.json").getLines.mkString
     val json: JsValue = Json.parse(source)
+    var field: FieldInterface = null
+    val stack: CardStackInterface = new EmptyCardStack
+    val players: PlayerListInterface = injector.instance[PlayerListInterface]
+    val roundManager = (json \ "variables" \ "roundManager").as[String]
+    var gameStatus = IDLE
+    var activePlayer: Option[PlayerInterface] = None
+    val firstDraw = (json \ "variables" \ "firstDraw").as[Boolean]
+
     val size = (json \ "field" \ "size").get.toString.toInt
-    val injector = Guice.createInjector(new ScrabbleModule)
     size match {
       case 15 => field = injector.instance[FieldInterface](Names.named("regular"))
       case _ =>
@@ -35,7 +41,40 @@ class FileIO extends FileIOInterface {
       val value = (cell \ "value").as[String]
       field.setCell(col, row, value)
     }
-    StateCache(field, new RegularCardStack,new PlayerList,"",GameStatus.IDLE,None,true)
+
+    val cardStack = (json \ "stack" \ "cards" \\ "card")
+    for (card <- cardStack) {
+      stack.putCard(Card(card.as[String]))
+    }
+
+    val playerList = (json \ "players" \\ "player")
+    for (player <- playerList) {
+      val role = (player \ "role").as[String]
+      val name = (player \ "name").as[String]
+      val handSize = (player \ "hand" \ "size").as[Int]
+      val hand = (player \ "hand" \\ "card")
+      val points = (player \ "points").as[Int]
+      val actionPerm = (player \ "actionPermit").as[Boolean]
+      val switchedHand = (player \ "switchedHand").as[Boolean]
+
+      players.put(Player(role, name))
+      for (card <- hand) {
+        players.get(role).get.addToHand(Card(card.as[String]))
+      }
+      players.get(role).get.addPoints(points)
+      if (actionPerm) {
+        players.get(role).get.grantActionPermit()
+      } else {
+        players.get(role).get.revokeActionPermit()
+      }
+      if (switchedHand) {
+        players.get(role).get.grantSwitchedHand()
+      } else {
+        players.get(role).get.revokeSwitchedHand()
+      }
+    }
+    activePlayer = players.get((json \ "variables" \ "activePlayer").as[String])
+    StateCache(field,stack,players,roundManager,gameStatus,activePlayer,firstDraw)
   }
 
   override def save(states: StateCacheInterface): Unit = {
@@ -58,15 +97,17 @@ class FileIO extends FileIOInterface {
 
   implicit val playerWrites = new Writes[PlayerInterface] {
     def writes(player: PlayerInterface) = Json.obj(
-      "role" -> player.role,
-      "name" -> player.name,
-      "points" -> player.getPoints,
-      "actionPermit" -> player.actionPermitted,
-      "switchedHand" -> player.switchedHand,
-      "hand" -> Json.obj(
-        "size" -> JsNumber(player.getNrCardsInHand),
-        "cards" -> Json.toJson(
-          for(card <- player.getHand) yield card
+      "player" -> Json.obj(
+        "role" -> player.role,
+        "name" -> player.name,
+        "points" -> player.getPoints,
+        "actionPermit" -> player.actionPermitted,
+        "switchedHand" -> player.switchedHand,
+        "hand" -> Json.obj(
+          "size" -> JsNumber(player.getNrCardsInHand),
+          "cards" -> Json.toJson(
+            for(card <- player.getHand) yield card
+          )
         )
       )
     )
@@ -92,7 +133,7 @@ class FileIO extends FileIOInterface {
             Json.obj(
               "row" -> row,
               "col" -> col.toChar.toString,
-              "value" -> field.getCell(col.toChar.toString, row)
+              "cell" -> field.getCell(col.toChar.toString, row)
             )
         )
       )
