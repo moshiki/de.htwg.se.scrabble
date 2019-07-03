@@ -118,7 +118,7 @@ class TUI(controller: ControllerInterface) extends Observer {
     println()
     print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
     println(GameStatus.message(controller.gameStatus))
-    controller.gameStatus = GameStatus.IDLE
+    controller.gameStatus(GameStatus.IDLE)
     true
 
   }

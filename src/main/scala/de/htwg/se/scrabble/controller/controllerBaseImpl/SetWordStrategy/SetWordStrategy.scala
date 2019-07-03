@@ -12,7 +12,7 @@ abstract class SetWordStrategy(controller:ControllerInterface) {
     allCards ++= usableCards
     for (c <- word) {
       if (!allCards.contains(c.toString)) {
-        controller.gameStatus = GameStatus.NOHANDCARD
+        controller.gameStatus(GameStatus.NOHANDCARD)
         return false
       }
       allCards diff List(c.toString)

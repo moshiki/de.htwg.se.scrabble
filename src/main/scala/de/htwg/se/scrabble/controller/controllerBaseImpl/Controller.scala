@@ -2,26 +2,24 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
-import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
+import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus, StateCacheInterface}
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManager, PreSetupManager, RoundManager, SetupManager}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
-import de.htwg.se.scrabble.model.field.Cell
-import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.model.cards.Card
+import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
-import scala.collection.mutable.ListBuffer
 
-case class Controller @Inject() (
-  var field : FieldInterface ,
-  var stack : CardInterface ,
-  var players : PlayerListInterface ) extends ControllerInterface {
+class Controller @Inject() (var field : FieldInterface,
+                            var stack : CardStackInterface,
+                            var players : PlayerListInterface ) extends ControllerInterface {
   val dict = Dictionary
-  var roundManager: GameManagerState = new PreSetupManagerState(this)
+  var roundManager: GameManager = new PreSetupManager(this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
   var firstDraw = true
@@ -33,10 +31,10 @@ case class Controller @Inject() (
 
   override def newGame(): Unit = {
     field = injector.getInstance(classOf[FieldInterface])
-    stack = injector.getInstance(classOf[CardInterface])
+    stack = injector.getInstance(classOf[CardStackInterface])
     players = injector.getInstance(classOf[PlayerListInterface])
     firstDraw = true
-    roundManager = new SetupManagerState(this)
+    roundManager = new SetupManager(this)
     roundManager.start()
     notifyObservers
   }
@@ -47,9 +45,9 @@ case class Controller @Inject() (
   }
 
   override def next(): Unit = {
-    if (roundManager.isInstanceOf[RoundManagerState]) {
+    if (roundManager.isInstanceOf[RoundManager]) {
       undoManager.doStep(new NextCommand(inactivePlayer, activePlayer,this))
-      roundManager = new RoundManagerState(this)
+      roundManager = new RoundManager(this)
       roundManager.start()
       notifyObservers
     }
@@ -63,7 +61,7 @@ case class Controller @Inject() (
   }
 
   override def switchHand(): Boolean = {
-    if (roundManager.isInstanceOf[RoundManagerState]) {
+    if (roundManager.isInstanceOf[RoundManager]) {
       if (!activePlayer.getOrElse(return false).switchedHand) {
         undoManager.doStep(new SwitchHandCommand(activePlayer, stack, this))
         notifyObservers
@@ -146,4 +144,14 @@ case class Controller @Inject() (
   }
 
   override def update: Boolean = {notifyObservers; true}
+
+  override def activePlayer(player: Option[PlayerInterface]): Unit = this.activePlayer = player
+
+  override def firstDraw(bool: Boolean): Unit = this.firstDraw = firstDraw
+
+  override def gameStatus(gs: GameStatus): Unit = this.gameStatus = gs
+
+  override def roundManager(rm: GameManager): Unit = this.roundManager = rm
+
+  override def getStateCache(): StateCacheInterface = StateCache(field,stack,players,roundManager,gameStatus,activePlayer,firstDraw)
 }

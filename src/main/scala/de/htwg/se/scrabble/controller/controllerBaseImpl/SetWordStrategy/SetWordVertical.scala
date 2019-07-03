@@ -10,10 +10,10 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
 
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
     if (x.charAt(0) - 65 + word.length > controller.field.getSize + 1) {
-      controller.gameStatus = GameStatus.TOOLONG
+      controller.gameStatus(GameStatus.TOOLONG)
       return false
     }
-    val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
+    val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus(GameStatus.PLACEMENT); return false})
     if (validHand(word, controller.activePlayer.get.getHand, matches)) {
       val surroundingWords = validSurrounding(placementMap)
       if (surroundingWords.isDefined) controller.set(placementMap, surroundingWords.get)
@@ -39,7 +39,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
     }
     if (controller.firstDraw) {
       if (!placementMap.keys.toList.contains(controller.field.getStarCell.getOrElse(return None))) return None
-      controller.firstDraw = false
+      controller.firstDraw(false)
     }
     Some(placementMap)
   }
@@ -63,7 +63,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
       lowCell = controller.field.getLowerCell(lowCell.get)
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
-    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
+    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus(GameStatus.PLACEMENT); return None}
     encounteredWords += sb.toString()
 
     for (p <- placementMap) { // check previous and following cells for each cell to be set
@@ -89,7 +89,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
         if (controller.getDict.contains(sb.toString())) {
           encounteredWords += sb.toString()
         } else {
-          controller.gameStatus = GameStatus.PLACEMENT
+          controller.gameStatus(GameStatus.PLACEMENT)
           None
         }
       }

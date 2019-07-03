@@ -1,3 +1,5 @@
-val l = List("A", "B", "B")
-val li = Nil :: l
-val lis = li diff List("B")
+import de.htwg.se.scrabble.controller.GameStatus
+
+var gs = GameStatus.IDLE
+
+print(GameStatus.message(gs))

@@ -2,11 +2,11 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.controller.ControllerInterface
 import de.htwg.se.scrabble.model.cards.Card
-import de.htwg.se.scrabble.model.{CardInterface, PlayerInterface}
+import de.htwg.se.scrabble.model.{CardStackInterface, PlayerInterface}
 import de.htwg.se.scrabble.util.Command
 import scala.collection.mutable.ListBuffer
 
-class SwitchHandCommand(activePlayer: Option[PlayerInterface], stack: CardInterface, controller: ControllerInterface) extends Command {
+class SwitchHandCommand(activePlayer: Option[PlayerInterface], stack: CardStackInterface, controller: ControllerInterface) extends Command {
   private val oldCards = ListBuffer[Card]()
   private val newCards = ListBuffer[Card]()
 
@@ -24,7 +24,7 @@ class SwitchHandCommand(activePlayer: Option[PlayerInterface], stack: CardInterf
       stack.putCard(card)
     }
     activePlayer.get.revokeSwitchedHand()
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
   override def undoStep: Unit = {
     for (card <- newCards) {
@@ -36,7 +36,7 @@ class SwitchHandCommand(activePlayer: Option[PlayerInterface], stack: CardInterf
     oldCards.clear()
     newCards.clear()
     activePlayer.get.grantSwitchedHand()
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
 
   override def redoStep: Unit = {

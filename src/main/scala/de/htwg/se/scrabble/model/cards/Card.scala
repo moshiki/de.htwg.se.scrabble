@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.model.cards
 
 import com.google.inject.Inject
-import de.htwg.se.scrabble.model.CardInterface
+import de.htwg.se.scrabble.model.CardStackInterface
 
 case class Card @Inject()(letter: String) {
   val value: String =

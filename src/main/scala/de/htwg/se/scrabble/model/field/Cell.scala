@@ -1,6 +1,8 @@
 package de.htwg.se.scrabble.model.field
 
-class Cell(letter: String) {
+import de.htwg.se.scrabble.model.CellInterface
+
+class Cell(letter: String) extends CellInterface {
   private var value: String =
     if (isLetter(letter)) {letter}
     else "_"

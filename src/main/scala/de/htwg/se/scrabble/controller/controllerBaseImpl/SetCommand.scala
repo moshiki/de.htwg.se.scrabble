@@ -7,15 +7,15 @@ import de.htwg.se.scrabble.util.Command
 class SetCommand(x: String, y: Int, value: String, activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
   override def doStep:   Unit = {
     controller.field.setCell(x, y, value)
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
   override def undoStep: Unit = {
     controller.field.setCell(x, y, "_")
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
   override def redoStep: Unit = {
     controller.field.setCell(x, y, value)
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
 }
 
