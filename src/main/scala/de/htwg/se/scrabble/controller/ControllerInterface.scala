@@ -20,6 +20,8 @@ trait ControllerInterface extends Observable with Observer{
   def set(placementMap: ListMap[Cell, String], surroundingWords: List[String])
   def setWord(parameters: Array[String]): Unit
   def newGame()
+  def load: Unit
+  def save: Unit
   def dictToString : String
   def getDict: immutable.HashSet[String]
   def getAlphabet: immutable.TreeMap[String, Integer]
@@ -41,13 +43,13 @@ trait ControllerInterface extends Observable with Observer{
   def gameStatus(gs: GameStatus)
   def roundManager: GameManager
   def roundManager(rm: GameManager)
-  def getStateCache(): StateCacheInterface
+  def getStateCache: StateCacheInterface
 }
 trait StateCacheInterface {
   def field : FieldInterface
   def stack : CardStackInterface
   def players : PlayerListInterface
-  def roundManager: GameManager
+  def roundManager: String
   def gameStatus : GameStatus
   def activePlayer : Option[PlayerInterface]
   def firstDraw: Boolean

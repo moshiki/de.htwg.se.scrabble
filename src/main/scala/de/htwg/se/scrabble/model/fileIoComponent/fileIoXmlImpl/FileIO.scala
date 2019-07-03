@@ -4,42 +4,79 @@ import com.google.inject.Guice
 import com.google.inject.name.Names
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.scrabble.ScrabbleModule
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.controller.StateCacheInterface
-import de.htwg.se.scrabble.controller.GameStatus.GameStatus
+import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.controller.controllerBaseImpl.StateCache
 import de.htwg.se.scrabble.model._
+import de.htwg.se.scrabble.model.cards.{Card, EmptyCardStack}
 import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
+import de.htwg.se.scrabble.model.player.{Player, PlayerList}
+
 import scala.xml.PrettyPrinter
 
 class FileIO extends FileIOInterface {
 
   override def load: StateCacheInterface = {
+    val injector = Guice.createInjector(new ScrabbleModule)
+    val file = scala.xml.XML.loadFile("savedstate.xml")
     var field: FieldInterface = null
-    var stack: CardStackInterface = null
-    var players: PlayerListInterface = null
-    var roundManager: GameManager = null
-    var activePlayer: Option[PlayerInterface] = null
-    var gameStatus: GameStatus = null
-    var firstDraw: Boolean = false
-
-    val file = scala.xml.XML.loadFile("grid.xml")
-
     val sizeAttr = (file \\ "field" \ "@size")
     val size = sizeAttr.text.toInt
-    val injector = Guice.createInjector(new ScrabbleModule)
+    val stack: CardStackInterface = new EmptyCardStack
+    val players: PlayerListInterface = injector.instance[PlayerListInterface]
+    val roundManager = (file \ "roundManager").text.trim
+    var gameStatus = IDLE
+    var activePlayer: Option[PlayerInterface] = None
+    val firstDraw = (file \ "firstDraw").text.toBoolean
+
+
     size match {
-      case 15 => field = injector.instance[FieldInterface](Names.named("DefaultSize"))
+      case 15 => field = injector.instance[FieldInterface](Names.named("regular"))
       case _ =>
     }
     val cellNodes = (file \\ "cell")
     for (cell <- cellNodes) {
-      val row: String = (cell \ "@row").text.trim
-      val col: Int = (cell \ "@col").text.trim.toInt
+      val row: Int = (cell \ "@row").text.trim.toInt
+      val col: String = (cell \ "@col").text.trim
       val value: String = cell.text.trim
-      field.setCell(row, col, value)
+      field.setCell(col, row, value)
     }
+
+    val stackSize = (file \\ "stack" \ "@size")
+    val cardStack = (file \\ "stack" \ "card")
+    for (card <- cardStack) {
+      stack.putCard(Card(card.text.trim))
+    }
+
+    val playerList = (file \\ "players" \ "player")
+    for (player <- playerList) {
+      val role = (player \ "@role")
+      val name = (player \ "@name")
+      val handSize = (player \ "hand" \ "@size")
+      val hand = (player \ "hand" \\ "card")
+      val points = (player \ "points")
+      val actionPerm = (player \ "actionPermit")
+      val switchedHand = (player \ "switchedHand")
+
+      players.put(Player(role.toString.trim, name.toString.trim))
+      for (card <- hand) {
+        players.get(role.toString.trim).get.addToHand(Card(card.text.trim))
+      }
+      players.get(role.toString.trim).get.addPoints(points.text.trim.toInt)
+      if (actionPerm.text.trim.toBoolean) {
+        players.get(role.toString.trim).get.grantActionPermit()
+      } else {
+        players.get(role.toString.trim).get.revokeActionPermit()
+      }
+      if (switchedHand.text.trim.toBoolean) {
+        players.get(role.toString.trim).get.grantSwitchedHand()
+      } else {
+        players.get(role.toString.trim).get.revokeSwitchedHand()
+      }
+    }
+    activePlayer = players.get((file \ "activePlayer").text.trim)
+
     StateCache(field,stack,players,roundManager,gameStatus,activePlayer,firstDraw)
   }
 
@@ -55,27 +92,27 @@ class FileIO extends FileIOInterface {
     val pp = new PrettyPrinter(120, 4)
     val xml = pp.format(statesToXML(states))
     pw.write(xml)
-    pw.close
+    pw.close()
   }
 
   def statesToXML(states: StateCacheInterface) = {
     <states game="scrabble">
-      fieldToXML(states.field)
-      stackToXML(states.stack)
-      playerListToXML(states.players)
-      variablesToXML(states.roundManager, states.gameStatus, states.activePlayer, states.firstDraw)
+      { fieldToXML(states.field) }
+      { stackToXML(states.stack) }
+      { playerListToXML(states.players) }
+      { variablesToXML(states.roundManager, states.gameStatus, states.activePlayer, states.firstDraw) }
     </states>
   }
 
   def fieldToXML(field: FieldInterface) = {
-    <grid size={ field.getSize.toString }>
+    <field size={ field.getSize.toString }>
       {
         for {
           row <- 0 until field.getSize
           col <- 65 until 65+field.getSize
         } yield cellToXml(field, row, col.toChar.toString)
       }
-    </grid>
+    </field>
   }
 
   def cellToXml(field: FieldInterface, row: Int, col: String) = {
@@ -105,10 +142,10 @@ class FileIO extends FileIOInterface {
       <switchedHand>{ player.switchedHand }</switchedHand>
     </player>
   }
-  def variablesToXML(rm: GameManager, gs: GameStatus, ap: Option[PlayerInterface], fd: Boolean) = {
-    <roundManager>{ rm.toString }</roundManager>
-    <gameStatus>{ gs }</gameStatus>
-    <activePlayer>{ ap.get.role }</activePlayer>
+  def variablesToXML(rm: String, gs: GameStatus, ap: Option[PlayerInterface], fd: Boolean) = {
+    <roundManager>{ rm }</roundManager>
+    //<gameStatus>{ gs }</gameStatus>
+    <activePlayer>{ if (ap.isDefined) ap.get.role else "" }</activePlayer>
     <firstDraw>{ fd }</firstDraw>
   }
 
