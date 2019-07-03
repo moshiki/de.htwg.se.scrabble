@@ -44,8 +44,9 @@ class Controller @Inject() (var field : FieldInterface,
   }
 
   override def save: Unit = {
-    fileIo.save(this.getStateCache())
+    fileIo.save(this.getStateCache)
     gameStatus = SAVED
+
     notifyObservers
   }
 

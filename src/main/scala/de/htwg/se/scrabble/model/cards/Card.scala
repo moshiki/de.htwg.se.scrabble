@@ -14,3 +14,8 @@ case class Card @Inject()(letter: String) {
 
   def isEmpty: Boolean = true // TODO: Implement
 }
+
+object Card {
+  import play.api.libs.json._
+  implicit val cardWrites = Json.writes[Card]
+}

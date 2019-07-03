@@ -5,16 +5,16 @@ import de.htwg.se.scrabble.model.PlayerListInterface
 
 import scala.collection.mutable
 
-class PlayerList @Inject() extends PlayerListInterface  {
+class PlayerList @Inject() extends PlayerListInterface {
   private val playerMap = mutable.TreeMap[String, Player]()
 
-  def put(player:Player): Option[Player] = playerMap.put(player.role, player)
+  def put(player: Player): Option[Player] = playerMap.put(player.role, player)
 
-  def contains(player:Player): Boolean = revMap().contains(player)
+  def contains(player: Player): Boolean = revMap().contains(player)
 
-  def exists(role:String): Boolean = if (get(role).isDefined) true else false
+  def exists(role: String): Boolean = if (get(role).isDefined) true else false
 
-  def get(role:String): Option[Player] = {
+  def get(role: String): Option[Player] = {
 
     role match {
       case "a" | "A" => playerMap.get("A")
@@ -32,8 +32,13 @@ class PlayerList @Inject() extends PlayerListInterface  {
   }
 
   private def revMap(): mutable.Map[Player, String] = {
-    mutable.Map[Player, String]() ++= playerMap map {_.swap}
+    mutable.Map[Player, String]() ++= playerMap map {
+      _.swap
+    }
   }
+}
 
-
+object PlayerList {
+  import play.api.libs.json._
+  implicit val playerListWrites = Json.writes[PlayerList]
 }

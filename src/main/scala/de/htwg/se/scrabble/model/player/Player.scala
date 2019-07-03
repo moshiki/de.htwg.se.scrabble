@@ -46,3 +46,8 @@ case class Player(role: String, name: String) extends PlayerInterface {
 
   override def toString:String = "PLAYER "+role+s" | $points points"
 }
+
+object Player {
+  import play.api.libs.json._
+  implicit val playerWrites = Json.writes[Player]
+}
