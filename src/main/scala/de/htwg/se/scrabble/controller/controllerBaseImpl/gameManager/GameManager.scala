@@ -24,12 +24,10 @@ object GameManager {
   private class SetupManager(controller:ControllerInterface) extends GameManager {
     this.add(controller)
     override def start(): Unit = {
-      //controller.roundManager = this
       controller.players.put(Player("A", "human"))
       controller.players.put(Player("B", "human"))
       controller.activePlayer(controller.players.get("A"))
       controller.gameStatus(GameStatus.TWOP)
-      //notifyObservers
       switchToNextState()
     }
     override def switchToNextState(): Unit = {

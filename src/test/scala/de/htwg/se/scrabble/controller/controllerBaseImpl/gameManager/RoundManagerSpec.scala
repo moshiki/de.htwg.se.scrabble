@@ -2,7 +2,6 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
 import de.htwg.se.scrabble.Scrabble.injector
 import de.htwg.se.scrabble.controller.ControllerInterface
-import de.htwg.se.scrabble.controller.controllerBaseImpl.Controller
 import de.htwg.se.scrabble.model.player.Player
 import org.scalatest._
 
