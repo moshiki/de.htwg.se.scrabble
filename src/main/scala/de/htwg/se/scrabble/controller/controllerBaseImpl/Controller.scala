@@ -18,7 +18,7 @@ import scala.collection.immutable
 import scala.collection.immutable.ListMap
 import scala.swing.Publisher
 
-case class Controller @Inject() (var field : FieldInterface,
+class Controller @Inject() (var field : FieldInterface,
                             var stack : CardStackInterface,
                             var players : PlayerListInterface ) extends ControllerInterface with Publisher {
   val fileIo: FileIOInterface = injector.instance[FileIOInterface]
