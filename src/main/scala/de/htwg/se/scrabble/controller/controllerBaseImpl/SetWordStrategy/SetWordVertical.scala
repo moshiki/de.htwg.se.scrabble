@@ -39,9 +39,10 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
     }
     if (controller.firstDraw) {
       if (!placementMap.keys.toList.contains(controller.field.getStarCell.getOrElse(return None))) return None
-      controller.firstDraw(false)
     }
-    Some(placementMap)
+    if (matches.nonEmpty || controller.firstDraw) {
+      Some(placementMap)
+    } else None
   }
 
   def validSurrounding(placementMap: ListMap[Cell, String]): Option[List[String]] = {
@@ -90,7 +91,7 @@ class SetWordVertical(controller:ControllerInterface) extends SetWordStrategy(co
           encounteredWords += sb.toString()
         } else {
           controller.gameStatus(GameStatus.PLACEMENT)
-          None
+          return None
         }
       }
     }

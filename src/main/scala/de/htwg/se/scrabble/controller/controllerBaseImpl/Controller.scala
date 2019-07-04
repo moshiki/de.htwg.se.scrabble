@@ -25,7 +25,7 @@ class Controller @Inject() (var field : FieldInterface,
   var roundManager: GameManager = GameManager("PreSetupManager", this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
-  var firstDraw = true
+  var firstDraw: Boolean = _
   private var undoManager = new UndoManager
 
   def dictToString: String = dict.dictToString
@@ -171,7 +171,7 @@ class Controller @Inject() (var field : FieldInterface,
 
   override def activePlayer(player: Option[PlayerInterface]): Unit = this.activePlayer = player
 
-  override def firstDraw(bool: Boolean): Unit = this.firstDraw = firstDraw
+  override def firstDraw(bool: Boolean): Unit = this.firstDraw = bool
 
   override def gameStatus(gs: GameStatus): Unit = this.gameStatus = gs
 
