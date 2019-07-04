@@ -2,19 +2,18 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy
 
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.FieldInterface
 import scala.collection.immutable.ListMap
 import scala.collection.mutable.ListBuffer
 
 class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(controller:ControllerInterface) {
-  var matches = List.empty[String]
-
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
     if (x.charAt(0) - 65 + word.length > controller.field.getSize + 1) {
-      controller.gameStatus = GameStatus.TOOLONG
+      controller.gameStatus(GameStatus.TOOLONG)
       return false
     }
-    val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus = GameStatus.PLACEMENT; return false})
-    if (validHand(word, controller.activePlayer.get.getHand, matches)) {
+    val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus(GameStatus.PLACEMENT); return false})
+    if (validHand(word, placementMap, controller.activePlayer.get.getHand)) {
       val surroundingWords = validSurrounding(placementMap)
       if (surroundingWords.isDefined) controller.set(placementMap, surroundingWords.get)
       return true
@@ -23,15 +22,15 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
   }
 
   def validPlacement(word:String, start:Cell): Option[ListMap[Cell, String]] = {
-    var placementMap: ListMap[Cell, String] = ListMap.empty[Cell, String]
-    matches = List.empty[String]
+    val matches = ListBuffer.empty[String]
+    var placementMap = ListMap.empty[Cell, String]
     var currCell: Cell = start
 
     for (c <- word.toUpperCase) {
       if (currCell.isEmpty) {
         placementMap += (currCell -> c.toString)
       } else if (currCell.getValue == c.toString) {
-        matches = c.toString :: matches
+        matches += c.toString // :: matches
       } else {
         return None
       }
@@ -39,9 +38,10 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
     }
     if (controller.firstDraw) {
       if (!placementMap.keys.toList.contains(controller.field.getStarCell.getOrElse(return None))) return None
-      controller.firstDraw = false
     }
-    Some(placementMap)
+    if (matches.nonEmpty || controller.firstDraw) {
+      Some(placementMap)
+    } else None
   }
 
   def validSurrounding(placementMap: ListMap[Cell, String]): Option[List[String]] = {
@@ -50,7 +50,7 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
     var nextCell: Option[Cell] = Some(head._1)
     val lb = ListBuffer[String]()
     val sb = new StringBuilder()
-    val encounteredWords = ListBuffer[String]()
+    val encounteredWords = ListBuffer.empty[String]
 
     //check previous cells
     while (prevCell.isDefined && !prevCell.get.isEmpty) {
@@ -63,7 +63,7 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
       nextCell = controller.field.getNextCell(nextCell.get)
     }
     sb.appendAll(lb.map(s => s.charAt(0)))
-    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus = GameStatus.PLACEMENT; return None}
+    if (!controller.getDict.contains(sb.toString())) {controller.gameStatus(GameStatus.PLACEMENT); return None}
     encounteredWords += sb.toString()
 
     for (p <- placementMap) { // check upper and lower cells for each cell to be set
@@ -89,8 +89,8 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
         if (controller.getDict.contains(sb.toString())) {
           encounteredWords += sb.toString()
         } else {
-          controller.gameStatus = GameStatus.PLACEMENT
-          None
+          controller.gameStatus(GameStatus.PLACEMENT)
+          return None
         }
       }
     }

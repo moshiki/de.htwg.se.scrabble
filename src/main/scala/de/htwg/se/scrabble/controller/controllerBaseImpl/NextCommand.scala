@@ -8,12 +8,12 @@ class NextCommand(nextPlayer: Option[PlayerInterface], activePlayer: Option[Play
   override def doStep:   Unit = {
     nextPlayer.get.grantActionPermit()
     nextPlayer.get.grantSwitchedHand()
-    controller.activePlayer = nextPlayer
+    controller.activePlayer(nextPlayer)
   }
   override def undoStep: Unit = {
     nextPlayer.get.revokeActionPermit()
     nextPlayer.get.revokeSwitchedHand()
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
   override def redoStep: Unit = {
     doStep

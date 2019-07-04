@@ -3,9 +3,11 @@ package de.htwg.se.scrabble.model
 import de.htwg.se.scrabble.model.cards.Card
 
 trait PlayerInterface {
+  def role: String
+  def name: String
   def getHand: List[Card]
   def putCard(card: Card): Option[Card]
-  def getNrCardsInHand: Integer
+  def getNrCardsInHand: Int
   def addToHand(card: Card): Boolean
   def getPoints: Int
   def addPoints(value: Int)

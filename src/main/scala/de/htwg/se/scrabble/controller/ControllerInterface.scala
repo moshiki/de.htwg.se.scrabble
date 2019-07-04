@@ -1,7 +1,7 @@
 package de.htwg.se.scrabble.controller
 
 import de.htwg.se.scrabble.controller.GameStatus.GameStatus
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManagerState
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.{CardInterface, FieldInterface, PlayerInterface, PlayerListInterface}
@@ -21,6 +21,8 @@ trait ControllerInterface extends Observable with Observer with Publisher {
   def set(placementMap: ListMap[Cell, String], surroundingWords: List[String])
   def setWord(parameters: Array[String]): Unit
   def newGame()
+  def load: Unit
+  def save: Unit
   def dictToString : String
   def getDict: immutable.HashSet[String]
   def getAlphabet: immutable.TreeMap[String, Integer]
@@ -32,14 +34,26 @@ trait ControllerInterface extends Observable with Observer with Publisher {
   def switchHand(): Boolean
   def inactivePlayer: Option[PlayerInterface]
   def evalPoints(words: List[String]): Int
-  var activePlayer : Option[PlayerInterface]
-  var firstDraw: Boolean
-  var undoManager : UndoManager   // unüblich, doch für Btn erforderlich
-  var field : FieldInterface
-  var stack : CardInterface
-  var gameStatus : GameStatus
-  var roundManager: GameManagerState
-
+  def activePlayer : Option[PlayerInterface]
+  def activePlayer(player: Option[PlayerInterface])
+  def firstDraw: Boolean
+  def firstDraw(bool: Boolean)
+  def field : FieldInterface
+  def stack : CardStackInterface
+  def gameStatus : GameStatus
+  def gameStatus(gs: GameStatus)
+  def roundManager: GameManager
+  def roundManager(rm: GameManager)
+  def getStateCache: StateCacheInterface
+}
+trait StateCacheInterface {
+  def field : FieldInterface
+  def stack : CardStackInterface
+  def players : PlayerListInterface
+  def roundManager: String
+  def gameStatus : GameStatus
+  def activePlayer : Option[PlayerInterface]
+  def firstDraw: Boolean
 }
 
 import scala.swing.event.Event

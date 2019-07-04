@@ -57,6 +57,8 @@ class TUI(controller: ControllerInterface) extends Reactor {
         case "exit" => exit()
         case "help" => println(help)
         case "new" => controller.newGame()
+        case "save" => controller.save
+        case "load" => controller.load
         case "pd" => printDict()
         case "pv" => printVector()
         case "players" => players()
@@ -108,6 +110,8 @@ class TUI(controller: ControllerInterface) extends Reactor {
     println()
     print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
-    //controller.gameStatus = GameStatus.IDLE
+    //controller.gameStatus(GameStatus.IDLE)
+    true
+
   }
 }

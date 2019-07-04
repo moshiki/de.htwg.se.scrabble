@@ -14,7 +14,7 @@ class RoundManagerSpec extends WordSpec with Matchers{
       "fill up hands of players and update game status" in {
         ct.players.put(Player("A", "Hermann"))
         ct.players.get("A").get.getNrCardsInHand should be(0)
-        ct.roundManager = new RoundManagerState(ct)
+        ct.roundManager(GameManager("RoundManager", ct))
         ct.roundManager.start()
         ct.players.get("A").get.getNrCardsInHand should be(7)
       }

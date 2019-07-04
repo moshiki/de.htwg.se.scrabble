@@ -2,14 +2,16 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
-import de.htwg.se.scrabble.controller._
-import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
+import net.codingwell.scalaguice.InjectorExtensions._
+import de.htwg.se.scrabble.controller.{ControllerInterface, StateCacheInterface}
+import de.htwg.se.scrabble.controller.GameStatus._
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
-import de.htwg.se.scrabble.model.field.Cell
-import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.model.cards.Card
+import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
+import de.htwg.se.scrabble.model.player.Player
 import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
@@ -20,12 +22,16 @@ case class Controller @Inject()(
   var field : FieldInterface ,
   var stack : CardInterface ,
   var players : PlayerListInterface ) extends ControllerInterface with Publisher {
+class Controller @Inject() (var field : FieldInterface,
+                            var stack : CardStackInterface,
+                            var players : PlayerListInterface ) extends ControllerInterface with Publisher {
+  val fileIo: FileIOInterface = injector.instance[FileIOInterface]
   val dict = Dictionary
-  var roundManager: GameManagerState = new PreSetupManagerState(this)
+  var roundManager: GameManager = GameManager("PreSetupManager", this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
   var firstDraw = true
-  var undoManager = new UndoManager // private val
+  private var undoManager = new UndoManager
 
   newGame()
 
@@ -34,16 +40,36 @@ case class Controller @Inject()(
   def vectorToString: String = dict.vectorToString
 
   override def newGame(): Unit = {
-    field = injector.getInstance(classOf[FieldInterface])
-    stack = injector.getInstance(classOf[CardInterface])
-    players = injector.getInstance(classOf[PlayerListInterface])
+    field = injector.instance[FieldInterface]
+    stack = injector.instance[CardStackInterface]
+    players = injector.instance[PlayerListInterface]
     firstDraw = true
-    roundManager = new SetupManagerState(this)
+    roundManager = GameManager("SetupManager", this)
+    undoManager = new UndoManager
     roundManager.start()
     //notifyObservers
     publish(new NewGame)
   }
 
+  override def save: Unit = {
+    fileIo.save(this.getStateCache)
+    gameStatus = SAVED
+
+    notifyObservers
+  }
+
+  override def load: Unit = {
+    val states = fileIo.load
+    field = states.field
+    stack = states.stack
+    players = states.players
+    firstDraw = states.firstDraw
+    activePlayer = states.activePlayer
+    roundManager = GameManager(states.roundManager, this)
+    undoManager = new UndoManager
+    gameStatus = LOADED
+    notifyObservers
+  }
   override def newPlayer(role:String, name:String): Unit = {
     players.put(Player(role, name))
     //notifyObservers
@@ -51,9 +77,9 @@ case class Controller @Inject()(
   }
 
   override def next(): Unit = {
-    if (roundManager.isInstanceOf[RoundManagerState]) {
+    if (roundManager.toString == "RoundManager") {
       undoManager.doStep(new NextCommand(inactivePlayer, activePlayer,this))
-      roundManager = new RoundManagerState(this)
+      roundManager = GameManager("RoundManager", this)
       roundManager.start()
       //notifyObservers
       publish(new NextPlayer)
@@ -64,15 +90,14 @@ case class Controller @Inject()(
     for (player <- players.getList) {
       undoManager.doStep(new FillHandCommand(player, stack, activePlayer, this))
     }
-    gameStatus = GameStatus.FILLHAND
+    gameStatus = FILLHAND
     publish(new AllChanged)
   }
 
   override def switchHand(): Boolean = {
-    if (roundManager.isInstanceOf[RoundManagerState]) {
+    if (roundManager.toString == "RoundManager") {
       if (!activePlayer.getOrElse(return false).switchedHand) {
         undoManager.doStep(new SwitchHandCommand(activePlayer, stack, this))
-        //notifyObservers
         publish(new AllChanged)
         return true
       }
@@ -98,7 +123,6 @@ case class Controller @Inject()(
 
   override def set(x: String, y: Int, value: String): Unit = {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer, this))
-    //notifyObservers
     publish(new CellChanged)
   }
   override def set(cell: Cell, value: String): Unit = {
@@ -107,7 +131,6 @@ case class Controller @Inject()(
   }
   override def set(placementMap: ListMap[Cell, String], surroundingWords: List[String]): Unit = {
     undoManager.doStep(new SetWordCommand(placementMap, surroundingWords, activePlayer, firstDraw, this))
-    //notifyObservers
     publish(new AllChanged)
   }
 
@@ -127,12 +150,11 @@ case class Controller @Inject()(
       if (word.length >= 2 && getDict.contains(word.toUpperCase())) {
         alignment.setWord(word, cell, x, y)
       } else {
-        gameStatus = GameStatus.ILLEGAL
+        gameStatus = ILLEGAL
       }
     } else {
-      gameStatus = GameStatus.ACTIONPERMIT
+      gameStatus = ACTIONPERMIT
     }
-    //notifyObservers
     publish(new AllChanged)
   }
 
@@ -148,15 +170,22 @@ case class Controller @Inject()(
 
   override def undo(): Unit = {
     undoManager.undoStep
-    //notifyObservers
     publish(new AllChanged)
   }
   override def redo(): Unit = {
     undoManager.redoStep
-    //notifyObservers
     publish(new AllChanged)
   }
 
-  override def update: Boolean = {//notifyObservers;
-    publish(new AllChanged); true}
+  override def update: Boolean = {publish(new AllChanged); true}
+
+  override def activePlayer(player: Option[PlayerInterface]): Unit = this.activePlayer = player
+
+  override def firstDraw(bool: Boolean): Unit = this.firstDraw = bool
+
+  override def gameStatus(gs: GameStatus): Unit = this.gameStatus = gs
+
+  override def roundManager(rm: GameManager): Unit = this.roundManager = rm
+
+  override def getStateCache: StateCacheInterface = StateCache(field,stack,players,roundManager.toString,gameStatus,activePlayer,firstDraw)
 }
