@@ -1,3 +1,4 @@
+/*
 package de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager
 
 import de.htwg.se.scrabble.Scrabble.injector
@@ -20,3 +21,4 @@ class RoundManagerSpec extends WordSpec with Matchers{
     }
   }
 }
+*/
