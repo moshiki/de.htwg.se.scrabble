@@ -41,7 +41,7 @@ case class Controller @Inject()(
     roundManager = new SetupManagerState(this)
     roundManager.start()
     //notifyObservers
-    publish(new AllChanged)
+    publish(new NewGame)
   }
 
   override def newPlayer(role:String, name:String): Unit = {
@@ -56,7 +56,7 @@ case class Controller @Inject()(
       roundManager = new RoundManagerState(this)
       roundManager.start()
       //notifyObservers
-      publish(new AllChanged)
+      publish(new NextPlayer)
     }
   }
 

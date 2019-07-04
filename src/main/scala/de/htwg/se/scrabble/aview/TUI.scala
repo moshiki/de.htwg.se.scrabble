@@ -81,6 +81,8 @@ class TUI(controller: ControllerInterface) extends Reactor {
     case event: PlayerChanged => printTui
     case event: StackChanged => printTui
     case event: AllChanged => printTui
+    case event: NewGame => printTui
+    case event: NextPlayer => printTui
   }
 
   def exit(): Unit = {
@@ -99,33 +101,13 @@ class TUI(controller: ControllerInterface) extends Reactor {
   def printTui = {
     println()
     println(controller.activePlayer.getOrElse(""))
-    //  val letters = new String ...
-    //    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
     if (controller.activePlayer.isDefined) {
       println("hand     | " + controller.activePlayer.get.getHand.mkString(" "))
     }
     println("stack    | " + controller.stack.getSize + " cards")
     println()
-    print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
+    print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
-    controller.gameStatus = GameStatus.IDLE
+    //controller.gameStatus = GameStatus.IDLE
   }
-
-  /*@Override
-  def update: Boolean = {
-    println()
-    println(controller.activePlayer.getOrElse(""))
-//  val letters = new String ...
-    //    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
-    if (controller.activePlayer.isDefined) {
-      println("hand     | " + controller.activePlayer.get.getHand.mkString(" "))
-    }
-    println("stack    | " + controller.stack.getSize + " cards")
-    println()
-    print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
-    println(GameStatus.message(controller.gameStatus))
-    controller.gameStatus = GameStatus.IDLE
-    true
-
-  }*/
 }

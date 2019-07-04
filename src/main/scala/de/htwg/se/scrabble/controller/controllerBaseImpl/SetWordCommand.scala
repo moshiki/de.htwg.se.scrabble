@@ -22,7 +22,7 @@ class SetWordCommand(placementMap: ListMap[Cell, String], surroundingWords: List
   }
   override def undoStep: Unit = {
     for (p <- placementMap) {
-      val c = controller.field.getCoordinates(p._1).get
+      val c = controller.field.getCoordinates(p._1).getOrElse(return)
       if (controller.field.getCell(c.col.toString, c.row).get == controller.field.getStarCell.get) {
         controller.field.setCell(c.col.toString, c.row, "*")
       } else {

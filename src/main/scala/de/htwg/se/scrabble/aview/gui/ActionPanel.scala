@@ -1,9 +1,11 @@
 package de.htwg.se.scrabble.aview.gui
 
 import java.awt.{Color, Font}
+
 import de.htwg.se.scrabble.controller.ControllerInterface
+
 import scala.swing.{Button, ButtonGroup, Dimension, FlowPanel, Font, Label, Panel, RadioButton, TextArea}
-import scala.swing.event.ButtonClicked
+import scala.swing.event.{ButtonClicked, KeyTyped, ValueChanged}
 
 class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   preferredSize = new Dimension(200, 800)
@@ -15,9 +17,19 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   val half = new Dimension(74, 40)
 
   var direction : String = "-"
-  var setWord = new Array[String](4)
-  setWord(0) = "set"
-  setWord(2) = "-"
+  var setWord = Array.fill[String](4)("")
+
+  initSetWord()
+
+  def initSetWord() = {
+    setWord(0) = "set"
+    setWord(1) = {
+      val c = controller.field.getCoordinates(controller.field.getStarCell.get).get; c.col.toString + c.row
+    }
+    setWord(2) = "-"
+    setWord(3) = ""
+  }
+
 
   class FreeSpace extends Panel { preferredSize  = full }
 
@@ -127,6 +139,11 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
       preferredSize = new Dimension(145, 35)
       font = basicFont
       tooltip = "set your Word here"
+      reactions += {
+        case _: ValueChanged =>
+          setWord(3) = this.text
+          redraw
+      }
     }
     contents += wordTA
     contents += new Button() {
@@ -134,7 +151,9 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
       preferredSize = full
       font = basicFont
       reactions += {
-        case _: ButtonClicked => controller.setWord(setWord)
+        case _: ButtonClicked =>
+          setWord(3) = wordTA.text
+          controller.setWord(setWord)
       }
     }
     val directionChoose = List(
@@ -170,7 +189,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
         }
     }
     val wordToSet = new Label{
-      text = setWord.mkString("")
+      text = setWord.mkString(" ")
       preferredSize  = full
       font = basicFont
     }
@@ -195,7 +214,11 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
       actPlayerL.text = controller.activePlayer.get.toString
       inactPlayerL.text = controller.inactivePlayer.get.toString
       cardsL.text = controller.activePlayer.get.getHand.mkString("")
-      wordToSet.text = setWord(0)+" "+ setWord(1)+" "+setWord(2)+" "+setWord(3)
+      wordToSet.text = setWord.mkString(" ")
+    }
+    def eraseInput = {
+      wordTA.text = ""
+      initSetWord()
     }
   }
   visible = true
@@ -203,5 +226,9 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   def redraw = {
     infoPanel.redraw
     repaint
+  }
+  def eraseInput = {
+    infoPanel.eraseInput
+    redraw
   }
 }

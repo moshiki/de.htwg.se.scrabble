@@ -15,13 +15,10 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     var field = new FieldPanel(controller: ControllerInterface)
     val statusText = new TextField {
       columns = 10
-      text = "TODO: Game Status ausgeben"
-   //   text = controller.gameStatus. TODO: Game Status ausgeben
+      text = GameStatus.message(controller.gameStatus)
     }
 
     contents = new BorderPanel {
-//      layout(gridPanel) = North
-//      layout(opt) = West
       layout(field) = Center
       layout(act) = East
       layout(statusText) = South
@@ -49,12 +46,22 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     case event: PlayerChanged => redraw
     case event: StackChanged => redraw
     case event: AllChanged => redraw
+    case event: NewGame => eraseInput; redraw
+    case event: NextPlayer => eraseInput; redraw
   }
 
   def redraw = {
     act.redraw
-    field.repaintField
+    field.redraw
+    statusText.text = GameStatus.message(controller.gameStatus)
+    controller.gameStatus = GameStatus.IDLE
     repaint
+  }
+  def eraseInput = {
+    act.eraseInput
+    field.eraseInput
+    repaint
+
   }
 
   visible = true

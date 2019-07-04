@@ -51,3 +51,7 @@ class PlayerChanged extends Event
 class StackChanged extends Event
 
 class AllChanged extends Event
+
+class NewGame extends Event
+
+class NextPlayer extends Event
