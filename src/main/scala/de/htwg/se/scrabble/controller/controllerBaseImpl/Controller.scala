@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
-import de.htwg.se.scrabble.controller.{CellChanged, ControllerInterface, GameStatus}
+import de.htwg.se.scrabble.controller._
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
@@ -14,19 +14,20 @@ import de.htwg.se.scrabble.util.UndoManager
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
-import scala.collection.mutable.ListBuffer
 import scala.swing.Publisher
 
 case class Controller @Inject()(
   var field : FieldInterface ,
   var stack : CardInterface ,
-  var players : PlayerListInterface ) extends ControllerInterface{
+  var players : PlayerListInterface ) extends ControllerInterface with Publisher {
   val dict = Dictionary
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
   var activePlayer: Option[PlayerInterface] = None
   var firstDraw = true
   var undoManager = new UndoManager // private val
+
+  newGame()
 
   def dictToString: String = dict.dictToString
 
@@ -39,13 +40,14 @@ case class Controller @Inject()(
     firstDraw = true
     roundManager = new SetupManagerState(this)
     roundManager.start()
-//    publish(new CellChanged)
-    notifyObservers
+    //notifyObservers
+    publish(new AllChanged)
   }
 
   override def newPlayer(role:String, name:String): Unit = {
     players.put(Player(role, name))
-    notifyObservers
+    //notifyObservers
+    publish(new PlayerChanged)
   }
 
   override def next(): Unit = {
@@ -53,7 +55,8 @@ case class Controller @Inject()(
       undoManager.doStep(new NextCommand(inactivePlayer, activePlayer,this))
       roundManager = new RoundManagerState(this)
       roundManager.start()
-      notifyObservers
+      //notifyObservers
+      publish(new AllChanged)
     }
   }
 
@@ -62,13 +65,15 @@ case class Controller @Inject()(
       undoManager.doStep(new FillHandCommand(player, stack, activePlayer, this))
     }
     gameStatus = GameStatus.FILLHAND
+    publish(new AllChanged)
   }
 
   override def switchHand(): Boolean = {
     if (roundManager.isInstanceOf[RoundManagerState]) {
       if (!activePlayer.getOrElse(return false).switchedHand) {
         undoManager.doStep(new SwitchHandCommand(activePlayer, stack, this))
-        notifyObservers
+        //notifyObservers
+        publish(new AllChanged)
         return true
       }
     }
@@ -93,7 +98,8 @@ case class Controller @Inject()(
 
   override def set(x: String, y: Int, value: String): Unit = {
     undoManager.doStep(new SetCommand(x, y, value, activePlayer, this))
-    notifyObservers
+    //notifyObservers
+    publish(new CellChanged)
   }
   override def set(cell: Cell, value: String): Unit = {
     val coord = field.getCoordinates(cell).getOrElse(return)
@@ -101,7 +107,8 @@ case class Controller @Inject()(
   }
   override def set(placementMap: ListMap[Cell, String], surroundingWords: List[String]): Unit = {
     undoManager.doStep(new SetWordCommand(placementMap, surroundingWords, activePlayer, firstDraw, this))
-    notifyObservers
+    //notifyObservers
+    publish(new AllChanged)
   }
 
   override def setWord(parameters: Array[String]): Unit = {
@@ -125,7 +132,8 @@ case class Controller @Inject()(
     } else {
       gameStatus = GameStatus.ACTIONPERMIT
     }
-    notifyObservers
+    //notifyObservers
+    publish(new AllChanged)
   }
 
   override def evalPoints(encounteredWords: List[String]): Int = {
@@ -140,12 +148,15 @@ case class Controller @Inject()(
 
   override def undo(): Unit = {
     undoManager.undoStep
-    notifyObservers
+    //notifyObservers
+    publish(new AllChanged)
   }
   override def redo(): Unit = {
     undoManager.redoStep
-    notifyObservers
+    //notifyObservers
+    publish(new AllChanged)
   }
 
-  override def update: Boolean = {notifyObservers; true}
+  override def update: Boolean = {//notifyObservers;
+    publish(new AllChanged); true}
 }

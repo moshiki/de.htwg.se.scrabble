@@ -1,21 +1,12 @@
 package de.htwg.se.scrabble.aview.gui
 
 import java.awt.{Color, Font}
-
 import de.htwg.se.scrabble.controller.ControllerInterface
-
 import scala.swing.{Button, ButtonGroup, Dimension, FlowPanel, Font, Label, Panel, RadioButton, TextArea}
-import java.io.{File, InputStream}
-import java.awt.GraphicsEnvironment
-
-import de.htwg.se.scrabble.util.Observer
-
 import scala.swing.event.ButtonClicked
-
 
 class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   preferredSize = new Dimension(200, 800)
-
 
   val headFont = new Font("Ariel", java.awt.Font.CENTER_BASELINE, 24)
   val basicFont = new Font("Ariel", java.awt.Font.PLAIN, 18)
@@ -29,7 +20,6 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   setWord(2) = "-"
 
   class FreeSpace extends Panel { preferredSize  = full }
-
 
 //  // ♥♥♥ Scrabble FONT ♥♥♥
 //  var src: File = new File("C:\\01_IDEA_Projects\\IntelliJ\\de.htwg.se.scrabble\\src\\main\\scala\\de\\htwg\\se\\scrabble\\aview\\gui\\Scramble.ttf")
@@ -46,24 +36,15 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
 //
 //
 //  }
-
-
-
-  var wordToSet = new Label{
-    text = setWord.mkString(" ")       // "B5 - Word" // TODO Zusammensetzen aus Auswahl der Zellen im Array (NEED FIX)
-    preferredSize  = full
-    font = basicFont
-  }
   contents += new FreeSpace
   contents += new Button() {
-    text = "New Game!"
+    text = "new game"
     tooltip = "↻"
     preferredSize  = full
     font = basicFont
     background = Color.green
     reactions += {
-      case _: ButtonClicked =>
-        controller.newGame()
+      case e: ButtonClicked => controller.newGame()
     }
   }
   contents += new Button() {
@@ -71,7 +52,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     tooltip = "undo"
     preferredSize  = half
     font = basicFont
-   if (controller.undoManager.undoStack.size == 2 )     enabled = false
+   if (controller.undoManager.undoStack.size == 2 )     enabled = true
     reactions += {
       case _: ButtonClicked =>
        controller.undo()
@@ -82,14 +63,14 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     tooltip = "redo"
     preferredSize  = half
     font = basicFont
-    if (controller.undoManager.undoStack.size == 2 )     enabled = false
+    if (controller.undoManager.undoStack.size == 2 )     enabled = true
     reactions += {
       case _: ButtonClicked =>
         controller.redo()
     }
   }
   contents += new Button() {
-    text = "Quit Game"
+    text = "quit game"
     tooltip = "✗"
     preferredSize  = full
     font = basicFont
@@ -99,102 +80,128 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
         sys.exit(0)
     }
   }
-  contents += new FreeSpace
-  contents += new Label {
-    text = "Score"
-    font = headFont
-  }
-  contents += new Label {
-    text = controller.activePlayer.get.toString
-    font = highlFont
-    tooltip = "Active Player"
 
-  }
-  contents += new Label {
-    text = controller.inactivePlayer.get.toString
-    font = basicFont
-    tooltip = "Next Player"
-  }
-  contents += new FreeSpace
-  contents += new Label {
-    text = "Char's left: " + controller.stack.getSize.toString
-    font = highlFont
-    tooltip = controller.stack.getSize.toString + "Cards left in Stack"
-  }
-  contents += new FreeSpace
-  contents += new Label {
-    text = "Your Cards: "
-    font = headFont
-  }
-  contents += new Label {
-    text = controller.activePlayer.get.getHand.mkString(" ")
-    font = highlFont
-//    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
-  }
-  contents += new TextArea() {
-    text = ""
-    background = Color.white
-    preferredSize  = new Dimension(145, 35)
-    font = basicFont
-    tooltip = "Pls set your Word here"
-  }
-  contents += new Button() {
-    text = "set Word \u2B8B"
-    preferredSize  = full
-    font = basicFont
-    reactions += {
-      case _: ButtonClicked => controller.setWord(setWord)}
-  }
+  val infoPanel = new InfoPanel
+  contents += infoPanel
 
-  val directionChoose = List(
-    new RadioButton() {
-      name = "-"
-      text = "↦"
-      selected = true
+  class InfoPanel extends FlowPanel {
+    preferredSize = new Dimension(200, 800)
+    contents += new FreeSpace
+    contents += new Label {
+      text = "score"
       font = headFont
-      tooltip = "Set Word: Horizontal"
-      reactions += { case _: ButtonClicked => setWord(2) = "-" }
-    },
-    new RadioButton() {
-      name = "|"
-      text = "↧"
-      font = headFont
-      tooltip = "Set Word: Vertical"
-      reactions += { case _: ButtonClicked => setWord(2) = "|" }
     }
-  )
-  new ButtonGroup(directionChoose: _*)
-  contents ++= directionChoose
-  directionChoose.foreach(listenTo(_))
-  reactions += {
-    case ButtonClicked(button) =>
-      button.name match {
-        case "-" => direction = " - "
-        case "|" => direction = " | "
-      }
-  }
-  contents += wordToSet
-  contents += new Button() {
-    text = "⬔ \u2BB0"
-    tooltip = "New Cards!"
-    preferredSize  = half
-    font = basicFont
-    reactions += { case _: ButtonClicked => controller.switchHand }
-  }
-  contents += new Button() {
-    text = "\u2B9A"
-    tooltip = "Skip | Next Player"
-    preferredSize  = half
-    font = basicFont
-    reactions += { case _: ButtonClicked => controller.next}
-  }
-//  contents += new FreeSpace
 
-//  contents += new TextArea(){
-  ////    """
-  ////      |"A"->6, "B"->2, "C"->4,"D"->6,"E"->16,"F"->3,"G"->3,"H"->5,"I"->9,"J"->1,
-  ////      |"K"->2,"L"->4,"M"->4,"N"->10,"O"->4,"P"->1,"Q"->1,"R"->7,"S"->8,"T"->5,"U"->6,"V"->1,"W"->2,"X"->1,"Y"->1,"Z"->2/*
-  ////    """.stripMargin}
+    val actPlayerL = new Label {
+      text = controller.activePlayer.get.toString
+      font = highlFont
+      tooltip = "active player"
+    }
+    contents += actPlayerL
+    val inactPlayerL =  new Label {
+      text = controller.inactivePlayer.get.toString
+      font = basicFont
+      tooltip = "next player"
+    }
+    contents += inactPlayerL
+    contents += new FreeSpace
+    contents += new Label {
+      text = "card's left: " + controller.stack.getSize.toString
+      font = highlFont
+      tooltip = controller.stack.getSize.toString + "cards left in stack"
+    }
+    contents += new FreeSpace
+    contents += new Label {
+      text = "your cards: "
+      font = headFont
+    }
+    val cardsL = new Label {
+      text = controller.activePlayer.get.getHand.mkString(" ")
+      font = highlFont
+      //    font = Scramble
+    }
+    contents += cardsL
+    val wordTA = new TextArea() {
+      text = ""
+      background = Color.white
+      preferredSize = new Dimension(145, 35)
+      font = basicFont
+      tooltip = "set your Word here"
+    }
+    contents += wordTA
+    contents += new Button() {
+      text = "set Word \u2B8B"
+      preferredSize = full
+      font = basicFont
+      reactions += {
+        case _: ButtonClicked => controller.setWord(setWord)
+      }
+    }
+    val directionChoose = List(
+      new RadioButton() {
+        name = "-"
+        text = "↦"
+        selected = true
+        font = headFont
+        tooltip = "set word: horizontal"
+        reactions += { case _: ButtonClicked =>
+                                      setWord(2) = "-"
+                                      redraw}
+      },
+      new RadioButton() {
+        name = "|"
+        text = "↧"
+        font = headFont
+        tooltip = "set word: vertical"
+        reactions += {
+          case _: ButtonClicked =>
+            setWord(2) = "|"
+            redraw}
+      }
+    )
+    new ButtonGroup(directionChoose: _*)
+    contents ++= directionChoose
+    directionChoose.foreach(listenTo(_))
+    reactions += {
+      case ButtonClicked(button) =>
+        button.name match {
+          case "-" => direction = " - "
+          case "|" => direction = " | "
+        }
+    }
+    val wordToSet = new Label{
+      text = setWord.mkString("")
+      preferredSize  = full
+      font = basicFont
+    }
+    contents += wordToSet
+    contents += new Button() {
+      text = "⬔ \u2BB0"
+      tooltip = "new cards!"
+      preferredSize = half
+      font = basicFont
+      reactions += { case _: ButtonClicked => controller.switchHand }
+    }
+    contents += new Button() {
+      text = "\u2B9A"
+      tooltip = "skip | next player"
+      preferredSize = half
+      font = basicFont
+      reactions += { case _: ButtonClicked => controller.next }
+    }
+    visible = true
+
+    def redraw = {
+      actPlayerL.text = controller.activePlayer.get.toString
+      inactPlayerL.text = controller.inactivePlayer.get.toString
+      cardsL.text = controller.activePlayer.get.getHand.mkString("")
+      wordToSet.text = setWord(0)+" "+ setWord(1)+" "+setWord(2)+" "+setWord(3)
+    }
+  }
   visible = true
 
+  def redraw = {
+    infoPanel.redraw
+    repaint
+  }
 }

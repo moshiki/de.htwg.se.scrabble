@@ -1,12 +1,12 @@
 package de.htwg.se.scrabble.aview
 
-import de.htwg.se.scrabble.Scrabble.controller
+import de.htwg.se.scrabble.controller._
 import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
-import de.htwg.se.scrabble.util.Observer
 
-class TUI(controller: ControllerInterface) extends Observer {
-  controller.add(this)
-  controller.newGame()  // Direckt Play!
+import scala.swing.Reactor
+
+class TUI(controller: ControllerInterface) extends Reactor {
+  listenTo(controller)
   println(init)
 
   def init: String = artScrabble + head + help
@@ -59,7 +59,6 @@ class TUI(controller: ControllerInterface) extends Observer {
         case "new" => controller.newGame()
         case "pd" => printDict()
         case "pv" => printVector()
-        //case "player" => player(command)
         case "players" => players()
         case "undo" => controller.undo()
         case "redo" => controller.redo()
@@ -71,11 +70,17 @@ class TUI(controller: ControllerInterface) extends Observer {
             controller.set(command(0).charAt(0).toString, command(0).substring(1).toInt, command(1).charAt(0).toString)
           case _ =>
         }
-        //case unknown => System.err.println("command \'" + unknown +"\' does not exist! Use \'help\' to display commands.")
       }
     implicit class Regex(sc: StringContext) {
       def r = new util.matching.Regex(sc.parts.mkString, sc.parts.tail.map(_ => "x"): _*)
     }
+  }
+
+  reactions += {
+    case event: CellChanged => printTui
+    case event: PlayerChanged => printTui
+    case event: StackChanged => printTui
+    case event: AllChanged => printTui
   }
 
   def exit(): Unit = {
@@ -87,28 +92,26 @@ class TUI(controller: ControllerInterface) extends Observer {
 
   def printVector(): Unit = print(controller.vectorToString)
 
-  /*def player(parameters:Array[String]): Unit = {
-    if (parameters.length == 3) {
-      parameters(1) match {
-        case "A" | "a" =>
-          controller.newPlayer("A", parameters(2))
-          println("new player A created\n")
-        case "B" | "b" =>
-          controller.newPlayer("B", parameters(2))
-          println("new player B created\n")
-        case unknown => println("parameter \'" + unknown + "\' does not exist. Use 'A' or 'B'")
-      }
-    } else {
-      System.err.println("wrong number of arguments! use command: player [a|b] <name>")
-    }
-  }*/
-
-
   def players(): Unit = {
     println(controller.players.toString)
   }
 
-  @Override
+  def printTui = {
+    println()
+    println(controller.activePlayer.getOrElse(""))
+    //  val letters = new String ...
+    //    font = Scramble                 // TODO: Activate Ultimativ Scrabble Font!
+    if (controller.activePlayer.isDefined) {
+      println("hand     | " + controller.activePlayer.get.getHand.mkString(" "))
+    }
+    println("stack    | " + controller.stack.getSize + " cards")
+    println()
+    print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
+    println(GameStatus.message(controller.gameStatus))
+    controller.gameStatus = GameStatus.IDLE
+  }
+
+  /*@Override
   def update: Boolean = {
     println()
     println(controller.activePlayer.getOrElse(""))
@@ -124,5 +127,5 @@ class TUI(controller: ControllerInterface) extends Observer {
     controller.gameStatus = GameStatus.IDLE
     true
 
-  }
+  }*/
 }

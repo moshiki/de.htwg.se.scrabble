@@ -9,8 +9,9 @@ import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
+import scala.swing.Publisher
 
-trait ControllerInterface extends Observable with Observer{
+trait ControllerInterface extends Observable with Observer with Publisher {
 
   def undo()
   def redo()
@@ -45,4 +46,8 @@ import scala.swing.event.Event
 
 class CellChanged extends Event
 
-class CandidatesChanged extends Event
+class PlayerChanged extends Event
+
+class StackChanged extends Event
+
+class AllChanged extends Event
