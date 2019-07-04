@@ -5,13 +5,12 @@ import scala.swing.BorderPanel.Position._
 import scala.swing._
 
 class GUI(controller: ControllerInterface) extends MainFrame {
-//  def top = new MainFrame { // top is a required method
     listenTo(controller)
     title = "Scrabble - HTWG Software Engineering"
     size = new Dimension(300, 200)
 
-    var act = new ActionPanel(controller: ControllerInterface)  // TODO: implementierung
-//    var opt = new OptionPanel(controller: ControllerInterface)  // TODO: implementierung
+    var act = new ActionPanel(controller: ControllerInterface)
+//    var opt = new OptionPanel(controller: ControllerInterface)
     var field = new FieldPanel(controller: ControllerInterface)
     val statusText = new TextField {
       columns = 10
@@ -27,10 +26,10 @@ class GUI(controller: ControllerInterface) extends MainFrame {
 
     menuBar = new MenuBar {
       contents += new Menu("File") {
-        contents += new MenuItem(Action("New") {  controller.newGame()})  // controller.createNewGrid
-//        contents += new MenuItem(Action("Loade") { )
-//        contents += new MenuItem(Action("Save") { )
-        contents += new MenuItem(Action("Exit") { sys.exit(0)         })
+        contents += new MenuItem(Action("new") {controller.newGame()})
+        //contents += new MenuItem(Action("load") { controller.load() }
+        //contents += new MenuItem(Action("save") { controller.save() }
+        contents += new MenuItem(Action("exit") { sys.exit(0)         })
       }
       contents += new Menu("Edit") {
         //        mnemonic = Key.E
@@ -63,6 +62,5 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     repaint
 
   }
-
   visible = true
 }
