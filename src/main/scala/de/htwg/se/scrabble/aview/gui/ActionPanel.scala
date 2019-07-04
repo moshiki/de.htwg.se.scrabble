@@ -117,11 +117,12 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     }
     contents += inactPlayerL
     contents += new FreeSpace
-    contents += new Label {
-      text = "card's left: " + controller.stack.getSize.toString
+    val stackL = new Label {
+      text = "cards in stack: " + controller.stack.getSize.toString
       font = highlFont
       tooltip = controller.stack.getSize.toString + "cards left in stack"
     }
+    contents += stackL
     contents += new FreeSpace
     contents += new Label {
       text = "your cards: "
@@ -138,7 +139,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
       background = Color.white
       preferredSize = new Dimension(145, 35)
       font = basicFont
-      tooltip = "set your Word here"
+      tooltip = "type word here"
       reactions += {
         case _: ValueChanged =>
           setWord(3) = this.text
@@ -162,7 +163,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
         text = "↦"
         selected = true
         font = headFont
-        tooltip = "set word: horizontal"
+        tooltip = "set word horizontal"
         reactions += { case _: ButtonClicked =>
                                       setWord(2) = "-"
                                       redraw}
@@ -171,7 +172,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
         name = "|"
         text = "↧"
         font = headFont
-        tooltip = "set word: vertical"
+        tooltip = "set word vertical"
         reactions += {
           case _: ButtonClicked =>
             setWord(2) = "|"
@@ -196,7 +197,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     contents += wordToSet
     contents += new Button() {
       text = "⬔ \u2BB0"
-      tooltip = "new cards!"
+      tooltip = "new cards"
       preferredSize = half
       font = basicFont
       reactions += { case _: ButtonClicked => controller.switchHand }
@@ -211,6 +212,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     visible = true
 
     def redraw = {
+      stackL.text = "cards in stack: " + controller.stack.getSize.toString
       actPlayerL.text = controller.activePlayer.get.toString
       inactPlayerL.text = controller.inactivePlayer.get.toString
       cardsL.text = controller.activePlayer.get.getHand.mkString("")
