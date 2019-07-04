@@ -7,15 +7,13 @@ import scala.collection.immutable.ListMap
 import scala.collection.mutable.ListBuffer
 
 class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(controller:ControllerInterface) {
-  var matches = List.empty[String]
-
   override def setWord(word: String, cell: Cell, x: String, y: Int): Boolean = {
     if (x.charAt(0) - 65 + word.length > controller.field.getSize + 1) {
       controller.gameStatus(GameStatus.TOOLONG)
       return false
     }
     val placementMap = validPlacement(word, cell).getOrElse({controller.gameStatus(GameStatus.PLACEMENT); return false})
-    if (validHand(word, controller.activePlayer.get.getHand, matches)) {
+    if (validHand(word, placementMap, controller.activePlayer.get.getHand)) {
       val surroundingWords = validSurrounding(placementMap)
       if (surroundingWords.isDefined) controller.set(placementMap, surroundingWords.get)
       return true
@@ -24,15 +22,15 @@ class SetWordHorizontal(controller:ControllerInterface) extends SetWordStrategy(
   }
 
   def validPlacement(word:String, start:Cell): Option[ListMap[Cell, String]] = {
-    var placementMap: ListMap[Cell, String] = ListMap.empty[Cell, String]
-    matches = List.empty[String]
+    val matches = ListBuffer.empty[String]
+    var placementMap = ListMap.empty[Cell, String]
     var currCell: Cell = start
 
     for (c <- word.toUpperCase) {
       if (currCell.isEmpty) {
         placementMap += (currCell -> c.toString)
       } else if (currCell.getValue == c.toString) {
-        matches = c.toString :: matches
+        matches += c.toString // :: matches
       } else {
         return None
       }
