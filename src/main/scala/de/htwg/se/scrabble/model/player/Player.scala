@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 
 case class Player(role: String, name: String) extends PlayerInterface {
   private var hand: List[Card] = Nil
-  private val handSize = 7
+  private val handSize = 8
   private var points = 0
   private var actionPermit: Boolean = true
   private var switched = false
