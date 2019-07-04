@@ -64,7 +64,6 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     tooltip = "undo"
     preferredSize  = half
     font = basicFont
-   if (controller.undoManager.undoStack.size == 2 )     enabled = true
     reactions += {
       case _: ButtonClicked =>
        controller.undo()
@@ -75,7 +74,6 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     tooltip = "redo"
     preferredSize  = half
     font = basicFont
-    if (controller.undoManager.undoStack.size == 2 )     enabled = true
     reactions += {
       case _: ButtonClicked =>
         controller.redo()

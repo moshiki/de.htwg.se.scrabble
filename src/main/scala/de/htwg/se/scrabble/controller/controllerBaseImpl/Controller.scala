@@ -3,7 +3,7 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
 import net.codingwell.scalaguice.InjectorExtensions._
-import de.htwg.se.scrabble.controller.{ControllerInterface, StateCacheInterface}
+import de.htwg.se.scrabble.controller._
 import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
@@ -18,11 +18,7 @@ import scala.collection.immutable
 import scala.collection.immutable.ListMap
 import scala.swing.Publisher
 
-case class Controller @Inject()(
-  var field : FieldInterface ,
-  var stack : CardInterface ,
-  var players : PlayerListInterface ) extends ControllerInterface with Publisher {
-class Controller @Inject() (var field : FieldInterface,
+case class Controller @Inject() (var field : FieldInterface,
                             var stack : CardStackInterface,
                             var players : PlayerListInterface ) extends ControllerInterface with Publisher {
   val fileIo: FileIOInterface = injector.instance[FileIOInterface]
@@ -54,8 +50,7 @@ class Controller @Inject() (var field : FieldInterface,
   override def save: Unit = {
     fileIo.save(this.getStateCache)
     gameStatus = SAVED
-
-    notifyObservers
+    publish(new AllChanged)
   }
 
   override def load: Unit = {
@@ -68,7 +63,7 @@ class Controller @Inject() (var field : FieldInterface,
     roundManager = GameManager(states.roundManager, this)
     undoManager = new UndoManager
     gameStatus = LOADED
-    notifyObservers
+    publish(new NewGame)
   }
   override def newPlayer(role:String, name:String): Unit = {
     players.put(Player(role, name))
@@ -81,7 +76,6 @@ class Controller @Inject() (var field : FieldInterface,
       undoManager.doStep(new NextCommand(inactivePlayer, activePlayer,this))
       roundManager = GameManager("RoundManager", this)
       roundManager.start()
-      //notifyObservers
       publish(new NextPlayer)
     }
   }

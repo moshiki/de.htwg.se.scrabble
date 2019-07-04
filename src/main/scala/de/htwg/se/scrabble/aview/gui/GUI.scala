@@ -27,8 +27,8 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     menuBar = new MenuBar {
       contents += new Menu("Scrabble") {
         contents += new MenuItem(Action("new") {controller.newGame()})
-        //contents += new MenuItem(Action("load") { controller.load() }
-        //contents += new MenuItem(Action("save") { controller.save() }
+        contents += new MenuItem(Action("load") { controller.load })
+        contents += new MenuItem(Action("save") { controller.save })
         contents += new MenuItem(Action("exit") { sys.exit(0)         })
       }
     }
@@ -48,7 +48,7 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     act.redraw
     field.redraw
     statusText.text = GameStatus.message(controller.gameStatus)
-    controller.gameStatus = GameStatus.IDLE
+    controller.gameStatus(GameStatus.IDLE)
     repaint
   }
   def eraseInput = {
