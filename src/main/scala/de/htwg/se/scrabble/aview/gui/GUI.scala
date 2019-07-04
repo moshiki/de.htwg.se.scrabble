@@ -25,16 +25,11 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     }
 
     menuBar = new MenuBar {
-      contents += new Menu("File") {
+      contents += new Menu("Scrabble") {
         contents += new MenuItem(Action("new") {controller.newGame()})
         //contents += new MenuItem(Action("load") { controller.load() }
         //contents += new MenuItem(Action("save") { controller.save() }
         contents += new MenuItem(Action("exit") { sys.exit(0)         })
-      }
-      contents += new Menu("Edit") {
-        //        mnemonic = Key.E
-        contents += new MenuItem(Action("Undo") { controller.undo })
-        contents += new MenuItem(Action("Redo") { controller.redo })
       }
     }
 
