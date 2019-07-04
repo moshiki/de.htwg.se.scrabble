@@ -16,25 +16,25 @@ class PlayerSpec extends WordSpec with Matchers {
       }
     }
     "exists" should {
-      "take up to 7 cards to the hand with addToHand(Card)" in {
-        for (i<- 1 to 7) {
+      "take up to 8 cards to the hand with addToHand(Card)" in {
+        for (i<- 1 to 8) {
           player.addToHand(Card("A")) should be(true)
         }
         player.addToHand(Card("B")) should be(false)
       }
       "know the number of cards on hand" in {
-        player.getNrCardsInHand should be(7)
+        player.getNrCardsInHand should be(8)
       }
       "have a hand of cards" in {
         var list: List[Card] = Nil
-        for (i <-1 to 7)
+        for (i <-1 to 8)
           list = Card("A") :: list
         player.getHand should be(list)
       }
       "check if a specific card is on hand, remove from hand and return it" in {
-        player.getNrCardsInHand should be(7)
+        player.getNrCardsInHand should be(8)
         player.putCard(Card("A")).get should be(Card("A"))
-        player.getNrCardsInHand should be(6)
+        player.getNrCardsInHand should be(7)
         player.putCard(Card("B")) should not be defined
       }
     }
