@@ -2,7 +2,7 @@ language: scala
 scala:
 - 2.12.8
 script:
-- export DISPLAY=:0.0
+- export DISPLAY=:0
 - sbt clean coverage test coverageReport
 after_success:
 - sbt coverageReport coveralls
