@@ -12,7 +12,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../target" />
     </content>
-    <orderEntry type="jdk" jdkName="12" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: net.codingwell:scala-guice_2.12:4.1.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-xml_2.12:1.1.1:jar" level="project" />
@@ -35,5 +35,6 @@
     <orderEntry type="library" name="sbt: com.google.inject:guice:4.1.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.inject.extensions:guice-multibindings:4.1.0:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.inject:javax.inject:1:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-swing_2.12:2.0.3:jar" level="project" />
   </component>
 </module>
