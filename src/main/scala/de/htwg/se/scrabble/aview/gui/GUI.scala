@@ -3,19 +3,21 @@ package de.htwg.se.scrabble.aview.gui
 import java.awt.Color
 
 import de.htwg.se.scrabble.controller.ControllerInterface
+import de.htwg.se.scrabble.util.Observer
 
 import scala.swing.BorderPanel.Position._
 import scala.swing._
 
 // (controller: ControllerInterface)
-class GUI(controller: ControllerInterface) extends MainFrame {
+class GUI(controller: ControllerInterface) extends MainFrame with Observer {
 //  def top = new MainFrame { // top is a required method
+//  listenTo(controller)
     title = "Scrabble - HTWG Software Engineering"
     size = new Dimension(300, 200)
 
-    val act = new ActionPanel(controller: ControllerInterface)  // TODO: implementierung
-    val opt = new OptionPanel(controller: ControllerInterface)  // TODO: implementierung
-    val field = new FieldPanel(controller: ControllerInterface)
+    var act = new ActionPanel(controller: ControllerInterface)  // TODO: implementierung
+//    var opt = new OptionPanel(controller: ControllerInterface)  // TODO: implementierung
+    var field = new FieldPanel(controller: ControllerInterface)
 
 
 
@@ -65,5 +67,12 @@ class GUI(controller: ControllerInterface) extends MainFrame {
 ////        textField.text = (s"You clicked in the Canvas at x=${point.x}, y=${point.y}.")
 //    }
 //  }
+
+  def update: Boolean = {
+     act.repaint()  // TODO: implementierung
+//     opt = new OptionPanel(controller)  // TODO: implementierung
+     field.repaint()  //= new FieldPanel(controller)
+    true
+  }
   visible = true
 }

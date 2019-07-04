@@ -40,3 +40,9 @@ trait ControllerInterface extends Observable with Observer{
   var roundManager: GameManagerState
 
 }
+
+import scala.swing.event.Event
+
+class CellChanged extends Event
+
+class CandidatesChanged extends Event

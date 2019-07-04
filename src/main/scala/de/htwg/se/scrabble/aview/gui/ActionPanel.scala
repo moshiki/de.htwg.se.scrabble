@@ -8,10 +8,12 @@ import scala.swing.{Button, ButtonGroup, Dimension, FlowPanel, Font, Label, Pane
 import java.io.{File, InputStream}
 import java.awt.GraphicsEnvironment
 
+import de.htwg.se.scrabble.util.Observer
+
 import scala.swing.event.ButtonClicked
 
 
-class ActionPanel(controller: ControllerInterface) extends FlowPanel {
+class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   preferredSize = new Dimension(200, 800)
 
 
@@ -37,6 +39,13 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
 //  val Scramble = new Font("Scramble", Font.PLAIN, 35)
 
 
+//  override def update: Boolean {
+//  while(contents.iterator.hasNext)
+//
+//
+//
+//
+//  }
 
 
 
@@ -187,4 +196,5 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel {
   ////      |"K"->2,"L"->4,"M"->4,"N"->10,"O"->4,"P"->1,"Q"->1,"R"->7,"S"->8,"T"->5,"U"->6,"V"->1,"W"->2,"X"->1,"Y"->1,"Z"->2/*
   ////    """.stripMargin}
   visible = true
+
 }

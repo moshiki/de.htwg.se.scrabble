@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.Scrabble.injector
 import com.google.inject.Inject
-import de.htwg.se.scrabble.controller.{ControllerInterface, GameStatus}
+import de.htwg.se.scrabble.controller.{CellChanged, ControllerInterface, GameStatus}
 import de.htwg.se.scrabble.controller.GameStatus.{GameStatus, IDLE}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameManagerState, PreSetupManagerState, RoundManagerState, SetupManagerState}
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
@@ -15,11 +15,12 @@ import de.htwg.se.scrabble.util.UndoManager
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
 import scala.collection.mutable.ListBuffer
+import scala.swing.Publisher
 
-case class Controller @Inject() (
+case class Controller @Inject()(
   var field : FieldInterface ,
   var stack : CardInterface ,
-  var players : PlayerListInterface ) extends ControllerInterface {
+  var players : PlayerListInterface ) extends ControllerInterface{
   val dict = Dictionary
   var roundManager: GameManagerState = new PreSetupManagerState(this)
   var gameStatus: GameStatus = IDLE
@@ -38,6 +39,7 @@ case class Controller @Inject() (
     firstDraw = true
     roundManager = new SetupManagerState(this)
     roundManager.start()
+//    publish(new CellChanged)
     notifyObservers
   }
 
