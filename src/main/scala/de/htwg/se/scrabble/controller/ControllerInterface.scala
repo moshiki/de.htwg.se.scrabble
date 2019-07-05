@@ -44,7 +44,6 @@ trait ControllerInterface extends Observable with Observer{
   def gameStatus(gs: GameStatus)
   def roundManager: GameManager
   def roundManager(rm: GameManager)
-  def fileIO: FileIOInterface
   def getStateCache: StateCacheInterface
 }
 trait StateCacheInterface {
