@@ -6,6 +6,7 @@ import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
 import de.htwg.se.scrabble.model.{CardStackInterface, FieldInterface, PlayerInterface, PlayerListInterface}
 import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
+import play.api.libs.json.JsValue
 
 import scala.collection.immutable
 import scala.collection.immutable.ListMap
@@ -46,6 +47,7 @@ trait ControllerInterface extends Observable with Observer with Publisher {
   def roundManager(rm: GameManager)
   def getStateCache: StateCacheInterface
 }
+
 trait StateCacheInterface {
   def field : FieldInterface
   def stack : CardStackInterface
@@ -54,6 +56,8 @@ trait StateCacheInterface {
   def gameStatus : GameStatus
   def activePlayer : Option[PlayerInterface]
   def firstDraw: Boolean
+/*  def toJson: JsValue
+  def fromJson(jsValue: JsValue): StateCacheInterface*/
 }
 
 import scala.swing.event.Event

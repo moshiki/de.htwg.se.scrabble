@@ -8,24 +8,6 @@ import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
-    /*"observed by an Observer" should {
-      val controller = injector.getInstance(classOf[ControllerInterface])
-      val observer = new Observer {
-        var updated: Boolean = false
-
-        def isUpdated: Boolean = updated
-
-        override def update: Boolean = {
-          updated = true; updated
-        }
-      }
-      controller.add(observer)
-      "notify its Observer after been notified" in {
-        //controller.reloadDict()
-        controller.update
-        observer.updated should be(true)
-      }*/
-    //}
     "empty" should {
       val controller = injector.getInstance(classOf[ControllerInterface])
       "handle undo/redo correctly on an empty undo-stack" in {

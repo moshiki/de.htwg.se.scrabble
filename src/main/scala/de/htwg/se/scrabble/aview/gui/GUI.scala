@@ -10,7 +10,6 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     size = new Dimension(300, 200)
 
     var act = new ActionPanel(controller: ControllerInterface)
-//    var opt = new OptionPanel(controller: ControllerInterface)
     var field = new FieldPanel(controller: ControllerInterface)
     val statusText = new TextField {
       columns = 10
@@ -48,7 +47,6 @@ class GUI(controller: ControllerInterface) extends MainFrame {
     act.redraw
     field.redraw
     statusText.text = GameStatus.message(controller.gameStatus)
-    controller.gameStatus(GameStatus.IDLE)
     repaint
   }
   def eraseInput = {

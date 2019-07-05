@@ -11,6 +11,16 @@ trait GameManager extends GameManagerStateObservable {
 }
 
 object GameManager {
+  def apply(s: String, ctl: ControllerInterface): GameManager = {
+    s match {
+      case "PreSetupManager" => new PreSetupManager(ctl)
+      case "SetupManager" => new SetupManager(ctl)
+      case "RoundManager" => new RoundManager(ctl)
+      case "GameOverManager" => new GameOverManager(ctl)
+      case _ => new RoundManager(ctl)
+    }
+  }
+
   private class PreSetupManager(controller:ControllerInterface) extends GameManager {
     this.add(controller)
     override def start(): Unit = {}
@@ -60,16 +70,6 @@ object GameManager {
       controller.roundManager.start()
     }
     override def toString = "GameOverManager"
-  }
-
-  def apply(s: String, ctl: ControllerInterface): GameManager = {
-    s match {
-      case "PreSetupManager" => new PreSetupManager(ctl)
-      case "SetupManager" => new SetupManager(ctl)
-      case "RoundManager" => new RoundManager(ctl)
-      case "GameOverManager" => new GameOverManager(ctl)
-      case _ => new RoundManager(ctl)
-    }
   }
 
 }

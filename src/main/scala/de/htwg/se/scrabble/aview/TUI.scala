@@ -110,7 +110,6 @@ class TUI(controller: ControllerInterface) extends Reactor {
     println()
     print(controller.field.toString)
     println(GameStatus.message(controller.gameStatus))
-    //controller.gameStatus(GameStatus.IDLE)
     true
 
   }

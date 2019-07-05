@@ -49,7 +49,6 @@ case class Player(role: String, name: String) extends PlayerInterface {
 
 object Player {
   import play.api.libs.json._
-  implicit val playerWrites = OWrites[Player](_ => Json.obj())
-  //implicit val cellReads = Reads[Cell](json =>
-  //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
+  implicit val playerWrites: OWrites[Player] = Json.writes[Player]
+  implicit val cellReads: Reads[Player] = Json.reads[Player]
 }

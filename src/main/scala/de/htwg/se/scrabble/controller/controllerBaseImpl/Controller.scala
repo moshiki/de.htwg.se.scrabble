@@ -6,6 +6,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.scrabble.controller._
 import de.htwg.se.scrabble.controller.GameStatus._
 import de.htwg.se.scrabble.controller.controllerBaseImpl.SetWordStrategy.{SetWordHorizontal, SetWordStrategy, SetWordVertical}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.commands._
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.model.cards.Card
