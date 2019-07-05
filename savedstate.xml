@@ -1,21 +1,6 @@
 <states game="scrabble">
     <field size="15">
-        <cell row="0" col="A"> _ </cell>
-        <cell row="0" col="B"> _ </cell>
-        <cell row="0" col="C"> _ </cell>
-        <cell row="0" col="D"> _ </cell>
-        <cell row="0" col="E"> _ </cell>
-        <cell row="0" col="F"> _ </cell>
-        <cell row="0" col="G"> _ </cell>
-        <cell row="0" col="H"> _ </cell>
-        <cell row="0" col="I"> _ </cell>
-        <cell row="0" col="J"> _ </cell>
-        <cell row="0" col="K"> _ </cell>
-        <cell row="0" col="L"> _ </cell>
-        <cell row="0" col="M"> _ </cell>
-        <cell row="0" col="N"> _ </cell>
-        <cell row="0" col="O"> _ </cell>
-        <cell row="1" col="A"> W </cell>
+        <cell row="1" col="A"> _ </cell>
         <cell row="1" col="B"> _ </cell>
         <cell row="1" col="C"> _ </cell>
         <cell row="1" col="D"> _ </cell>
@@ -46,7 +31,7 @@
         <cell row="2" col="N"> _ </cell>
         <cell row="2" col="O"> _ </cell>
         <cell row="3" col="A"> _ </cell>
-        <cell row="3" col="B"> G </cell>
+        <cell row="3" col="B"> _ </cell>
         <cell row="3" col="C"> _ </cell>
         <cell row="3" col="D"> _ </cell>
         <cell row="3" col="E"> _ </cell>
@@ -77,7 +62,7 @@
         <cell row="4" col="O"> _ </cell>
         <cell row="5" col="A"> _ </cell>
         <cell row="5" col="B"> _ </cell>
-        <cell row="5" col="C"> T </cell>
+        <cell row="5" col="C"> _ </cell>
         <cell row="5" col="D"> _ </cell>
         <cell row="5" col="E"> _ </cell>
         <cell row="5" col="F"> _ </cell>
@@ -225,12 +210,23 @@
         <cell row="14" col="M"> _ </cell>
         <cell row="14" col="N"> _ </cell>
         <cell row="14" col="O"> _ </cell>
+        <cell row="15" col="A"> _ </cell>
+        <cell row="15" col="B"> _ </cell>
+        <cell row="15" col="C"> _ </cell>
+        <cell row="15" col="D"> _ </cell>
+        <cell row="15" col="E"> _ </cell>
+        <cell row="15" col="F"> _ </cell>
+        <cell row="15" col="G"> _ </cell>
+        <cell row="15" col="H"> _ </cell>
+        <cell row="15" col="I"> _ </cell>
+        <cell row="15" col="J"> _ </cell>
+        <cell row="15" col="K"> _ </cell>
+        <cell row="15" col="L"> _ </cell>
+        <cell row="15" col="M"> _ </cell>
+        <cell row="15" col="N"> _ </cell>
+        <cell row="15" col="O"> _ </cell>
     </field>
     <stack size="100">
-        <card>E</card>
-        <card>E</card>
-        <card>E</card>
-        <card>E</card>
         <card>E</card>
         <card>E</card>
         <card>E</card>
@@ -255,8 +251,6 @@
         <card>T</card>
         <card>T</card>
         <card>T</card>
-        <card>T</card>
-        <card>T</card>
         <card>Y</card>
         <card>J</card>
         <card>U</card>
@@ -266,6 +260,8 @@
         <card>U</card>
         <card>F</card>
         <card>F</card>
+        <card>F</card>
+        <card>A</card>
         <card>A</card>
         <card>A</card>
         <card>A</card>
@@ -284,12 +280,16 @@
         <card>I</card>
         <card>I</card>
         <card>I</card>
+        <card>G</card>
         <card>G</card>
         <card>G</card>
         <card>V</card>
         <card>Q</card>
         <card>L</card>
         <card>L</card>
+        <card>L</card>
+        <card>L</card>
+        <card>B</card>
         <card>B</card>
         <card>P</card>
         <card>C</card>
@@ -302,8 +302,9 @@
         <card>H</card>
         <card>H</card>
         <card>W</card>
-        <card>K</card>
-        <card>K</card>
+        <card>W</card>
+        <card>R</card>
+        <card>R</card>
         <card>R</card>
         <card>R</card>
         <card>R</card>
@@ -313,14 +314,13 @@
         <card>O</card>
         <card>O</card>
         <card>O</card>
-        <card>D</card>
-        <card>D</card>
         <card>D</card>
         <card>D</card>
         <card>D</card>
         <card>D</card>
         <card>Z</card>
         <card>Z</card>
+        <card>S</card>
         <card>S</card>
         <card>S</card>
         <card>S</card>
@@ -331,31 +331,31 @@
     <players>
         <player role="A" name="human">
             <hand size="7">
-                <card>B</card>
-                <card>L</card>
-                <card>S</card>
-                <card>G</card>
-                <card>R</card>
-                <card>F</card>
-                <card>W</card>
+                <card>N</card>
+                <card>D</card>
+                <card>E</card>
+                <card>E</card>
+                <card>K</card>
+                <card>E</card>
+                <card>K</card>
             </hand>
             <points>0</points>
             <actionPermit>true</actionPermit>
-            <switchedHand>false</switchedHand>
+            <switchedHand>true</switchedHand>
         </player>
         <player role="B" name="human">
             <hand size="7">
-                <card>N</card>
-                <card>A</card>
                 <card>E</card>
-                <card>L</card>
                 <card>S</card>
+                <card>T</card>
+                <card>E</card>
                 <card>U</card>
-                <card>R</card>
+                <card>D</card>
+                <card>T</card>
             </hand>
             <points>0</points>
             <actionPermit>true</actionPermit>
-            <switchedHand>false</switchedHand>
+            <switchedHand>true</switchedHand>
         </player>
     </players>
     <activePlayer>A</activePlayer>
