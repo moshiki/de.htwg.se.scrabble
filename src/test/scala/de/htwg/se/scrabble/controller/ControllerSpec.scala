@@ -34,6 +34,13 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.redo
         controller.field.getCell("A", 1).get.getValue should be("_")
+        controller.switchHand()
+        controller.undo()
+        controller.redo()
+        controller.next()
+        controller.undo()
+        controller.redo()
+
       }
       "handle undo/redo of setting a cell correctly" in {
         controller.field.getCell("A", 1).get.getValue should be("_")

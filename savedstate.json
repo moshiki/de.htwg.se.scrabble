@@ -1382,7 +1382,13 @@
     }, {
       "card" : "E"
     }, {
+      "card" : "E"
+    }, {
+      "card" : "E"
+    }, {
       "card" : "X"
+    }, {
+      "card" : "N"
     }, {
       "card" : "N"
     }, {
@@ -1412,7 +1418,7 @@
     }, {
       "card" : "Y"
     }, {
-      "card" : "J"
+      "card" : "U"
     }, {
       "card" : "U"
     }, {
@@ -1428,10 +1434,6 @@
     }, {
       "card" : "F"
     }, {
-      "card" : "F"
-    }, {
-      "card" : "A"
-    }, {
       "card" : "A"
     }, {
       "card" : "A"
@@ -1447,8 +1449,6 @@
       "card" : "M"
     }, {
       "card" : "M"
-    }, {
-      "card" : "I"
     }, {
       "card" : "I"
     }, {
@@ -1484,10 +1484,6 @@
     }, {
       "card" : "B"
     }, {
-      "card" : "B"
-    }, {
-      "card" : "P"
-    }, {
       "card" : "C"
     }, {
       "card" : "C"
@@ -1495,6 +1491,8 @@
       "card" : "C"
     }, {
       "card" : "C"
+    }, {
+      "card" : "H"
     }, {
       "card" : "H"
     }, {
@@ -1524,15 +1522,13 @@
     }, {
       "card" : "R"
     }, {
-      "card" : "O"
+      "card" : "R"
     }, {
       "card" : "O"
     }, {
       "card" : "O"
     }, {
       "card" : "O"
-    }, {
-      "card" : "D"
     }, {
       "card" : "D"
     }, {
@@ -1547,6 +1543,10 @@
       "card" : "Z"
     }, {
       "card" : "Z"
+    }, {
+      "card" : "S"
+    }, {
+      "card" : "S"
     }, {
       "card" : "S"
     }, {
@@ -1567,19 +1567,19 @@
       "hand" : {
         "size" : 7,
         "cards" : [ {
+          "card" : "S"
+        }, {
+          "card" : "A"
+        }, {
+          "card" : "T"
+        }, {
           "card" : "I"
-        }, {
-          "card" : "E"
-        }, {
-          "card" : "U"
-        }, {
-          "card" : "H"
-        }, {
-          "card" : "E"
         }, {
           "card" : "S"
         }, {
-          "card" : "T"
+          "card" : "D"
+        }, {
+          "card" : "J"
         } ]
       }
     }
@@ -1593,19 +1593,19 @@
       "hand" : {
         "size" : 7,
         "cards" : [ {
-          "card" : "N"
+          "card" : "P"
+        }, {
+          "card" : "F"
+        }, {
+          "card" : "B"
         }, {
           "card" : "A"
         }, {
-          "card" : "S"
+          "card" : "I"
         }, {
-          "card" : "S"
-        }, {
-          "card" : "S"
+          "card" : "O"
         }, {
           "card" : "E"
-        }, {
-          "card" : "R"
         } ]
       }
     }
