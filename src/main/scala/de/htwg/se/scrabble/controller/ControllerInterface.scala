@@ -4,6 +4,7 @@ import de.htwg.se.scrabble.controller.GameStatus.GameStatus
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
 import de.htwg.se.scrabble.model.{CardStackInterface, FieldInterface, PlayerInterface, PlayerListInterface}
 import de.htwg.se.scrabble.util.{Observable, Observer, UndoManager}
 import play.api.libs.json.JsValue
