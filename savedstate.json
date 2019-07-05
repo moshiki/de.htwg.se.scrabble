@@ -1384,6 +1384,8 @@
     }, {
       "card" : "E"
     }, {
+      "card" : "E"
+    }, {
       "card" : "X"
     }, {
       "card" : "N"
@@ -1400,13 +1402,21 @@
     }, {
       "card" : "N"
     }, {
-      "card" : "T"
+      "card" : "N"
+    }, {
+      "card" : "N"
     }, {
       "card" : "T"
     }, {
       "card" : "T"
     }, {
       "card" : "T"
+    }, {
+      "card" : "T"
+    }, {
+      "card" : "T"
+    }, {
+      "card" : "Y"
     }, {
       "card" : "J"
     }, {
@@ -1420,8 +1430,6 @@
     }, {
       "card" : "U"
     }, {
-      "card" : "U"
-    }, {
       "card" : "F"
     }, {
       "card" : "F"
@@ -1440,11 +1448,7 @@
     }, {
       "card" : "M"
     }, {
-      "card" : "M"
-    }, {
-      "card" : "M"
-    }, {
-      "card" : "M"
+      "card" : "I"
     }, {
       "card" : "I"
     }, {
@@ -1461,6 +1465,8 @@
       "card" : "I"
     }, {
       "card" : "I"
+    }, {
+      "card" : "G"
     }, {
       "card" : "G"
     }, {
@@ -1476,15 +1482,13 @@
     }, {
       "card" : "L"
     }, {
+      "card" : "L"
+    }, {
       "card" : "B"
     }, {
       "card" : "B"
     }, {
       "card" : "P"
-    }, {
-      "card" : "C"
-    }, {
-      "card" : "C"
     }, {
       "card" : "C"
     }, {
@@ -1516,8 +1520,6 @@
     }, {
       "card" : "R"
     }, {
-      "card" : "R"
-    }, {
       "card" : "O"
     }, {
       "card" : "O"
@@ -1541,8 +1543,6 @@
       "card" : "Z"
     }, {
       "card" : "Z"
-    }, {
-      "card" : "S"
     }, {
       "card" : "S"
     }, {
@@ -1567,17 +1567,17 @@
       "hand" : {
         "size" : 7,
         "cards" : [ {
-          "card" : "Y"
+          "card" : "C"
         }, {
-          "card" : "L"
-        }, {
-          "card" : "E"
-        }, {
-          "card" : "A"
+          "card" : "M"
         }, {
           "card" : "N"
         }, {
-          "card" : "T"
+          "card" : "U"
+        }, {
+          "card" : "W"
+        }, {
+          "card" : "R"
         }, {
           "card" : "S"
         } ]
@@ -1593,19 +1593,19 @@
       "hand" : {
         "size" : 7,
         "cards" : [ {
-          "card" : "G"
+          "card" : "S"
         }, {
-          "card" : "R"
-        }, {
-          "card" : "I"
-        }, {
-          "card" : "N"
-        }, {
-          "card" : "W"
+          "card" : "M"
         }, {
           "card" : "E"
         }, {
-          "card" : "N"
+          "card" : "R"
+        }, {
+          "card" : "A"
+        }, {
+          "card" : "C"
+        }, {
+          "card" : "M"
         } ]
       }
     }

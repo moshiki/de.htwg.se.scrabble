@@ -34,13 +34,6 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.redo
         controller.field.getCell("A", 1).get.getValue should be("_")
-        controller.roundManager(GameManager("SetupManager", controller))
-        controller.switchHand()
-        controller.undo()
-        controller.redo()
-        controller.next()
-        controller.undo()
-        controller.redo()
 
       }
       "handle undo/redo of setting a cell correctly" in {
@@ -122,6 +115,22 @@ class ControllerSpec extends WordSpec with Matchers {
       fileIo.save(controller.getStateCache)
       fileIo.load
 
+    }
+
+    "proceed to next player when next is invoked" in {
+      controller.roundManager(GameManager("SetupManager", controller))
+      controller.roundManager.start()
+      controller.next()
+      controller.undo()
+      controller.redo()
+    }
+
+    "should switch the active players hand when switchHand is invoked" in {
+      controller.roundManager(GameManager("SetupManager", controller))
+      controller.roundManager.start()
+      controller.switchHand()
+      controller.undo()
+      controller.redo()
     }
   }
 }
