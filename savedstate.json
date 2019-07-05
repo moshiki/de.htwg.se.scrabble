@@ -1400,10 +1400,6 @@
     }, {
       "card" : "N"
     }, {
-      "card" : "N"
-    }, {
-      "card" : "T"
-    }, {
       "card" : "T"
     }, {
       "card" : "T"
@@ -1424,13 +1420,13 @@
     }, {
       "card" : "U"
     }, {
-      "card" : "F"
+      "card" : "U"
     }, {
       "card" : "F"
     }, {
       "card" : "F"
     }, {
-      "card" : "A"
+      "card" : "F"
     }, {
       "card" : "A"
     }, {
@@ -1439,6 +1435,10 @@
       "card" : "A"
     }, {
       "card" : "A"
+    }, {
+      "card" : "A"
+    }, {
+      "card" : "M"
     }, {
       "card" : "M"
     }, {
@@ -1466,7 +1466,9 @@
     }, {
       "card" : "G"
     }, {
-      "card" : "G"
+      "card" : "V"
+    }, {
+      "card" : "Q"
     }, {
       "card" : "L"
     }, {
@@ -1496,15 +1498,13 @@
     }, {
       "card" : "H"
     }, {
-      "card" : "W"
+      "card" : "H"
     }, {
       "card" : "W"
     }, {
       "card" : "K"
     }, {
       "card" : "K"
-    }, {
-      "card" : "R"
     }, {
       "card" : "R"
     }, {
@@ -1567,19 +1567,19 @@
       "hand" : {
         "size" : 7,
         "cards" : [ {
-          "card" : "Q"
-        }, {
-          "card" : "S"
-        }, {
           "card" : "Y"
         }, {
-          "card" : "M"
-        }, {
-          "card" : "A"
+          "card" : "L"
         }, {
           "card" : "E"
         }, {
-          "card" : "H"
+          "card" : "A"
+        }, {
+          "card" : "N"
+        }, {
+          "card" : "T"
+        }, {
+          "card" : "S"
         } ]
       }
     }
@@ -1593,19 +1593,19 @@
       "hand" : {
         "size" : 7,
         "cards" : [ {
-          "card" : "E"
+          "card" : "G"
         }, {
-          "card" : "L"
-        }, {
-          "card" : "N"
-        }, {
-          "card" : "U"
-        }, {
-          "card" : "V"
-        }, {
-          "card" : "N"
+          "card" : "R"
         }, {
           "card" : "I"
+        }, {
+          "card" : "N"
+        }, {
+          "card" : "W"
+        }, {
+          "card" : "E"
+        }, {
+          "card" : "N"
         } ]
       }
     }

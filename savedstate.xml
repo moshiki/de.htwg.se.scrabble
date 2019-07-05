@@ -249,8 +249,6 @@
         <card>N</card>
         <card>N</card>
         <card>N</card>
-        <card>N</card>
-        <card>T</card>
         <card>T</card>
         <card>T</card>
         <card>T</card>
@@ -261,6 +259,7 @@
         <card>U</card>
         <card>U</card>
         <card>U</card>
+        <card>U</card>
         <card>F</card>
         <card>F</card>
         <card>F</card>
@@ -269,6 +268,7 @@
         <card>A</card>
         <card>A</card>
         <card>A</card>
+        <card>M</card>
         <card>M</card>
         <card>M</card>
         <card>M</card>
@@ -282,7 +282,8 @@
         <card>I</card>
         <card>G</card>
         <card>G</card>
-        <card>G</card>
+        <card>V</card>
+        <card>Q</card>
         <card>L</card>
         <card>L</card>
         <card>L</card>
@@ -297,11 +298,10 @@
         <card>H</card>
         <card>H</card>
         <card>H</card>
-        <card>W</card>
+        <card>H</card>
         <card>W</card>
         <card>K</card>
         <card>K</card>
-        <card>R</card>
         <card>R</card>
         <card>R</card>
         <card>R</card>
@@ -331,13 +331,13 @@
     <players>
         <player role="A" name="human">
             <hand size="7">
-                <card>H</card>
-                <card>E</card>
-                <card>A</card>
-                <card>M</card>
-                <card>Y</card>
                 <card>S</card>
-                <card>Q</card>
+                <card>T</card>
+                <card>N</card>
+                <card>A</card>
+                <card>E</card>
+                <card>L</card>
+                <card>Y</card>
             </hand>
             <points>0</points>
             <actionPermit>true</actionPermit>
@@ -345,13 +345,13 @@
         </player>
         <player role="B" name="human">
             <hand size="7">
-                <card>I</card>
                 <card>N</card>
-                <card>V</card>
-                <card>U</card>
-                <card>N</card>
-                <card>L</card>
                 <card>E</card>
+                <card>W</card>
+                <card>N</card>
+                <card>I</card>
+                <card>R</card>
+                <card>G</card>
             </hand>
             <points>0</points>
             <actionPermit>true</actionPermit>
