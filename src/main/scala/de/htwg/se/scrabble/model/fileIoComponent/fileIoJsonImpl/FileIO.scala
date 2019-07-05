@@ -6,7 +6,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.scrabble.ScrabbleModule
 import de.htwg.se.scrabble.controller.StateCacheInterface
 import de.htwg.se.scrabble.controller.GameStatus._
-import de.htwg.se.scrabble.controller.controllerBaseImpl.commands.StateCache
+import de.htwg.se.scrabble.controller.controllerBaseImpl.StateCache
 import de.htwg.se.scrabble.model._
 import de.htwg.se.scrabble.model.cards.{Card, EmptyCardStack}
 import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface

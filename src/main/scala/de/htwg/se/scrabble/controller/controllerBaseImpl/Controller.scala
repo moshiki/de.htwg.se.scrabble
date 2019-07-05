@@ -182,5 +182,7 @@ class Controller @Inject() (var field : FieldInterface,
 
   override def roundManager(rm: GameManager): Unit = this.roundManager = rm
 
-  override def getStateCache: StateCacheInterface = StateCache(field,stack,players,roundManager.toString,gameStatus,activePlayer,firstDraw)
+  override def getStateCache: StateCacheInterface = {
+    StateCache(field,stack,players,roundManager.toString,gameStatus,activePlayer,firstDraw)
+  }
 }

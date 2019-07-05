@@ -10,7 +10,7 @@ object Scrabble {
   val injector = Guice.createInjector(new ScrabbleModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new TUI(controller:ControllerInterface)
-  val gui = new GUI((controller: ControllerInterface))
+  val gui = new GUI(controller: ControllerInterface)
 
   def main(args: Array[String]): Unit= {
     var input: String = ""
