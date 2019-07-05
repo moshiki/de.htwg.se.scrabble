@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.controller
 
 
 import de.htwg.se.scrabble.Scrabble.injector
-import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.{GameOverManagerState, RoundManagerState}
+import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.util.Observer
 import org.scalatest._
 
@@ -34,6 +34,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.redo
         controller.field.getCell("A", 1).get.getValue should be("_")
+
       }
       "handle undo/redo of setting a cell correctly" in {
         controller.field.getCell("A", 1).get.getValue should be("_")
@@ -88,23 +89,48 @@ class ControllerSpec extends WordSpec with Matchers {
 
     "go on to the next player when RoundManager is active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = new RoundManagerState(controller)
+      controller.roundManager(GameManager("RoundManager", controller))
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should not be currPlayer
-      controller.roundManager shouldBe a [RoundManagerState]
+      controller.roundManager.toString shouldBe "RoundManager"
     }
     "do nothing when RoundManager is not active and next is invoked" in {
       controller.newGame()
-      controller.roundManager = new GameOverManagerState(controller)
+      controller.roundManager(GameManager("GameOverManager", controller))
       val currPlayer = controller.activePlayer
       controller.next()
       controller.activePlayer should be(currPlayer)
     }
     "return the currently inactive player when inactivePlayer is invoked" in {
       controller.newGame()
-      controller.activePlayer = controller.players.get("A")
+      controller.activePlayer(controller.players.get("A"))
       controller.inactivePlayer.get should be(controller.players.get("B").get)
+    }
+    "save and load the game" in {
+      controller.save
+      controller.load
+      import de.htwg.se.scrabble.model.fileIoComponent.fileIoXmlImpl
+      var fileIo = new fileIoXmlImpl.FileIO()
+      fileIo.save(controller.getStateCache)
+      fileIo.load
+
+    }
+
+    "proceed to next player when next is invoked" in {
+      controller.roundManager(GameManager("SetupManager", controller))
+      controller.roundManager.start()
+      controller.next()
+      controller.undo()
+      controller.redo()
+    }
+
+    "should switch the active players hand when switchHand is invoked" in {
+      controller.roundManager(GameManager("SetupManager", controller))
+      controller.roundManager.start()
+      controller.switchHand()
+      controller.undo()
+      controller.redo()
     }
   }
 }

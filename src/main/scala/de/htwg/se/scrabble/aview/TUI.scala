@@ -56,6 +56,8 @@ class TUI(controller: ControllerInterface) extends Observer {
         case "exit" => exit()
         case "help" => println(help)
         case "new" => controller.newGame()
+        case "save" => controller.save
+        case "load" => controller.load
         case "pd" => printDict()
         case "pv" => printVector()
         //case "player" => player(command)
@@ -86,23 +88,6 @@ class TUI(controller: ControllerInterface) extends Observer {
 
   def printVector(): Unit = print(controller.vectorToString)
 
-  /*def player(parameters:Array[String]): Unit = {
-    if (parameters.length == 3) {
-      parameters(1) match {
-        case "A" | "a" =>
-          controller.newPlayer("A", parameters(2))
-          println("new player A created\n")
-        case "B" | "b" =>
-          controller.newPlayer("B", parameters(2))
-          println("new player B created\n")
-        case unknown => println("parameter \'" + unknown + "\' does not exist. Use 'A' or 'B'")
-      }
-    } else {
-      System.err.println("wrong number of arguments! use command: player [a|b] <name>")
-    }
-  }*/
-
-
   def players(): Unit = {
     println(controller.players.toString)
   }
@@ -118,7 +103,7 @@ class TUI(controller: ControllerInterface) extends Observer {
     println()
     print(controller.field.toString)  //TODO zugriff über das zu erzeugende Trait des controller interfaces
     println(GameStatus.message(controller.gameStatus))
-    controller.gameStatus = GameStatus.IDLE
+    controller.gameStatus(GameStatus.IDLE)
     true
 
   }

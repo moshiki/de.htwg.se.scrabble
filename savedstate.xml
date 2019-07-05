@@ -1,0 +1,363 @@
+<states game="scrabble">
+    <field size="15">
+        <cell row="1" col="A"> _ </cell>
+        <cell row="1" col="B"> _ </cell>
+        <cell row="1" col="C"> _ </cell>
+        <cell row="1" col="D"> _ </cell>
+        <cell row="1" col="E"> _ </cell>
+        <cell row="1" col="F"> _ </cell>
+        <cell row="1" col="G"> _ </cell>
+        <cell row="1" col="H"> _ </cell>
+        <cell row="1" col="I"> _ </cell>
+        <cell row="1" col="J"> _ </cell>
+        <cell row="1" col="K"> _ </cell>
+        <cell row="1" col="L"> _ </cell>
+        <cell row="1" col="M"> _ </cell>
+        <cell row="1" col="N"> _ </cell>
+        <cell row="1" col="O"> _ </cell>
+        <cell row="2" col="A"> _ </cell>
+        <cell row="2" col="B"> _ </cell>
+        <cell row="2" col="C"> _ </cell>
+        <cell row="2" col="D"> _ </cell>
+        <cell row="2" col="E"> _ </cell>
+        <cell row="2" col="F"> _ </cell>
+        <cell row="2" col="G"> _ </cell>
+        <cell row="2" col="H"> _ </cell>
+        <cell row="2" col="I"> _ </cell>
+        <cell row="2" col="J"> _ </cell>
+        <cell row="2" col="K"> _ </cell>
+        <cell row="2" col="L"> _ </cell>
+        <cell row="2" col="M"> _ </cell>
+        <cell row="2" col="N"> _ </cell>
+        <cell row="2" col="O"> _ </cell>
+        <cell row="3" col="A"> _ </cell>
+        <cell row="3" col="B"> _ </cell>
+        <cell row="3" col="C"> _ </cell>
+        <cell row="3" col="D"> _ </cell>
+        <cell row="3" col="E"> _ </cell>
+        <cell row="3" col="F"> _ </cell>
+        <cell row="3" col="G"> _ </cell>
+        <cell row="3" col="H"> _ </cell>
+        <cell row="3" col="I"> _ </cell>
+        <cell row="3" col="J"> _ </cell>
+        <cell row="3" col="K"> _ </cell>
+        <cell row="3" col="L"> _ </cell>
+        <cell row="3" col="M"> _ </cell>
+        <cell row="3" col="N"> _ </cell>
+        <cell row="3" col="O"> _ </cell>
+        <cell row="4" col="A"> _ </cell>
+        <cell row="4" col="B"> _ </cell>
+        <cell row="4" col="C"> _ </cell>
+        <cell row="4" col="D"> _ </cell>
+        <cell row="4" col="E"> _ </cell>
+        <cell row="4" col="F"> _ </cell>
+        <cell row="4" col="G"> _ </cell>
+        <cell row="4" col="H"> _ </cell>
+        <cell row="4" col="I"> _ </cell>
+        <cell row="4" col="J"> _ </cell>
+        <cell row="4" col="K"> _ </cell>
+        <cell row="4" col="L"> _ </cell>
+        <cell row="4" col="M"> _ </cell>
+        <cell row="4" col="N"> _ </cell>
+        <cell row="4" col="O"> _ </cell>
+        <cell row="5" col="A"> _ </cell>
+        <cell row="5" col="B"> _ </cell>
+        <cell row="5" col="C"> _ </cell>
+        <cell row="5" col="D"> _ </cell>
+        <cell row="5" col="E"> _ </cell>
+        <cell row="5" col="F"> _ </cell>
+        <cell row="5" col="G"> _ </cell>
+        <cell row="5" col="H"> _ </cell>
+        <cell row="5" col="I"> _ </cell>
+        <cell row="5" col="J"> _ </cell>
+        <cell row="5" col="K"> _ </cell>
+        <cell row="5" col="L"> _ </cell>
+        <cell row="5" col="M"> _ </cell>
+        <cell row="5" col="N"> _ </cell>
+        <cell row="5" col="O"> _ </cell>
+        <cell row="6" col="A"> _ </cell>
+        <cell row="6" col="B"> _ </cell>
+        <cell row="6" col="C"> _ </cell>
+        <cell row="6" col="D"> _ </cell>
+        <cell row="6" col="E"> _ </cell>
+        <cell row="6" col="F"> _ </cell>
+        <cell row="6" col="G"> _ </cell>
+        <cell row="6" col="H"> _ </cell>
+        <cell row="6" col="I"> _ </cell>
+        <cell row="6" col="J"> _ </cell>
+        <cell row="6" col="K"> _ </cell>
+        <cell row="6" col="L"> _ </cell>
+        <cell row="6" col="M"> _ </cell>
+        <cell row="6" col="N"> _ </cell>
+        <cell row="6" col="O"> _ </cell>
+        <cell row="7" col="A"> _ </cell>
+        <cell row="7" col="B"> _ </cell>
+        <cell row="7" col="C"> _ </cell>
+        <cell row="7" col="D"> _ </cell>
+        <cell row="7" col="E"> _ </cell>
+        <cell row="7" col="F"> _ </cell>
+        <cell row="7" col="G"> _ </cell>
+        <cell row="7" col="H"> _ </cell>
+        <cell row="7" col="I"> _ </cell>
+        <cell row="7" col="J"> _ </cell>
+        <cell row="7" col="K"> _ </cell>
+        <cell row="7" col="L"> _ </cell>
+        <cell row="7" col="M"> _ </cell>
+        <cell row="7" col="N"> _ </cell>
+        <cell row="7" col="O"> _ </cell>
+        <cell row="8" col="A"> _ </cell>
+        <cell row="8" col="B"> _ </cell>
+        <cell row="8" col="C"> _ </cell>
+        <cell row="8" col="D"> _ </cell>
+        <cell row="8" col="E"> _ </cell>
+        <cell row="8" col="F"> _ </cell>
+        <cell row="8" col="G"> _ </cell>
+        <cell row="8" col="H"> * </cell>
+        <cell row="8" col="I"> _ </cell>
+        <cell row="8" col="J"> _ </cell>
+        <cell row="8" col="K"> _ </cell>
+        <cell row="8" col="L"> _ </cell>
+        <cell row="8" col="M"> _ </cell>
+        <cell row="8" col="N"> _ </cell>
+        <cell row="8" col="O"> _ </cell>
+        <cell row="9" col="A"> _ </cell>
+        <cell row="9" col="B"> _ </cell>
+        <cell row="9" col="C"> _ </cell>
+        <cell row="9" col="D"> _ </cell>
+        <cell row="9" col="E"> _ </cell>
+        <cell row="9" col="F"> _ </cell>
+        <cell row="9" col="G"> _ </cell>
+        <cell row="9" col="H"> _ </cell>
+        <cell row="9" col="I"> _ </cell>
+        <cell row="9" col="J"> _ </cell>
+        <cell row="9" col="K"> _ </cell>
+        <cell row="9" col="L"> _ </cell>
+        <cell row="9" col="M"> _ </cell>
+        <cell row="9" col="N"> _ </cell>
+        <cell row="9" col="O"> _ </cell>
+        <cell row="10" col="A"> _ </cell>
+        <cell row="10" col="B"> _ </cell>
+        <cell row="10" col="C"> _ </cell>
+        <cell row="10" col="D"> _ </cell>
+        <cell row="10" col="E"> _ </cell>
+        <cell row="10" col="F"> _ </cell>
+        <cell row="10" col="G"> _ </cell>
+        <cell row="10" col="H"> _ </cell>
+        <cell row="10" col="I"> _ </cell>
+        <cell row="10" col="J"> _ </cell>
+        <cell row="10" col="K"> _ </cell>
+        <cell row="10" col="L"> _ </cell>
+        <cell row="10" col="M"> _ </cell>
+        <cell row="10" col="N"> _ </cell>
+        <cell row="10" col="O"> _ </cell>
+        <cell row="11" col="A"> _ </cell>
+        <cell row="11" col="B"> _ </cell>
+        <cell row="11" col="C"> _ </cell>
+        <cell row="11" col="D"> _ </cell>
+        <cell row="11" col="E"> _ </cell>
+        <cell row="11" col="F"> _ </cell>
+        <cell row="11" col="G"> _ </cell>
+        <cell row="11" col="H"> _ </cell>
+        <cell row="11" col="I"> _ </cell>
+        <cell row="11" col="J"> _ </cell>
+        <cell row="11" col="K"> _ </cell>
+        <cell row="11" col="L"> _ </cell>
+        <cell row="11" col="M"> _ </cell>
+        <cell row="11" col="N"> _ </cell>
+        <cell row="11" col="O"> _ </cell>
+        <cell row="12" col="A"> _ </cell>
+        <cell row="12" col="B"> _ </cell>
+        <cell row="12" col="C"> _ </cell>
+        <cell row="12" col="D"> _ </cell>
+        <cell row="12" col="E"> _ </cell>
+        <cell row="12" col="F"> _ </cell>
+        <cell row="12" col="G"> _ </cell>
+        <cell row="12" col="H"> _ </cell>
+        <cell row="12" col="I"> _ </cell>
+        <cell row="12" col="J"> _ </cell>
+        <cell row="12" col="K"> _ </cell>
+        <cell row="12" col="L"> _ </cell>
+        <cell row="12" col="M"> _ </cell>
+        <cell row="12" col="N"> _ </cell>
+        <cell row="12" col="O"> _ </cell>
+        <cell row="13" col="A"> _ </cell>
+        <cell row="13" col="B"> _ </cell>
+        <cell row="13" col="C"> _ </cell>
+        <cell row="13" col="D"> _ </cell>
+        <cell row="13" col="E"> _ </cell>
+        <cell row="13" col="F"> _ </cell>
+        <cell row="13" col="G"> _ </cell>
+        <cell row="13" col="H"> _ </cell>
+        <cell row="13" col="I"> _ </cell>
+        <cell row="13" col="J"> _ </cell>
+        <cell row="13" col="K"> _ </cell>
+        <cell row="13" col="L"> _ </cell>
+        <cell row="13" col="M"> _ </cell>
+        <cell row="13" col="N"> _ </cell>
+        <cell row="13" col="O"> _ </cell>
+        <cell row="14" col="A"> _ </cell>
+        <cell row="14" col="B"> _ </cell>
+        <cell row="14" col="C"> _ </cell>
+        <cell row="14" col="D"> _ </cell>
+        <cell row="14" col="E"> _ </cell>
+        <cell row="14" col="F"> _ </cell>
+        <cell row="14" col="G"> _ </cell>
+        <cell row="14" col="H"> _ </cell>
+        <cell row="14" col="I"> _ </cell>
+        <cell row="14" col="J"> _ </cell>
+        <cell row="14" col="K"> _ </cell>
+        <cell row="14" col="L"> _ </cell>
+        <cell row="14" col="M"> _ </cell>
+        <cell row="14" col="N"> _ </cell>
+        <cell row="14" col="O"> _ </cell>
+        <cell row="15" col="A"> _ </cell>
+        <cell row="15" col="B"> _ </cell>
+        <cell row="15" col="C"> _ </cell>
+        <cell row="15" col="D"> _ </cell>
+        <cell row="15" col="E"> _ </cell>
+        <cell row="15" col="F"> _ </cell>
+        <cell row="15" col="G"> _ </cell>
+        <cell row="15" col="H"> _ </cell>
+        <cell row="15" col="I"> _ </cell>
+        <cell row="15" col="J"> _ </cell>
+        <cell row="15" col="K"> _ </cell>
+        <cell row="15" col="L"> _ </cell>
+        <cell row="15" col="M"> _ </cell>
+        <cell row="15" col="N"> _ </cell>
+        <cell row="15" col="O"> _ </cell>
+    </field>
+    <stack size="100">
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>E</card>
+        <card>X</card>
+        <card>N</card>
+        <card>N</card>
+        <card>N</card>
+        <card>N</card>
+        <card>N</card>
+        <card>N</card>
+        <card>N</card>
+        <card>N</card>
+        <card>T</card>
+        <card>T</card>
+        <card>T</card>
+        <card>T</card>
+        <card>T</card>
+        <card>Y</card>
+        <card>J</card>
+        <card>U</card>
+        <card>U</card>
+        <card>U</card>
+        <card>U</card>
+        <card>U</card>
+        <card>F</card>
+        <card>F</card>
+        <card>F</card>
+        <card>A</card>
+        <card>A</card>
+        <card>A</card>
+        <card>A</card>
+        <card>A</card>
+        <card>A</card>
+        <card>M</card>
+        <card>M</card>
+        <card>M</card>
+        <card>I</card>
+        <card>I</card>
+        <card>I</card>
+        <card>I</card>
+        <card>I</card>
+        <card>I</card>
+        <card>I</card>
+        <card>G</card>
+        <card>G</card>
+        <card>G</card>
+        <card>V</card>
+        <card>Q</card>
+        <card>L</card>
+        <card>L</card>
+        <card>L</card>
+        <card>B</card>
+        <card>P</card>
+        <card>C</card>
+        <card>C</card>
+        <card>C</card>
+        <card>C</card>
+        <card>H</card>
+        <card>H</card>
+        <card>H</card>
+        <card>H</card>
+        <card>H</card>
+        <card>W</card>
+        <card>W</card>
+        <card>K</card>
+        <card>R</card>
+        <card>R</card>
+        <card>R</card>
+        <card>R</card>
+        <card>R</card>
+        <card>R</card>
+        <card>O</card>
+        <card>O</card>
+        <card>O</card>
+        <card>D</card>
+        <card>D</card>
+        <card>D</card>
+        <card>D</card>
+        <card>D</card>
+        <card>D</card>
+        <card>Z</card>
+        <card>S</card>
+        <card>S</card>
+        <card>S</card>
+        <card>S</card>
+        <card>S</card>
+        <card>S</card>
+        <card>S</card>
+        <card>S</card>
+    </stack>
+    <players>
+        <player role="A" name="human">
+            <hand size="7">
+                <card>Z</card>
+                <card>I</card>
+                <card>R</card>
+                <card>N</card>
+                <card>E</card>
+                <card>I</card>
+                <card>M</card>
+            </hand>
+            <points>0</points>
+            <actionPermit>true</actionPermit>
+            <switchedHand>true</switchedHand>
+        </player>
+        <player role="B" name="human">
+            <hand size="7">
+                <card>U</card>
+                <card>E</card>
+                <card>N</card>
+                <card>O</card>
+                <card>B</card>
+                <card>K</card>
+                <card>L</card>
+            </hand>
+            <points>0</points>
+            <actionPermit>true</actionPermit>
+            <switchedHand>true</switchedHand>
+        </player>
+    </players>
+    <activePlayer>A</activePlayer>
+    <firstDraw>true</firstDraw>
+</states>

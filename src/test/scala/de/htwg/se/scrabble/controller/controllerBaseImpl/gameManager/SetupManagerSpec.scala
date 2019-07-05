@@ -10,7 +10,7 @@ class SetupManagerSpec extends WordSpec with Matchers{
     val ctl = injector.getInstance(classOf[ControllerInterface])
     "start ist invoked" should {
       "create two players and update game status" in {
-        val gm: GameManagerState = new SetupManagerState(ctl)
+        val gm: GameManager = GameManager("SetupManager", ctl)
         gm.start()
         ctl.players.getList.size should be(2)
       }

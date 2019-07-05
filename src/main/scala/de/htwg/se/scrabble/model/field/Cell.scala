@@ -1,6 +1,8 @@
 package de.htwg.se.scrabble.model.field
 
-class Cell(letter: String) {
+import de.htwg.se.scrabble.model.CellInterface
+
+class Cell(letter: String) extends CellInterface {
   private var value: String =
     if (isLetter(letter)) {letter}
     else "_"
@@ -12,4 +14,11 @@ class Cell(letter: String) {
   def isLetter(str: String): Boolean = str.matches("[A-Z#*_]")
 
   def isEmpty: Boolean = if (value == "_" || value == "*") true else false
+}
+
+object Cell {
+  import play.api.libs.json._
+  implicit val cellWrites = OWrites[Cell](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+    //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
 }

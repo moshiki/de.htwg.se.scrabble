@@ -2,7 +2,7 @@ package de.htwg.se.scrabble.controller
 
 object GameStatus extends Enumeration {
   type GameStatus = Value
-  val IDLE, ILLEGAL, LEGAL, OOBOUND, TOOLONG, PLACEMENT, NOHANDCARD, ACTIONPERMIT, ONEP, TWOP, FILLHAND, GAME_OVER = Value
+  val IDLE, ILLEGAL, LEGAL, OOBOUND, TOOLONG, PLACEMENT, NOHANDCARD, ACTIONPERMIT, ONEP, TWOP, FILLHAND, SAVED, LOADED, GAME_OVER = Value
 
   val map: Map[GameStatus, String] = Map[GameStatus, String](
     IDLE -> "",
@@ -16,6 +16,8 @@ object GameStatus extends Enumeration {
     ONEP -> "1 human player created",
     TWOP -> "2 human players created",
     FILLHAND -> "filled hands from card stack",
+    SAVED -> "game saved",
+    LOADED -> "game loaded",
     GAME_OVER -> "\nGAME OVER -> Press 'new' for new game"
   )
 

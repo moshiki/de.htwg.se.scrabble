@@ -1,13 +1,13 @@
 package de.htwg.se.scrabble.controller.controllerBaseImpl
 
 import de.htwg.se.scrabble.controller.ControllerInterface
-import de.htwg.se.scrabble.model.{CardInterface, PlayerInterface}
+import de.htwg.se.scrabble.model.{CardStackInterface, PlayerInterface}
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.util.Command
 
 import scala.collection.mutable.ListBuffer
 
-class FillHandCommand(player: PlayerInterface, stack: CardInterface, activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
+class FillHandCommand(player: PlayerInterface, stack: CardStackInterface, activePlayer: Option[PlayerInterface], controller: ControllerInterface) extends Command {
   private val cardList = ListBuffer[Card]()
 
   override def doStep: Unit = {
@@ -16,7 +16,7 @@ class FillHandCommand(player: PlayerInterface, stack: CardInterface, activePlaye
       cardList += stack.getCard.get
       player.addToHand(cardList.last)
     }
-    controller.activePlayer = activePlayer
+    controller.activePlayer(activePlayer)
   }
   override def undoStep: Unit = {
     for (card <- cardList) {
@@ -24,7 +24,7 @@ class FillHandCommand(player: PlayerInterface, stack: CardInterface, activePlaye
       stack.putCard(card)
     }
     cardList.clear()
-    controller.activePlayer = Some(player)
+    controller.activePlayer(Some(player))
   }
 
   override def redoStep: Unit = {

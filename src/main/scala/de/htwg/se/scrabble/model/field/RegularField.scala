@@ -85,3 +85,10 @@ class RegularField @Inject()(@Named("DefaultSize") size:Int)  extends FieldInter
     None
   }
 }
+
+object RegularField {
+  import play.api.libs.json._
+  implicit val regularFieldWrites = OWrites[RegularField](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+  //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
+}

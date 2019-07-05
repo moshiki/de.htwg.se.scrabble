@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 
 case class Player(role: String, name: String) extends PlayerInterface {
   private var hand: List[Card] = Nil
-  private val handSize = 7
+  private val handSize = 8
   private var points = 0
   private var actionPermit: Boolean = true
   private var switched = false
@@ -22,7 +22,7 @@ case class Player(role: String, name: String) extends PlayerInterface {
     }
   }
 
-  def getNrCardsInHand: Integer = hand.size
+  def getNrCardsInHand: Int = hand.size
 
   def addToHand(card: Card): Boolean = {
     if (getNrCardsInHand < handSize) {
@@ -45,4 +45,11 @@ case class Player(role: String, name: String) extends PlayerInterface {
   override def revokeSwitchedHand(): Unit = switched = true
 
   override def toString:String = "PLAYER "+role+s" | $points points"
+}
+
+object Player {
+  import play.api.libs.json._
+  implicit val playerWrites = OWrites[Player](_ => Json.obj())
+  //implicit val cellReads = Reads[Cell](json =>
+  //json.validate[JsObject].filter(_.values.isEmpty).map(_ => Cell()))
 }

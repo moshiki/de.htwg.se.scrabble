@@ -1,10 +1,11 @@
 package de.htwg.se.scrabble.model.cards
+
 import org.scalatest._
 
-class RegularCardStackSpec extends WordSpec with Matchers {
+class EmptyCardStackSpec extends WordSpec with Matchers {
   "A CardStack" when {
-    val stack = new RegularCardStack
-    val stack2 = new RegularCardStack
+    val stack = new EmptyCardStack
+    val stack2 = new EmptyCardStack
     "getCard is invoked" should {
       "return an Options Some(letter(card)) of the card stack or None if stack is empty" in {
         val card = stack.getCard
@@ -16,7 +17,9 @@ class RegularCardStackSpec extends WordSpec with Matchers {
       }
 
       "remove the handed card from the stack when getCard is called" in {
-        val stack2 = new RegularCardStack
+        val stack2 = new EmptyCardStack
+        stack2.putCard(Card("A"))
+        stack2.putCard(Card("B"))
         val size = stack2.getSize
         stack2.getCard
         if(size > 0) {

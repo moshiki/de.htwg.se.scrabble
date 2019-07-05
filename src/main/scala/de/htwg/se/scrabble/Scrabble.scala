@@ -5,7 +5,6 @@ import de.htwg.se.scrabble.aview.TUI
 import scala.io.StdIn.readLine
 import de.htwg.se.scrabble.controller.ControllerInterface
 
-//TODO: Controller wieder in richtige Klasse umbauen für funktionalität
 object Scrabble {
   val injector = Guice.createInjector(new ScrabbleModule)
   val controller = injector.getInstance(classOf[ControllerInterface])
