@@ -241,7 +241,6 @@
         <card>E</card>
         <card>E</card>
         <card>E</card>
-        <card>E</card>
         <card>X</card>
         <card>N</card>
         <card>N</card>
@@ -251,14 +250,12 @@
         <card>N</card>
         <card>N</card>
         <card>N</card>
-        <card>N</card>
-        <card>N</card>
         <card>T</card>
         <card>T</card>
         <card>T</card>
         <card>T</card>
-        <card>Y</card>
-        <card>U</card>
+        <card>T</card>
+        <card>J</card>
         <card>U</card>
         <card>U</card>
         <card>U</card>
@@ -266,6 +263,8 @@
         <card>U</card>
         <card>F</card>
         <card>F</card>
+        <card>F</card>
+        <card>A</card>
         <card>A</card>
         <card>A</card>
         <card>A</card>
@@ -273,7 +272,7 @@
         <card>M</card>
         <card>M</card>
         <card>M</card>
-        <card>M</card>
+        <card>I</card>
         <card>I</card>
         <card>I</card>
         <card>I</card>
@@ -284,18 +283,16 @@
         <card>G</card>
         <card>G</card>
         <card>G</card>
-        <card>V</card>
-        <card>Q</card>
-        <card>L</card>
         <card>L</card>
         <card>L</card>
         <card>L</card>
         <card>B</card>
+        <card>B</card>
+        <card>P</card>
         <card>C</card>
         <card>C</card>
         <card>C</card>
         <card>C</card>
-        <card>H</card>
         <card>H</card>
         <card>H</card>
         <card>H</card>
@@ -314,6 +311,8 @@
         <card>O</card>
         <card>O</card>
         <card>O</card>
+        <card>O</card>
+        <card>D</card>
         <card>D</card>
         <card>D</card>
         <card>D</card>
@@ -321,6 +320,7 @@
         <card>D</card>
         <card>Z</card>
         <card>Z</card>
+        <card>S</card>
         <card>S</card>
         <card>S</card>
         <card>S</card>
@@ -331,13 +331,13 @@
     <players>
         <player role="A" name="human">
             <hand size="7">
-                <card>J</card>
-                <card>D</card>
-                <card>S</card>
-                <card>I</card>
-                <card>T</card>
+                <card>H</card>
+                <card>E</card>
                 <card>A</card>
+                <card>M</card>
+                <card>Y</card>
                 <card>S</card>
+                <card>Q</card>
             </hand>
             <points>0</points>
             <actionPermit>true</actionPermit>
@@ -345,13 +345,13 @@
         </player>
         <player role="B" name="human">
             <hand size="7">
-                <card>E</card>
-                <card>O</card>
                 <card>I</card>
-                <card>A</card>
-                <card>B</card>
-                <card>F</card>
-                <card>P</card>
+                <card>N</card>
+                <card>V</card>
+                <card>U</card>
+                <card>N</card>
+                <card>L</card>
+                <card>E</card>
             </hand>
             <points>0</points>
             <actionPermit>true</actionPermit>

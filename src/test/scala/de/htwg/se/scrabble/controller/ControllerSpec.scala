@@ -34,6 +34,7 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.field.getCell("A", 1).get.getValue should be("_")
         controller.redo
         controller.field.getCell("A", 1).get.getValue should be("_")
+        controller.roundManager(GameManager("SetupManager", controller))
         controller.switchHand()
         controller.undo()
         controller.redo()
