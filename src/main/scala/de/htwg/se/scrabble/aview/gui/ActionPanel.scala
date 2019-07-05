@@ -1,11 +1,11 @@
 package de.htwg.se.scrabble.aview.gui
 
-import java.awt.{Color, Font}
+import java.awt.Color
 
 import de.htwg.se.scrabble.controller.ControllerInterface
 
+import scala.swing.event.{ButtonClicked, ValueChanged}
 import scala.swing.{Button, ButtonGroup, Dimension, FlowPanel, Font, Label, Panel, RadioButton, TextArea}
-import scala.swing.event.{ButtonClicked, KeyTyped, ValueChanged}
 
 class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   preferredSize = new Dimension(200, 800)
@@ -34,20 +34,13 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
   class FreeSpace extends Panel { preferredSize  = full }
 
 //  // ♥♥♥ Scrabble FONT ♥♥♥
-//  var src: File = new File("C:\\01_IDEA_Projects\\IntelliJ\\de.htwg.se.scrabble\\src\\main\\scala\\de\\htwg\\se\\scrabble\\aview\\gui\\Scramble.ttf")
+//  var src: File = new File("C:\\01_IDEA_Projects\\IntelliJ\\de.htwg.se.scrabble\\src\\main\\resources\\ScrambleMixed.ttf")
 //  var scrabbleFont: Font = Font.createFont(Font.TRUETYPE_FONT, src)
 //  var ge: GraphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment
 //  ge.registerFont(scrabbleFont)
 //  val Scramble = new Font("Scramble", Font.PLAIN, 35)
 
 
-//  override def update: Boolean {
-//  while(contents.iterator.hasNext)
-//
-//
-//
-//
-//  }
   contents += new FreeSpace
   contents += new Button() {
     text = "new game"
@@ -129,7 +122,7 @@ class ActionPanel(controller: ControllerInterface) extends FlowPanel{
     val cardsL = new Label {
       text = controller.activePlayer.get.getHand.mkString(" ")
       font = highlFont
-      //    font = Scramble
+//          font = Scramble
     }
     contents += cardsL
     val wordTA = new TextArea() {
