@@ -4,6 +4,7 @@ import de.htwg.se.scrabble.controller.GameStatus.GameStatus
 import de.htwg.se.scrabble.controller.controllerBaseImpl.gameManager.GameManager
 import de.htwg.se.scrabble.model.cards.Card
 import de.htwg.se.scrabble.model.field.Cell
+import de.htwg.se.scrabble.model.fileIoComponent.FileIOInterface
 import de.htwg.se.scrabble.model.{CardStackInterface, FieldInterface, PlayerInterface, PlayerListInterface}
 import de.htwg.se.scrabble.util.{Observable, Observer}
 
@@ -43,6 +44,7 @@ trait ControllerInterface extends Observable with Observer{
   def gameStatus(gs: GameStatus)
   def roundManager: GameManager
   def roundManager(rm: GameManager)
+  def fileIO: FileIOInterface
   def getStateCache: StateCacheInterface
 }
 trait StateCacheInterface {

@@ -109,6 +109,10 @@ class ControllerSpec extends WordSpec with Matchers {
     "save and load the game" in {
       controller.save
       controller.load
+      import de.htwg.se.scrabble.model.fileIoComponent.fileIoXmlImpl
+      var fileIo = new fileIoXmlImpl.FileIO()
+      fileIo.save(controller.getStateCache)
+      fileIo.load
 
     }
   }
