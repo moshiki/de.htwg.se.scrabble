@@ -22,7 +22,8 @@ class RegularCardStackSpec extends WordSpec with Matchers {
         if(size > 0) {
           stack2.getSize should be < size
         }
-        stack2.putCard(Card("A"))
+        stack2.putCard(Card("C"))
+        stack2.getSpecificCard(Card("C"))
       }
 
       "return a None when getCard is invoked and stack is empty" in {
